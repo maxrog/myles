@@ -54,8 +54,11 @@
 			children = (
 				AF6E464B2B23A6F4002915DC /* mylesApp.swift */,
 				AF6E464D2B23A6F4002915DC /* ContentView.swift */,
-				AF6E464F2B23A6F5002915DC /* Assets.xcassets */,
-				AF6E46512B23A6F5002915DC /* myles.entitlements */,
+				AF6E465A2B23A87F002915DC /* Views */,
+				AF6E46612B23A8DF002915DC /* Models */,
+				AF6E46622B23A8F6002915DC /* Services */,
+				AF6E465E2B23A8B4002915DC /* Utilities */,
+				AF6E465D2B23A8A0002915DC /* Resources */,
 				AF6E46522B23A6F5002915DC /* Preview Content */,
 			);
 			path = myles;
@@ -67,6 +70,67 @@
 				AF6E46532B23A6F5002915DC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AF6E465A2B23A87F002915DC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AF6E465B2B23A88D002915DC /* Screens */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AF6E465B2B23A88D002915DC /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AF6E465C2B23A895002915DC /* Settings */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		AF6E465C2B23A895002915DC /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		AF6E465D2B23A8A0002915DC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AF6E464F2B23A6F5002915DC /* Assets.xcassets */,
+				AF6E46512B23A6F5002915DC /* myles.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		AF6E465E2B23A8B4002915DC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AF6E465F2B23A8C5002915DC /* Extensions */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		AF6E465F2B23A8C5002915DC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AF6E46612B23A8DF002915DC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AF6E46622B23A8F6002915DC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
