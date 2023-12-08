@@ -8,18 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E464B2B23A6F4002915DC /* mylesApp.swift */; };
-		AF6E464E2B23A6F4002915DC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E464D2B23A6F4002915DC /* ContentView.swift */; };
 		AF6E46502B23A6F5002915DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6E464F2B23A6F5002915DC /* Assets.xcassets */; };
 		AF6E46542B23A6F5002915DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6E46532B23A6F5002915DC /* Preview Assets.xcassets */; };
+		AF6E46642B23A958002915DC /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46632B23A958002915DC /* TabView.swift */; };
+		AF6E46662B23A965002915DC /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46652B23A965002915DC /* TabViewModel.swift */; };
+		AF6E46682B23A989002915DC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46672B23A989002915DC /* SettingsView.swift */; };
+		AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46692B23A9E1002915DC /* ThemeManager.swift */; };
+		AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466B2B23A9FE002915DC /* Logger.swift */; };
+		AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466D2B23AAC2002915DC /* FoundationExtensions.swift */; };
+		AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466F2B23AAD9002915DC /* UIKitExtensions.swift */; };
+		AF6E46722B23AAF6002915DC /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46712B23AAF6002915DC /* SwiftUIExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF6E46482B23A6F4002915DC /* myles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6E464B2B23A6F4002915DC /* mylesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mylesApp.swift; sourceTree = "<group>"; };
-		AF6E464D2B23A6F4002915DC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AF6E464F2B23A6F5002915DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF6E46512B23A6F5002915DC /* myles.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = myles.entitlements; sourceTree = "<group>"; };
 		AF6E46532B23A6F5002915DC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AF6E46632B23A958002915DC /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		AF6E46652B23A965002915DC /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
+		AF6E46672B23A989002915DC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AF6E46692B23A9E1002915DC /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		AF6E466B2B23A9FE002915DC /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		AF6E466D2B23AAC2002915DC /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
+		AF6E466F2B23AAD9002915DC /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		AF6E46712B23AAF6002915DC /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +67,6 @@
 			isa = PBXGroup;
 			children = (
 				AF6E464B2B23A6F4002915DC /* mylesApp.swift */,
-				AF6E464D2B23A6F4002915DC /* ContentView.swift */,
 				AF6E465A2B23A87F002915DC /* Views */,
 				AF6E46612B23A8DF002915DC /* Models */,
 				AF6E46622B23A8F6002915DC /* Services */,
@@ -75,6 +88,8 @@
 		AF6E465A2B23A87F002915DC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AF6E46632B23A958002915DC /* TabView.swift */,
+				AF6E46652B23A965002915DC /* TabViewModel.swift */,
 				AF6E465B2B23A88D002915DC /* Screens */,
 			);
 			path = Views;
@@ -91,6 +106,7 @@
 		AF6E465C2B23A895002915DC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				AF6E46672B23A989002915DC /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -107,6 +123,7 @@
 		AF6E465E2B23A8B4002915DC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				AF6E466B2B23A9FE002915DC /* Logger.swift */,
 				AF6E465F2B23A8C5002915DC /* Extensions */,
 			);
 			path = Utilities;
@@ -115,6 +132,9 @@
 		AF6E465F2B23A8C5002915DC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				AF6E466D2B23AAC2002915DC /* FoundationExtensions.swift */,
+				AF6E466F2B23AAD9002915DC /* UIKitExtensions.swift */,
+				AF6E46712B23AAF6002915DC /* SwiftUIExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -129,6 +149,7 @@
 		AF6E46622B23A8F6002915DC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AF6E46692B23A9E1002915DC /* ThemeManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -203,8 +224,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF6E464E2B23A6F4002915DC /* ContentView.swift in Sources */,
+				AF6E46682B23A989002915DC /* SettingsView.swift in Sources */,
+				AF6E46662B23A965002915DC /* TabViewModel.swift in Sources */,
+				AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */,
+				AF6E46642B23A958002915DC /* TabView.swift in Sources */,
+				AF6E46722B23AAF6002915DC /* SwiftUIExtensions.swift in Sources */,
+				AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */,
+				AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */,
 				AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */,
+				AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,7 +358,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = myles/myles.entitlements;
+				CODE_SIGN_ENTITLEMENTS = myles/Resources/myles.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"myles/Preview Content\"";
@@ -368,7 +396,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = myles/myles.entitlements;
+				CODE_SIGN_ENTITLEMENTS = myles/Resources/myles.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"myles/Preview Content\"";
