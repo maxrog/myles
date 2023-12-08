@@ -11,6 +11,7 @@ import SwiftUI
 
 enum Tabs: Int {
     case home = 0
+    case stats
     case settings
 }
 
