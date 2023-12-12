@@ -21,6 +21,9 @@ class ThemeManager: ObservableObject {
     /// Standard user defaults
     let userDefaults = UserDefaults.standard
     
+    /// Default
+    static let defaultAccentColor = Color(uiColor: UIColor(named: "CosmicLatte") ?? .white)
+    
     init() {
         setupTheme()
     }
@@ -33,7 +36,7 @@ class ThemeManager: ObservableObject {
         } else {
             applyDarkMode = useSystemSetting ? systemInDarkMode : userDefaults.bool(forKey: ThemeUserDefaults.applyDarkModeKey)
         }
-        self.accentColor = userDefaults.object(forKey: ThemeUserDefaults.accentColorKey) as? Color ?? .green
+        self.accentColor = userDefaults.object(forKey: ThemeUserDefaults.accentColorKey) as? Color ?? Self.defaultAccentColor
     }
     
     // MARK: Preferences
@@ -103,7 +106,7 @@ class ThemeManager: ObservableObject {
     }
     
     /// Theme accent color
-    @Published var accentColor: Color = .green {
+    @Published var accentColor: Color = defaultAccentColor {
         didSet {
             userDefaults.setColor(accentColor, forKey: ThemeUserDefaults.accentColorKey)
         }

@@ -52,7 +52,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="mylesHeart" width="357.33334350585938" height="313"/>
+        <image name="mylesHeart" width="421.66665649414062" height="364.66665649414062"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
