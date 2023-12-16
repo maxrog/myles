@@ -26,3 +26,33 @@ extension UserDefaults {
     }
     
 }
+
+// MARK: Date
+
+extension Date {
+    /// Calculate the difference in seconds between two dates
+    static func - (lhs: Date, rhs: Date) -> TimeInterval {
+        return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
+    }
+    
+    /// Calculate the number of days between two dates
+    func daysBetween(_ otherDate: Date) -> Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: self, to: otherDate)
+        return components.day ?? 0
+    }
+    
+    /// Common date format
+    var shortCalendarDateFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.d.yy"
+        return formatter.string(from: self)
+    }
+    /// Common date format
+    var shortDayOfWeekDateFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E"
+        return formatter.string(from: self)
+    }
+}
+  

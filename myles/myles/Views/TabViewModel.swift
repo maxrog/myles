@@ -10,7 +10,7 @@ import SwiftUI
 // TODO - allow user to set whether this is enabled
 
 enum Tabs: Int {
-    case home = 0
+    case activity = 0
     case stats
     case settings
 }

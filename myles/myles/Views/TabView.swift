@@ -14,11 +14,11 @@ struct TabNavigationView: View {
     
     var body: some View {
         TabView(selection: $viewModel.selectedTabIndex) {
-            Text("Home (some recap + list of recent runs with map etc")
+            ActivityView()
                 .tabItem {
                     Image(systemName: "figure.run.square.stack.fill")
                 }
-                .tag(Tabs.home.rawValue)
+                .tag(Tabs.activity.rawValue)
             Text("My Miles page (My Miles in nav bar + swift charts of stats)")
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
