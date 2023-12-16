@@ -7,13 +7,15 @@
 
 import Foundation
 
+// TODO use new Swift logging subsystem
+
 struct Logger {
     
     static var logLevel: LogLevel = .verbose
     
-    /// Log an app event
+    /// Logs an app event
     /// - Parameters:
-    ///   - logType: error, fatal, warning, success, action, cancelled
+    ///   - logType: error, fatal (kills app), warning, success, action, cancelled
     ///   - message: Simple message to log
     ///   - sender: String describing callsite
     ///   - verbose: Additional log messaging to provide
@@ -23,7 +25,7 @@ struct Logger {
         case .error:
             print("📕 Error:\(sender) \(message)")
         case .fatal:
-            print("📕 FATAL:\(sender) - \(message)")
+            fatalError("🌋 FATAL:\(sender) - \(message)")
         case .warning:
             print("📙:\(sender) - \(message)")
         case .success:

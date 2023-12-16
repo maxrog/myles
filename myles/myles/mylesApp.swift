@@ -35,17 +35,22 @@ struct mylesApp: App {
                     .environmentObject(theme)
                     .preferredColorScheme(.none)
             }
-        }.onChange(of: scenePhase) { newScenePhase in
-            switch scenePhase {
-            case .active:
-                Logger.log(.action, "Scene active", sender: String(describing: self))
-            case .background:
-                Logger.log(.action, "Scene backgrounded", sender: String(describing: self))
-            case .inactive:
-                Logger.log(.action, "Scene inactive", sender: String(describing: self))
-            default:
-                break
+        }.onChange(of: scenePhase, { oldValue, newValue in
+            var oldPhase = ""
+            var newPhase = ""
+            switch oldValue {
+            case .active: oldPhase = "active"
+            case .background: oldPhase = "backgrounded"
+            case .inactive: oldPhase = "inactive"
+            default: break
             }
-        }
+            switch newValue {
+            case .active: newPhase = "active"
+            case .background: newPhase = "backgrounded"
+            case .inactive: newPhase = "inactive"
+            default: break
+            }
+            Logger.log(.action, "Scene changed from \(oldPhase) to \(newPhase)", sender: String(describing: self))
+        })
     }
 }
