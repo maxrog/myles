@@ -8,36 +8,43 @@
 import SwiftUI
 import HealthKit
 
+// TODO - don't load all 1K or w/e activities, load say, last 2-3 months and only load more as scroll down screen
+
 struct ActivityView: View {
     
     @StateObject private var health = HealthKitManager.shared
     @State var healthPermissionGranted = true
-        
+    
     var body: some View {
-        VStack {
+        GeometryReader { geo in
             if health.runs.count > 0 {
                 List(health.runs) {
                     run in
-                    VStack {
-                        Text("\(run.miles) mi")
-                            .font(.largeTitle)
-                        Text(run.startTime.shortCalendarDateFormat)
-                            .font(.headline)
-                        Text(run.startTime.shortDayOfWeekDateFormat)
-                        Text("Duration \(run.duration)")
-                        Text("BPM \(run.averageHeartRateBPM ?? 0)")
-                        Text("Elevation Gain \(run.elevationChange.gain ?? 0) ft")
-                        Text("Elevation Loss \(run.elevationChange.loss ?? 0) ft")
-                        Text("Temp \(run.weather.temperature ?? 0) F")
-                        Text("Humidity \(run.weather.humidity ?? 0) %")
+                    if run.hasLocationData {
+                        MylesMapView(run: run)
+                            .frame(width: geo.size.width - 32, height: geo.size.width - 40)
+                    } else {
+                        VStack {
+                            Text("\(run.distance) mi")
+                                .font(.largeTitle)
+                            Text(run.startTime.shortCalendarDateFormat)
+                                .font(.headline)
+                            Text(run.startTime.shortDayOfWeekDateFormat)
+                            Text("Duration \(run.duration)")
+                            Text("BPM \(run.averageHeartRateBPM ?? 0)")
+                            Text("Elevation Gain \(run.elevationChange.gain ?? 0) ft")
+                            Text("Elevation Loss \(run.elevationChange.loss ?? 0) ft")
+                            Text("Temp \(run.weather.temperature ?? 0) F")
+                            Text("Humidity \(run.weather.humidity ?? 0) %")
+                        }
                     }
                 }
-              } else if healthPermissionGranted {
-                  Text("Loading")
-              } else {
-                  EmptyActivityView()
-              }
-          }
+            } else if healthPermissionGranted {
+                Text("Loading")
+            } else {
+                EmptyActivityView()
+            }
+        }
         .task {
             // TODO look into diff of task vs onAppear?
             guard await health.requestPermission() else {

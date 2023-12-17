@@ -20,7 +20,7 @@ struct MylesRun: Identifiable {
     /// The total duration of the run, in seconds
     let duration: TimeInterval
     /// The total distance of the run, in miles
-    let miles: Double
+    let distance: Double
     /// The average heart rate during the run, in beats per minute
     let averageHeartRateBPM: Double?
     /// The total elevation gain and loss of the run, in feet
@@ -28,7 +28,8 @@ struct MylesRun: Identifiable {
     /// The average temperature of the run in fahrenheit, and humidity as a percentage
     let weather: (temperature: Double?, humidity: Double?)
     /// The locationPoints of the run - may not have value until requested
-    let locationPoints: [CLLocation]
+    let locationPoints: [CLLocation]?
+    var hasLocationData: Bool { locationPoints != nil }
     
 //    
 //    func averagePace(durationInSeconds: Double, totalMiles: Double) -> String {

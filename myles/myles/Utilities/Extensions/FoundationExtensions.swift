@@ -54,5 +54,11 @@ extension Date {
         formatter.dateFormat = "E"
         return formatter.string(from: self)
     }
+    /// Common date format
+    var shortTimeOfDayDateFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        return formatter.string(from: self)
+    }
 }
   
