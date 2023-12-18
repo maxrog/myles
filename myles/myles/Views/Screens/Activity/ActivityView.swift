@@ -16,63 +16,19 @@ struct ActivityView: View {
     @State var healthPermissionGranted = true
     
     var body: some View {
-        GeometryReader { geo in
-            if health.runs.count > 0 {
-                List(health.runs) { run in
-                    if run.hasLocationData {
-                        VStack {
-                            HStack {
-                                MylesMapView(viewModel: MapViewModel(run: run))
-                                    .frame(width: geo.size.width / 2.5)
-                                    .clipShape(.rect(cornerSize: CGSize(width: 8, height: 8)))
-                                VStack {
-                                    Text("\(run.distance.prettyString) mi")
-                                        .font(.largeTitle)
-                                    Text(run.startTime.shortCalendarDateFormat)
-                                        .font(.headline)
-                                    Text(run.startTime.shortDayOfWeekDateFormat)
-                                    Text("Pace: \(run.averagePace)")
-                                }
-                            }
-                            // TODO icons isntead of text for labels
-                            HStack {
-                                Text("\(run.duration.prettyTimeString)")
-                                    .font(.footnote)
-                                Text("BPM \(run.averageHeartRateBPM ?? 0)")
-                                    .font(.footnote)
-                                Text("Gain \(run.elevationChange.gain ?? 0) ft")
-                                    .font(.footnote)
-                                Text("Temp \(run.weather.temperature ?? 0) F")
-                                    .font(.footnote)
-                                Text("Hum \(run.weather.humidity ?? 0) %")
-                                    .font(.footnote)
-                            }
-                        }
-                    } else {
-                        VStack {
-                            Text("\(run.distance.prettyString) mi")
-                                .font(.largeTitle)
-                            Text(run.startTime.shortCalendarDateFormat)
-                                .font(.headline)
-                            Text(run.startTime.shortDayOfWeekDateFormat)
-                            Text("Pace: \(run.averagePace)")
-                            HStack {
-                                Text("\(run.duration.prettyTimeString)")
-                                    .font(.footnote)
-                                Text("BPM \(run.averageHeartRateBPM ?? 0)")
-                                    .font(.footnote)
-                                Text("Gain \(run.elevationChange.gain ?? 0) ft")
-                                    .font(.footnote)
-                                Text("Temp \(run.weather.temperature ?? 0) F")
-                                    .font(.footnote)
-                                Text("Hum \(run.weather.humidity ?? 0) %")
-                                    .font(.footnote)
-                            }
-                        }
+        let runs = health.runs
+        Group {
+            if runs.count > 0 {
+                List(runs) { run in
+                    Section {
+                        MylesRecapView(run: run)
+                    } header: {
+                        MylesRecapHeaderView(run: run)
                     }
                 }
             } else if healthPermissionGranted {
                 Text("Loading")
+                    .frame(maxWidth: .infinity)
             } else {
                 EmptyActivityView()
             }

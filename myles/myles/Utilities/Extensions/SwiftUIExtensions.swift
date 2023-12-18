@@ -43,3 +43,18 @@ extension Color: RawRepresentable {
         }
     }
 }
+
+// MARK: Label
+
+/// Ability to customize the spacing between icon and title in a Label
+struct CustomLabel: LabelStyle {
+    
+    var spacing: Double = 0.0
+    
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: spacing) {
+            configuration.icon
+            configuration.title
+        }
+    }
+}

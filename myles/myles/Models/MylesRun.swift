@@ -54,6 +54,22 @@ struct MylesRun: Identifiable {
         let minutesPerMile = Int(paceInSecondsPerMile / 60)
         let secondsPerMile = Int(paceInSecondsPerMile.truncatingRemainder(dividingBy: 60))
         
-        return String(format: "%02d:%02d", minutesPerMile, secondsPerMile)
+        return String(format: "%2d:%02d", minutesPerMile, secondsPerMile)
     }
+    
+    /// A test run
+    static let testRun = MylesRun(id: UUID(),
+                                  startTime: .now.addingTimeInterval(-3700),
+                                  endTime: .now,
+                                  duration: 3700,
+                                  distance: 8.44443,
+                                  averageHeartRateBPM: 135.242332, elevationChange: (600, 200), weather: (75, 90),
+                                  locationPoints:
+                                    [
+                                        CLLocation(latitude: 35.03957863, longitude: -80.94153143),
+                                        CLLocation(latitude: 35.02440386, longitude: -80.94729845),
+                                        CLLocation(latitude: 35.03643622, longitude: -80.93023495),
+                                        CLLocation(latitude: 35.03982536, longitude: -80.94195882),
+                                        CLLocation(latitude: 35.03972075, longitude: -80.94186949),
+                                    ])
 }

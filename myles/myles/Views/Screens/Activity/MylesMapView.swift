@@ -50,7 +50,7 @@ struct MylesMapView: View {
                 }
             
             MapPolyline(coordinates: coordinates)
-                    .stroke(theme.accentColor, lineWidth: 0.5)
+                    .stroke(theme.accentColor, lineWidth: 1.5)
             }
             .onChange(of: viewModel.position) {
                 viewModel.panEnabled = viewModel.position.positionedByUser
@@ -63,7 +63,6 @@ struct MylesMapView: View {
     }
 }
 
-// TODO mock up a test run to put into previews that need a run
-//#Preview {
-//    MapView()
-//}
+#Preview {
+    MylesMapView(viewModel: MapViewModel(run: MylesRun.testRun))
+}
