@@ -8,7 +8,7 @@
 import SwiftUI
 
 /*
- • Swift 5.9 / macros simplified swiftUI property Wrappers? Only @State @Environment @Binding ??? Look into this!
+ • Observation Swift 5.9 Refactor
  • SF Symbol Animation
  */
 
