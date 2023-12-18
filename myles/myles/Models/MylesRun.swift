@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-/// A running workout with essential information from HealthStore
+/// A running workout with essential information gathered from HealthStore
 struct MylesRun: Identifiable {
     
     /// The unique identifier
@@ -22,25 +22,38 @@ struct MylesRun: Identifiable {
     /// The total distance of the run, in miles
     let distance: Double
     /// The average heart rate during the run, in beats per minute
-    let averageHeartRateBPM: Double?
+    let averageHeartRateBPM: Int?
     /// The total elevation gain and loss of the run, in feet
-    let elevationChange: (gain: Double?, loss: Double?)
+    let elevationChange: (gain: Int?, loss: Int?)
     /// The average temperature of the run in fahrenheit, and humidity as a percentage
-    let weather: (temperature: Double?, humidity: Double?)
+    let weather: (temperature: Int?, humidity: Int?)
     /// The locationPoints of the run - may not have value until requested
     let locationPoints: [CLLocation]?
-    var hasLocationData: Bool { locationPoints != nil }
+    var hasLocationData: Bool { locationPoints?.count ?? 0 > 0 }
     
-//    
-//    func averagePace(durationInSeconds: Double, totalMiles: Double) -> String {
-//        guard totalMiles > 0 else {
-//            return "Total miles cannot be zero"
-//        }
-//        
-//        let paceInSecondsPerMile = durationInSeconds / totalMiles
-//        let minutesPerMile = Int(paceInSecondsPerMile / 60)
-//        let secondsPerMile = Int(paceInSecondsPerMile.truncatingRemainder(dividingBy: 60))
-//        
-//        return String(format: "%02d:%02d per mile", minutesPerMile, secondsPerMile)
-//    }
+    
+    init(id: UUID, startTime: Date, endTime: Date, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]?) {
+        self.id = id
+        self.startTime = startTime
+        self.endTime = endTime
+        self.duration = duration
+        self.distance = distance
+        self.averageHeartRateBPM = Int(averageHeartRateBPM ?? 0)
+        self.elevationChange = (Int(elevationChange.gain ?? 0), Int(elevationChange.loss ?? 0))
+        self.weather = (Int(weather.temperature ?? 0), Int(weather.humidity ?? 0))
+        self.locationPoints = locationPoints
+    }
+    
+    /// The average pace in the common string format mm:ss
+    var averagePace: String {
+        guard distance > 0 else {
+            return ""
+        }
+        
+        let paceInSecondsPerMile = duration / distance
+        let minutesPerMile = Int(paceInSecondsPerMile / 60)
+        let secondsPerMile = Int(paceInSecondsPerMile.truncatingRemainder(dividingBy: 60))
+        
+        return String(format: "%02d:%02d", minutesPerMile, secondsPerMile)
+    }
 }

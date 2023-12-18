@@ -61,4 +61,39 @@ extension Date {
         return formatter.string(from: self)
     }
 }
+
+// MARK: Double 
+
+extension Double {
+    
+    /// A formatted string version with one decimal place
+    var prettyString: String {
+        String(format: "%.1f", self)
+    }
+
+}
+
+// MARK: TimeInterval
+
+extension TimeInterval {
+
+    /// A formatted string version for a TimeInterval in seconds
+    var prettyTimeString: String {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .abbreviated
+        formatter.allowedUnits = self >= 3600 ? [.hour, .minute] : [.minute]
+        formatter.zeroFormattingBehavior = .pad
+        
+        guard let formattedString = formatter.string(from: self) else {
+            return "00:00"
+        }
+        
+        if self >= 3600 {
+            return formattedString.replacingOccurrences(of: ":", with: "h ") + "m"
+        } else {
+            return formattedString.replacingOccurrences(of: ":", with: "m")
+        }
+    }
+    
+}
   

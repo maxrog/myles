@@ -18,24 +18,56 @@ struct ActivityView: View {
     var body: some View {
         GeometryReader { geo in
             if health.runs.count > 0 {
-                List(health.runs) {
-                    run in
+                List(health.runs) { run in
                     if run.hasLocationData {
-                        MylesMapView(run: run)
-                            .frame(width: geo.size.width - 32, height: geo.size.width - 40)
+                        VStack {
+                            HStack {
+                                MylesMapView(run: run)
+                                    .frame(width: geo.size.width / 2.5)
+                                    .clipShape(.rect(cornerSize: CGSize(width: 8, height: 8)))
+                                VStack {
+                                    Text("\(run.distance.prettyString) mi")
+                                        .font(.largeTitle)
+                                    Text(run.startTime.shortCalendarDateFormat)
+                                        .font(.headline)
+                                    Text(run.startTime.shortDayOfWeekDateFormat)
+                                    Text("Pace: \(run.averagePace)")
+                                }
+                            }
+                            // TODO icons isntead of text for labels
+                            HStack {
+                                Text("\(run.duration.prettyTimeString)")
+                                    .font(.footnote)
+                                Text("BPM \(run.averageHeartRateBPM ?? 0)")
+                                    .font(.footnote)
+                                Text("Gain \(run.elevationChange.gain ?? 0) ft")
+                                    .font(.footnote)
+                                Text("Temp \(run.weather.temperature ?? 0) F")
+                                    .font(.footnote)
+                                Text("Hum \(run.weather.humidity ?? 0) %")
+                                    .font(.footnote)
+                            }
+                        }
                     } else {
                         VStack {
-                            Text("\(run.distance) mi")
+                            Text("\(run.distance.prettyString) mi")
                                 .font(.largeTitle)
                             Text(run.startTime.shortCalendarDateFormat)
                                 .font(.headline)
                             Text(run.startTime.shortDayOfWeekDateFormat)
-                            Text("Duration \(run.duration)")
-                            Text("BPM \(run.averageHeartRateBPM ?? 0)")
-                            Text("Elevation Gain \(run.elevationChange.gain ?? 0) ft")
-                            Text("Elevation Loss \(run.elevationChange.loss ?? 0) ft")
-                            Text("Temp \(run.weather.temperature ?? 0) F")
-                            Text("Humidity \(run.weather.humidity ?? 0) %")
+                            Text("Pace: \(run.averagePace)")
+                            HStack {
+                                Text("\(run.duration.prettyTimeString)")
+                                    .font(.footnote)
+                                Text("BPM \(run.averageHeartRateBPM ?? 0)")
+                                    .font(.footnote)
+                                Text("Gain \(run.elevationChange.gain ?? 0) ft")
+                                    .font(.footnote)
+                                Text("Temp \(run.weather.temperature ?? 0) F")
+                                    .font(.footnote)
+                                Text("Hum \(run.weather.humidity ?? 0) %")
+                                    .font(.footnote)
+                            }
                         }
                     }
                 }

@@ -89,12 +89,12 @@ class HealthKitManager: ObservableObject {
                 
             }
             
-            let routes = await fetchWorkoutRoutes(for: workout) ?? []
             var locationPoints: [CLLocation]?
             
             // Don't fetch ALL workout location data as it is expensive
             // Rather, gather the last week or last 4 workouts
             if workout.endDate.daysBetween(Date()) <= 7 || index <= 4 {
+                let routes = await fetchWorkoutRoutes(for: workout) ?? []
                 locationPoints = []
                 for route in routes {
                     await locationPoints?.append(contentsOf: fetchLocationData(for: route))
