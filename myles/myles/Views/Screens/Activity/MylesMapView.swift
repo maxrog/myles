@@ -9,24 +9,20 @@ import SwiftUI
 import MapKit
 
 /// A Map view that displays a polyline of the user's run
-/// We disable panning until the user interacts with the map, to avoid scrolling conflicts
+/// We disable panning until the user interacts with the map, to avoid scrolling conflicts with container
 struct MylesMapView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    
-    @State var run: MylesRun
-    
-    @State var panEnabled: Bool = false
-    @State private var position: MapCameraPosition = .automatic
+    @StateObject var viewModel: MapViewModel
         
     /// The enabled interactionModes which change after user adjusts the map for first time
     private var interactionModes: MapInteractionModes {
-        panEnabled ? .all : [.pitch, .rotate, .zoom]
+        viewModel.panEnabled ? .all : [.pitch, .rotate, .zoom]
     }
     
     /// All CLLocationCoordinate2D objects from the run
     private var coordinates: [CLLocationCoordinate2D] {
-        (run.locationPoints ?? []).map({ $0.coordinate })
+        (viewModel.run.locationPoints ?? []).map({ $0.coordinate })
     }
 
     /// The bounds of the run's coordinates
@@ -37,16 +33,16 @@ struct MylesMapView: View {
     
     var body: some View {
         Map(
-            position: $position,
+            position: $viewModel.position,
             bounds: MapCameraBounds(centerCoordinateBounds: coordinateBounds, minimumDistance: 0, maximumDistance: 50000),
             interactionModes: interactionModes) {
-                Annotation("\(run.startTime.shortTimeOfDayDateFormat)", coordinate: coordinates.first ?? CLLocationCoordinate2D()) {
+                Annotation("\(viewModel.run.startTime.shortTimeOfDayDateFormat)", coordinate: coordinates.first ?? CLLocationCoordinate2D()) {
                     Image(systemName: "flag.checkered.circle.fill")
                         .foregroundStyle(.green)
                         .background(.white)
                         .clipShape(Circle())
                 }
-                Annotation("\(run.endTime.shortTimeOfDayDateFormat)", coordinate: coordinates.last ?? CLLocationCoordinate2D()) {
+                Annotation("\(viewModel.run.endTime.shortTimeOfDayDateFormat)", coordinate: coordinates.last ?? CLLocationCoordinate2D()) {
                     Image(systemName: "flag.checkered.circle.fill")
                         .foregroundStyle(.red)
                         .background(.white)
@@ -56,11 +52,11 @@ struct MylesMapView: View {
             MapPolyline(coordinates: coordinates)
                     .stroke(theme.accentColor, lineWidth: 0.5)
             }
-            .onChange(of: position) {
-                panEnabled = position.positionedByUser
+            .onChange(of: viewModel.position) {
+                viewModel.panEnabled = viewModel.position.positionedByUser
             }
             .onAppear() {
-                position = .rect(coordinateBounds)
+                viewModel.position = .rect(coordinateBounds)
             }
         // TODO put map style in settings
             .mapStyle(.standard)

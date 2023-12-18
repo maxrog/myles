@@ -89,7 +89,7 @@ extension TimeInterval {
         }
         
         if self >= 3600 {
-            return formattedString.replacingOccurrences(of: ":", with: "h ") + "m"
+            return formattedString.replacingOccurrences(of: ":", with: "h")
         } else {
             return formattedString.replacingOccurrences(of: ":", with: "m")
         }

@@ -22,7 +22,7 @@ struct ActivityView: View {
                     if run.hasLocationData {
                         VStack {
                             HStack {
-                                MylesMapView(run: run)
+                                MylesMapView(viewModel: MapViewModel(run: run))
                                     .frame(width: geo.size.width / 2.5)
                                     .clipShape(.rect(cornerSize: CGSize(width: 8, height: 8)))
                                 VStack {

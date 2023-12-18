@@ -28,6 +28,7 @@
 		AF6E467D2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467B2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf */; };
 		AF6E467E2B287DE2002915DC /* norwester.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467C2B287DE2002915DC /* norwester.otf */; };
 		AFC1D9902B2DCBDC00ED1114 /* MylesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */; };
+		AFC1D9922B3097FB00ED1114 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		AF6E467B2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LeagueSpartan-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		AF6E467C2B287DE2002915DC /* norwester.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = norwester.otf; sourceTree = "<group>"; };
 		AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesMapView.swift; sourceTree = "<group>"; };
+		AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				AF243B582B2932E300608E1C /* ActivityView.swift */,
 				AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */,
+				AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */,
 				AF6E46642B23A958002915DC /* TabView.swift in Sources */,
 				AF243B5C2B29361200608E1C /* SplashView.swift in Sources */,
+				AFC1D9922B3097FB00ED1114 /* MapViewModel.swift in Sources */,
 				AFC1D9902B2DCBDC00ED1114 /* MylesMapView.swift in Sources */,
 				AF6E46722B23AAF6002915DC /* SwiftUIExtensions.swift in Sources */,
 				AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */,
