@@ -27,8 +27,13 @@ struct MylesMapView: View {
 
     /// The bounds of the run's coordinates
     var coordinateBounds: MKMapRect {
-        coordinates.map { MKMapRect(origin: .init($0), size: .init(width: 1, height: 1)) }
-        .reduce(MKMapRect.null) { $0.union($1) }
+        let mapRects = coordinates.map { MKMapRect(origin: MKMapPoint($0), size: MKMapSize(width: 1, height: 1)) }
+        let combinedRect = mapRects.reduce(MKMapRect.null) { $0.union($1) }
+        
+        // adjust size a little to show better view
+        let expandedRect = MKMapRect(origin: combinedRect.origin, size: MKMapSize(width: combinedRect.size.width * 1.1, height: combinedRect.size.height * 1.1))
+        
+        return expandedRect
     }
     
     var body: some View {

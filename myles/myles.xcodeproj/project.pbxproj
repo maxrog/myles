@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF240C772B2BCA900012AB3A /* MylesRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF240C762B2BCA900012AB3A /* MylesRun.swift */; };
 		AF243B542B28802D00608E1C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
-		AF243B562B2919AF00608E1C /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B552B2919AF00608E1C /* HealthKitManager.swift */; };
+		AF243B562B2919AF00608E1C /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B552B2919AF00608E1C /* HealthStoreManager.swift */; };
 		AF243B592B2932E300608E1C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B582B2932E300608E1C /* ActivityView.swift */; };
 		AF243B5C2B29361200608E1C /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B5B2B29361200608E1C /* SplashView.swift */; };
 		AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B5E2B29374100608E1C /* OnboardingView.swift */; };
@@ -30,12 +30,14 @@
 		AFC1D9902B2DCBDC00ED1114 /* MylesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */; };
 		AFC1D9922B3097FB00ED1114 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */; };
 		AFC1D9942B30B19700ED1114 /* MylesRecapViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */; };
+		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
+		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AF240C762B2BCA900012AB3A /* MylesRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRun.swift; sourceTree = "<group>"; };
 		AF243B532B28802D00608E1C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		AF243B552B2919AF00608E1C /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		AF243B552B2919AF00608E1C /* HealthStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStoreManager.swift; sourceTree = "<group>"; };
 		AF243B582B2932E300608E1C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		AF243B5B2B29361200608E1C /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		AF243B5E2B29374100608E1C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,8 @@
 		AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesMapView.swift; sourceTree = "<group>"; };
 		AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRecapViews.swift; sourceTree = "<group>"; };
+		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
+		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,7 @@
 				AF6E46632B23A958002915DC /* TabView.swift */,
 				AF6E46652B23A965002915DC /* TabViewModel.swift */,
 				AF6E465B2B23A88D002915DC /* Screens */,
+				AFE55EE92B31B679009E4778 /* Shared */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,7 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				AF6E46692B23A9E1002915DC /* ThemeManager.swift */,
-				AF243B552B2919AF00608E1C /* HealthKitManager.swift */,
+				AF243B552B2919AF00608E1C /* HealthStoreManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -222,6 +227,15 @@
 				AF6E467C2B287DE2002915DC /* norwester.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		AFE55EE92B31B679009E4778 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */,
+				AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,12 +322,14 @@
 				AF243B5C2B29361200608E1C /* SplashView.swift in Sources */,
 				AFC1D9922B3097FB00ED1114 /* MapViewModel.swift in Sources */,
 				AFC1D9902B2DCBDC00ED1114 /* MylesMapView.swift in Sources */,
+				AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */,
 				AF6E46722B23AAF6002915DC /* SwiftUIExtensions.swift in Sources */,
 				AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */,
 				AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */,
 				AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */,
-				AF243B562B2919AF00608E1C /* HealthKitManager.swift in Sources */,
+				AF243B562B2919AF00608E1C /* HealthStoreManager.swift in Sources */,
 				AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */,
+				AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */,
 				AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

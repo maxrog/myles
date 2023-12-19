@@ -12,7 +12,7 @@ import HealthKit
 
 struct ActivityView: View {
     
-    @StateObject private var health = HealthKitManager.shared
+    @StateObject private var health = HealthStoreManager.shared
     @State var healthPermissionGranted = true
     
     var body: some View {
@@ -40,7 +40,7 @@ struct ActivityView: View {
                 return
             }
             
-            // TODO this gets called everytime the screen appears (probably don't need to fetch that frequently
+            // TODO this gets called everytime the screen appears - should only happen on pull to refresh
             await health.processWorkouts()
         }
     }

@@ -9,10 +9,10 @@ import Foundation
 import CoreLocation
 
 /// A running workout with essential information gathered from HealthStore
-struct MylesRun: Identifiable {
+class MylesRun: ObservableObject, Identifiable {
     
     /// The unique identifier
-    let id: UUID
+    @Published var id: UUID
     /// The start time of the run
     let startTime: Date
     /// The end time of the run
@@ -28,7 +28,7 @@ struct MylesRun: Identifiable {
     /// The average temperature of the run in fahrenheit, and humidity as a percentage
     let weather: (temperature: Int?, humidity: Int?)
     /// The locationPoints of the run - may not have value until requested
-    let locationPoints: [CLLocation]?
+    @Published var locationPoints: [CLLocation]?
     var hasLocationData: Bool { locationPoints?.count ?? 0 > 0 }
     
     
@@ -39,8 +39,24 @@ struct MylesRun: Identifiable {
         self.duration = duration
         self.distance = distance
         self.averageHeartRateBPM = Int(averageHeartRateBPM ?? 0)
-        self.elevationChange = (Int(elevationChange.gain ?? 0), Int(elevationChange.loss ?? 0))
-        self.weather = (Int(weather.temperature ?? 0), Int(weather.humidity ?? 0))
+        var elevationGain: Int?
+        var elevationLoss: Int?
+        if let gain = elevationChange.gain {
+            elevationGain = Int(gain)
+        }
+        if let loss = elevationChange.loss {
+            elevationLoss = Int(loss)
+        }
+        self.elevationChange = (elevationGain, elevationLoss)
+        var temperature: Int?
+        var humidity: Int?
+        if let temp = weather.temperature {
+            temperature = Int(temp)
+        }
+        if let hum = weather.humidity {
+            humidity = Int(hum)
+        }
+        self.weather = (temperature, humidity)
         self.locationPoints = locationPoints
     }
     

@@ -10,8 +10,13 @@ import SwiftUI
 /// An accessory view for showing group of run recap metrics
 struct MylesRecapView: View {
     
+    @StateObject private var health = HealthStoreManager.shared
+
     /// The run to display recap metrics
-    let run: MylesRun
+    @StateObject var run: MylesRun
+    
+    /// Whether the map was attempted to load and failed, indicating indoor workout
+    @State var failedToLoadMap = false
     
     var body: some View {
         VStack() {
@@ -19,11 +24,27 @@ struct MylesRecapView: View {
             if run.hasLocationData {
                 MylesMapView(viewModel: MapViewModel(run: run))
                     .frame(height: 200)
-                    .clipShape(.rect(cornerSize: CGSize(width: 8, height: 8)))
+                    .clipShape(.rect(cornerRadius: 8))
+            } else if failedToLoadMap {
+                Image(systemName: "figure.elliptical")
+                    .font(.system(size: 60))
+                    .padding(EdgeInsets(top: 20, leading: 40, bottom: 20, trailing: 40))
+                    .background(Color(.systemGray4))
+                    .cornerRadius(8)
             } else {
-                Button("Load Map") {
-                    // TODO if can fetch map, do it - otherwise display indoor icon or something
-                }.buttonStyle(.borderedProminent)
+                Button() {
+                    Task {
+                        let mapAvailable = await health.loadMapData(for: run)
+                        withAnimation {
+                            failedToLoadMap = !mapAvailable
+                        }
+                    }
+                } label: {
+                    Label("Load Map", systemImage: "point.topleft.down.to.point.bottomright.filled.curvepath")
+                        .font(.custom("norwester", size: 18))
+                        .labelStyle(MylesIconLabel())
+                }
+                .buttonStyle(MylesButtonStyle(background: .blue))
             }
             MylesRecapBarView(run: run)
         }.frame(maxWidth: .infinity, alignment: .center)
@@ -36,9 +57,10 @@ struct MylesRecapView: View {
 
 // MARK: AccessoryViews
 
+/// Recap header view containing run date and duration information
 struct MylesRecapHeaderView: View {
     
-    var run: MylesRun
+    @StateObject var run: MylesRun
     
     var body: some View {
         HStack {
@@ -52,9 +74,10 @@ struct MylesRecapHeaderView: View {
     }
 }
 
+/// Recap view containing run mileage
 struct MylesRecapMileageView: View {
     
-    var run: MylesRun
+    @StateObject var run: MylesRun
     
     var body: some View {
         Text("\(run.distance.prettyString) mi")
@@ -66,29 +89,30 @@ struct MylesRecapMileageView: View {
     }
 }
 
+/// Recap view containing run accessory data including pace, heart rate, elevation, and temp
 struct MylesRecapBarView : View {
     
-    var run: MylesRun
+    @StateObject var run: MylesRun
     
     var body: some View {
         HStack {
             Label("\(run.averagePace)/mi", systemImage: "stopwatch")
                 .font(.custom("norwester", size: 13))
-                .labelStyle(CustomLabel(spacing: 2))
+                .labelStyle(MylesIconLabel())
             if let heartRate = run.averageHeartRateBPM, heartRate > 0 {
                 Label("\(heartRate)", systemImage: "heart")
                     .font(.custom("norwester", size: 13))
-                    .labelStyle(CustomLabel(spacing: 2))
+                    .labelStyle(MylesIconLabel())
             }
             if let elevation = run.elevationChange.gain, elevation > 0 {
                 Label("\(elevation) ft", systemImage: "arrow.up.forward")
                     .font(.custom("norwester", size: 13))
-                    .labelStyle(CustomLabel(spacing: 2))
+                    .labelStyle(MylesIconLabel())
             }
-            if let temp = run.weather.temperature {
+            if run.hasLocationData, let temp = run.weather.temperature {
                 Label("\(temp)°F", systemImage: temp > 30 ? "thermometer.sun" : "thermometer.snowflake")
                     .font(.custom("norwester", size: 13))
-                    .labelStyle(CustomLabel(spacing: 2))
+                    .labelStyle(MylesIconLabel())
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  HealthKitManager.swift
+//  HealthStoreManager.swift
 //  myles
 //
 //  Created by Max Rogers on 12/12/23.
@@ -8,16 +8,20 @@
 import Foundation
 import HealthKit
 import CoreLocation
+import SwiftUI
 
-// TODO should we store workouts in core data so don't need to fetch everytime? Probably since location thing is heavy
+// TODO algorithm for grouping by weeks Monday-Sunday
 
 /// Manager for fetching and processing user's health data
-class HealthKitManager: ObservableObject {
+class HealthStoreManager: ObservableObject {
     
-    static let shared = HealthKitManager()
+    static let shared = HealthStoreManager()
     private init() { }
     
     private let store = HKHealthStore()
+    
+    /// HKWorkouts that back our data model
+    private var storedWorkouts: [HKWorkout] = []
     
     @Published var runs: [MylesRun] = []
         
@@ -48,6 +52,7 @@ class HealthKitManager: ObservableObject {
     /// Process HealthKit workouts
     /// Query essential metrics including time, duration, distance, and location
     /// Only gathers location for workouts within the last week or last 4 workouts due to expensive fetches
+    /// @MainActor
     @MainActor
     func processWorkouts() async {
         Logger.log(.action, "Processing workout data", sender: String(describing: self))
@@ -115,12 +120,30 @@ class HealthKitManager: ObservableObject {
         Logger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))
         self.runs = runs
     }
+    
+    /// Processes map data for single run
+    /// Since we don't want to process all on launch, we lazy load maps at user request
+    /// - Returns: Bool indicating if the workout had location data available
+    /// @MainActor
+    @MainActor
+    public func loadMapData(for run: MylesRun) async -> Bool {
+        let id = run.id
+        guard let locationPoints = await fetchWorkoutLocationData(for: id), locationPoints.count > 0 else {
+            Logger.log(.action, "Run \(run.id) does not contain location data", sender: String(describing: self))
+            return false
+        }
+        withAnimation {
+            run.locationPoints = locationPoints
+        }
+        Logger.log(.success, "Run \(run.id) successfully updated with \(locationPoints.count) location points", sender: String(describing: self))
+        return true
+    }
 }
 
 
 // MARK: Queries
 
-extension HealthKitManager {
+extension HealthStoreManager {
     
     /// Fetches a list of workouts
     /// - Parameters:
@@ -153,6 +176,7 @@ extension HealthKitManager {
         }
         
         Logger.log(.success, "Successfully retrieved \(workouts.count) workouts", sender: String(describing: self))
+        self.storedWorkouts = workouts
         return workouts
     }
     
@@ -161,8 +185,9 @@ extension HealthKitManager {
     ///   - workout: The workout for desired routes
     /// - Returns: The matching routes, if available
     private func fetchWorkoutRoutes(for workout: HKWorkout) async -> [HKWorkoutRoute]? {
+        Logger.log(.action, "Attemping to fetch workout routes for workout \(workout.uuid.uuidString)", sender: String(describing: self))
+
         let byWorkout = HKQuery.predicateForObjects(from: workout)
-        
         let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             store.execute(HKAnchoredObjectQuery(type: HKSeriesType.workoutRoute(), predicate: byWorkout, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: { (query, samples, deletedObjects, anchor, error) in
                 if let error = error {
@@ -195,6 +220,7 @@ extension HealthKitManager {
     ///   - route: The route for desired location data
     /// - Returns: The location data, if available
     private func fetchLocationData(for route: HKWorkoutRoute) async -> [CLLocation] {
+        Logger.log(.action, "Attemping to fetch workout locations for route \(route.uuid.uuidString)", sender: String(describing: self))
         let locations = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[CLLocation], Error>) in
             var allLocations: [CLLocation] = []
             let query = HKWorkoutRouteQuery(route: route) {  (query, locations, finished, error) in
@@ -225,8 +251,51 @@ extension HealthKitManager {
             return []
         }
         
-        Logger.log(.success, "Successfully retrieved \(locations.count) location objects", sender: String(describing: self))
+        Logger.log(.success, "Successfully retrieved \(locations.count) location points", sender: String(describing: self))
         return locations
     }
+    
+    
+    /// Fetches workout location data for a single workout
+    /// - Parameters:
+    ///   - id: The workout's id to query
+    /// - Returns: The matching workout's location data
+    private func fetchWorkoutLocationData(for id: UUID) async -> [CLLocation]? {
+        let workoutPredicate = HKQuery.predicateForObject(with: id)
+        
+        let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil, resultsHandler: { query, samples, error in
+                if let error = error {
+                    Logger.log(.error, "Failed to retrieve workout, \(error.localizedDescription)", sender: String(describing: self))
+                    continuation.resume(throwing: error)
+                    return
+                }
+                
+                guard let samples = samples else {
+                    Logger.log(.error, "Failed to retrieve workout sample with id \(id.uuidString), returning empty", sender: String(describing: self))
+                    continuation.resume(returning: [])
+                    return
+                }
+                
+                continuation.resume(returning: samples)
+            }))
+        }
+        
+        guard let workout = (samples as? [HKWorkout])?.first else {
+            Logger.log(.error, "Failed to retrieve workout with id \(id.uuidString), returning empty", sender: String(describing: self))
+            return nil
+        }
+        
+        Logger.log(.success, "Successfully retrieved workout \(workout.uuid.uuidString)", sender: String(describing: self))
+        
+        var locationPoints: [CLLocation]?
+        let routes = await fetchWorkoutRoutes(for: workout) ?? []
+        locationPoints = []
+        for route in routes {
+            await locationPoints?.append(contentsOf: fetchLocationData(for: route))
+        }
+        return locationPoints
+    }
+
 }
 
