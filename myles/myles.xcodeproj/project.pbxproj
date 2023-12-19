@@ -13,6 +13,8 @@
 		AF243B592B2932E300608E1C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B582B2932E300608E1C /* ActivityView.swift */; };
 		AF243B5C2B29361200608E1C /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B5B2B29361200608E1C /* SplashView.swift */; };
 		AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B5E2B29374100608E1C /* OnboardingView.swift */; };
+		AF2BC9D22B32212F009AC760 /* EmptyActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2BC9D12B32212F009AC760 /* EmptyActivityView.swift */; };
+		AF2BC9D42B32215C009AC760 /* MylesStreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2BC9D32B32215C009AC760 /* MylesStreakView.swift */; };
 		AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E464B2B23A6F4002915DC /* mylesApp.swift */; };
 		AF6E46502B23A6F5002915DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6E464F2B23A6F5002915DC /* Assets.xcassets */; };
 		AF6E46542B23A6F5002915DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6E46532B23A6F5002915DC /* Preview Assets.xcassets */; };
@@ -32,6 +34,7 @@
 		AFC1D9942B30B19700ED1114 /* MylesRecapViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */; };
 		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
 		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
+		AFE55EEF2B320D21009E4778 /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEE2B320D21009E4778 /* MetricsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,8 @@
 		AF243B582B2932E300608E1C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		AF243B5B2B29361200608E1C /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		AF243B5E2B29374100608E1C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AF2BC9D12B32212F009AC760 /* EmptyActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyActivityView.swift; sourceTree = "<group>"; };
+		AF2BC9D32B32215C009AC760 /* MylesStreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesStreakView.swift; sourceTree = "<group>"; };
 		AF6E46482B23A6F4002915DC /* myles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6E464B2B23A6F4002915DC /* mylesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mylesApp.swift; sourceTree = "<group>"; };
 		AF6E464F2B23A6F5002915DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -63,6 +68,7 @@
 		AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRecapViews.swift; sourceTree = "<group>"; };
 		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
 		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
+		AFE55EEE2B320D21009E4778 /* MetricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +86,11 @@
 			isa = PBXGroup;
 			children = (
 				AF243B582B2932E300608E1C /* ActivityView.swift */,
+				AF2BC9D12B32212F009AC760 /* EmptyActivityView.swift */,
 				AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */,
 				AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */,
 				AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */,
+				AF2BC9D32B32215C009AC760 /* MylesStreakView.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -216,6 +224,7 @@
 			children = (
 				AF6E46692B23A9E1002915DC /* ThemeManager.swift */,
 				AF243B552B2919AF00608E1C /* HealthStoreManager.swift */,
+				AFE55EEE2B320D21009E4778 /* MetricsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -316,6 +325,7 @@
 				AF243B592B2932E300608E1C /* ActivityView.swift in Sources */,
 				AF6E46682B23A989002915DC /* SettingsView.swift in Sources */,
 				AF6E46662B23A965002915DC /* TabViewModel.swift in Sources */,
+				AF2BC9D22B32212F009AC760 /* EmptyActivityView.swift in Sources */,
 				AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */,
 				AF6E46642B23A958002915DC /* TabView.swift in Sources */,
 				AFC1D9942B30B19700ED1114 /* MylesRecapViews.swift in Sources */,
@@ -324,6 +334,7 @@
 				AFC1D9902B2DCBDC00ED1114 /* MylesMapView.swift in Sources */,
 				AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */,
 				AF6E46722B23AAF6002915DC /* SwiftUIExtensions.swift in Sources */,
+				AF2BC9D42B32215C009AC760 /* MylesStreakView.swift in Sources */,
 				AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */,
 				AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */,
 				AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */,
@@ -331,6 +342,7 @@
 				AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */,
 				AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */,
 				AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */,
+				AFE55EEF2B320D21009E4778 /* MetricsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

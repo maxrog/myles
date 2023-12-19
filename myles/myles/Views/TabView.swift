@@ -23,7 +23,7 @@ struct TabNavigationView: View {
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                 }
-                .tag(Tabs.stats.rawValue)
+                .tag(Tabs.metrics.rawValue)
             SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape.fill")

@@ -13,24 +13,38 @@ import HealthKit
 struct ActivityView: View {
     
     @StateObject private var health = HealthStoreManager.shared
+    @StateObject private var metrics = MetricsManager.shared
     @State var healthPermissionGranted = true
     
     var body: some View {
+        
         let runs = health.runs
-        Group {
-            if !runs.isEmpty {
-                List(runs) { run in
-                    Section {
-                        MylesRecapView(run: run)
-                    } header: {
-                        MylesRecapHeaderView(run: run)
+        
+        NavigationStack {
+            Group {
+                if !runs.isEmpty {
+                    List(runs) { run in
+                        Section {
+                            MylesRecapView(run: run)
+                        } header: {
+                            MylesRecapHeaderView(run: run)
+                        }
                     }
+                } else if healthPermissionGranted {
+                    Text("Loading")
+                        .frame(maxWidth: .infinity)
+                } else {
+                    EmptyActivityView()
                 }
-            } else if healthPermissionGranted {
-                Text("Loading")
-                    .frame(maxWidth: .infinity)
-            } else {
-                EmptyActivityView()
+            }
+            .toolbar(metrics.streakCount() == 0 ? .hidden : .visible)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                // TODO not sure if I like this or not
+                ToolbarItem(placement: .topBarTrailing) {
+                    MylesStreakView(streakCount: metrics.streakCount())
+                }
             }
         }
         .task {
@@ -48,24 +62,4 @@ struct ActivityView: View {
 
 #Preview {
     ActivityView()
-}
-
-struct EmptyActivityView: View {
-    var body: some View {
-        Text("Hmmm, it appears I can't find any workout data.")
-            .font(.title)
-        Text("Please make sure you have recorded a running workout")
-        Text("Please make sure you have granted access to read Health data in Settings -> Health -> Data Access & Devices -> Miles")
-        Button(action: {
-            if let url = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }, label: {
-            Text("Settings")
-        }).buttonStyle(.borderedProminent)
-    }
-}
-
-#Preview {
-    EmptyActivityView()
 }
