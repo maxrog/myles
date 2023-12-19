@@ -25,7 +25,7 @@ struct MylesRecapView: View {
                 MylesMapView(viewModel: MapViewModel(run: run))
                     .frame(height: 200)
                     .clipShape(.rect(cornerRadius: 8))
-            } else if failedToLoadMap {
+            } else if run.emptyLocationDataOnInitialLoad || failedToLoadMap {
                 Image(systemName: "figure.elliptical")
                     .font(.system(size: 60))
                     .padding(EdgeInsets(top: 20, leading: 40, bottom: 20, trailing: 40))

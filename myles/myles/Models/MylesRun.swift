@@ -29,7 +29,9 @@ class MylesRun: ObservableObject, Identifiable {
     let weather: (temperature: Int?, humidity: Int?)
     /// The locationPoints of the run - may not have value until requested
     @Published var locationPoints: [CLLocation]?
-    var hasLocationData: Bool { locationPoints?.count ?? 0 > 0 }
+    /// Indicates whether this run had location data on initial load attempt
+    var emptyLocationDataOnInitialLoad: Bool = false
+    var hasLocationData: Bool { !(locationPoints?.isEmpty ?? true) }
     
     
     init(id: UUID, startTime: Date, endTime: Date, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]?) {

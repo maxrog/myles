@@ -18,7 +18,7 @@ struct ActivityView: View {
     var body: some View {
         let runs = health.runs
         Group {
-            if runs.count > 0 {
+            if !runs.isEmpty {
                 List(runs) { run in
                     Section {
                         MylesRecapView(run: run)

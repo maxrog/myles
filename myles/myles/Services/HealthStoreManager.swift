@@ -115,6 +115,9 @@ class HealthStoreManager: ObservableObject {
                                elevationChange: (elevationGain, elevationLoss),
                                weather: (weatherTemp, weatherHumidity),
                                locationPoints: locationPoints)
+            if let locationPoints = locationPoints, locationPoints.isEmpty {
+                run.emptyLocationDataOnInitialLoad = true
+            }
             runs.append(run)
         }
         Logger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))
