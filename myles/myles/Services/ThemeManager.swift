@@ -22,7 +22,7 @@ class ThemeManager: ObservableObject {
     let userDefaults = UserDefaults.standard
     
     /// Default
-    static let defaultAccentColor = Color(uiColor: UIColor(named: "CosmicLatte") ?? .white)
+    static let defaultAccentColor = (UIScreen.main.traitCollection.userInterfaceStyle == .dark) ? Color(uiColor: UIColor(named: "CosmicLatte") ?? .white) : Color(uiColor: UIColor(named: "mylesMedium") ?? .white)
     
     init() {
         setupTheme()
