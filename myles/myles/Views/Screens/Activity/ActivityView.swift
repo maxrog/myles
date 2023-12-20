@@ -8,7 +8,7 @@
 import SwiftUI
 import HealthKit
 
-// TODO - don't load all 1K or w/e activities, load say, last 2-3 months and only load more as scroll down screen
+// TODO Loading animation / at least activity indicator
 
 struct ActivityView: View {
     

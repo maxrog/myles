@@ -6,6 +6,11 @@
 //
 
 import SwiftUI
+
+/// TODO: View Model
+/// TODO: mi/km preference + date format (24H option)
+
+
 /// A settings view for various app settings / user preferences
 struct SettingsView: View {
     

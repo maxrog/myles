@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+/*
+ TODO
+• RocketSim record gif of how user should enable health and put it above or below button
+ */
+
+
 struct EmptyActivityView: View {
     var body: some View {
         Text("Hmmm, it appears I can't find any workout data.")
