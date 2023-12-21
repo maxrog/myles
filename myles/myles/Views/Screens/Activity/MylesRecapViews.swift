@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO expand tap sometimes choppy 
+
 /// An accessory view for showing group of run recap metrics
 struct MylesRecapView: View {
     
@@ -76,9 +78,6 @@ struct MylesRecapMileageView: View {
     }
 }
 
-/*
- Option in settings for what metrics to show
- */
 /// Recap view containing run accessory data including pace, heart rate, elevation, and temp
 struct MylesRecapBarView : View {
     
