@@ -98,6 +98,18 @@ class HealthStoreManager: ObservableObject {
                 }
             }
             
+            var locationPoints: [CLLocation]?
+            
+            // Don't fetch all workout location data as it is expensive
+            // Rather, gather the first workout and let user download as needed
+            if index == 0 {
+                let routes = await fetchWorkoutRoutes(for: workout) ?? []
+                locationPoints = []
+                for route in routes {
+                    await locationPoints?.append(contentsOf: fetchLocationData(for: route))
+                }
+            }
+            
             let run = MylesRun(id: id,
                                startTime: startTime,
                                endTime: endTime,
@@ -106,7 +118,8 @@ class HealthStoreManager: ObservableObject {
                                distance: miles,
                                averageHeartRateBPM: heartRateBPM,
                                elevationChange: (elevationGain, elevationLoss),
-                               weather: (weatherTemp, weatherHumidity))
+                               weather: (weatherTemp, weatherHumidity),
+                               locationPoints: locationPoints)
             runs.append(run)
         }
         Logger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))
