@@ -26,7 +26,7 @@ struct ActivityView: View {
                     List {
                         ForEach(runs) { run in
                             Section {
-                                MylesRecapView(viewModel: MylesRecapViewModel(run: run))
+                                MylesRecapView(viewModel: MylesRecapViewModel(run: run, expanded: run.hasLocationData, showMap: run.hasLocationData))
                                     .frame(maxWidth: .infinity, alignment: .center)
                             } header: {
                                 MylesRecapHeaderView(run: run)
