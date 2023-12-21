@@ -24,7 +24,7 @@ class HealthStoreManager: ObservableObject {
     private var storedWorkouts: [HKWorkout] = []
     
     @Published var runs: [MylesRun] = []
-        
+    
     /// Requests health data access from the user
     func requestPermission() async -> Bool {
         guard HKHealthStore.isHealthDataAvailable() else {
@@ -36,7 +36,8 @@ class HealthStoreManager: ObservableObject {
             .workoutType(),
             HKSeriesType.activitySummaryType(),
             HKSeriesType.workoutType(),
-            HKSeriesType.workoutRoute()
+            HKSeriesType.workoutRoute(),
+            HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)!
         ]
         
         let response: ()? = try? await store.requestAuthorization(toShare: Set<HKSampleType>(), read: read)
@@ -48,7 +49,7 @@ class HealthStoreManager: ObservableObject {
         Logger.log(.action, "User has been prompted for Health data permission", sender: String(describing: self))
         return true
     }
-        
+    
     /// Process HealthKit workouts
     /// Query essential metrics including time, duration, distance, and location
     /// Only gathers location for workouts within the last week or last 4 workouts due to expensive fetches
@@ -66,7 +67,7 @@ class HealthStoreManager: ObservableObject {
             let endTime = workout.endDate
             let durationSeconds = workout.duration
             let miles = distanceQuantity.doubleValue(for: .mile())
-           
+            
             var heartRateBPM: Double?
             if let heartRateStats = workout.statistics(for: HKQuantityType(.heartRate)),
                let heartRateQuantity = heartRateStats.averageQuantity() {
@@ -99,15 +100,17 @@ class HealthStoreManager: ObservableObject {
             }
             
             var locationPoints: [CLLocation]?
+            var splits: [TimeInterval] = []
             
-            // Don't fetch all workout location data as it is expensive
-            // Rather, gather the first workout and let user download as needed
+            // Don't fetch all workout data as it is expensive
+            // Rather, gather the first workout and let user request more as needed
             if index == 0 {
                 let routes = await fetchWorkoutRoutes(for: workout) ?? []
                 locationPoints = []
                 for route in routes {
                     await locationPoints?.append(contentsOf: fetchLocationData(for: route))
                 }
+                splits = await calculateMileSplits(startTime: startTime, endTime: endTime)
             }
             
             let run = MylesRun(id: id,
@@ -119,7 +122,8 @@ class HealthStoreManager: ObservableObject {
                                averageHeartRateBPM: heartRateBPM,
                                elevationChange: (elevationGain, elevationLoss),
                                weather: (weatherTemp, weatherHumidity),
-                               locationPoints: locationPoints)
+                               locationPoints: locationPoints,
+                               mileSplits: splits)
             runs.append(run)
         }
         Logger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))
@@ -191,7 +195,7 @@ extension HealthStoreManager {
     /// - Returns: The matching routes, if available
     private func fetchWorkoutRoutes(for workout: HKWorkout) async -> [HKWorkoutRoute]? {
         Logger.log(.action, "Attemping to fetch workout routes for workout \(workout.uuid.uuidString)", sender: String(describing: self))
-
+        
         let byWorkout = HKQuery.predicateForObjects(from: workout)
         let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             store.execute(HKAnchoredObjectQuery(type: HKSeriesType.workoutRoute(), predicate: byWorkout, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: { (query, samples, deletedObjects, anchor, error) in
@@ -299,8 +303,67 @@ extension HealthStoreManager {
         for route in routes {
             await locationPoints?.append(contentsOf: fetchLocationData(for: route))
         }
+        
         return locationPoints
     }
+    
+    // TODO figure out how to account for user pausing the workout - ask chat gpt
+    /// Fetches workout data & calculates split times for a single workout
+    /// - Parameters:
+    ///   - startTime: The start time of the workout
+    ///   - endTime: The end time of the workout
+    /// - Returns: An array of splits per mile in minutes
+    func calculateMileSplits(startTime: Date, endTime: Date) async -> [TimeInterval] {
+        let distanceType = HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)
+        let predicate = HKQuery.predicateForSamples(withStart: startTime, end: endTime, options: .strictStartDate)
 
+        let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
+            store.execute(HKSampleQuery(sampleType: distanceType!, predicate: predicate,
+                                        limit: HKObjectQueryNoLimit, sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: true)], resultsHandler: { (query, samples, error) -> Void in
+                if let error = error {
+                    Logger.log(.error, "Failed to retrieve workout distance samples, \(error.localizedDescription)", sender: String(describing: self))
+                    continuation.resume(throwing: error)
+                    return
+                }
+                
+                guard let samples = samples else {
+                    Logger.log(.error, "Failed to retrieve workout distance samples, returning empty", sender: String(describing: self))
+                    continuation.resume(returning: [])
+                    return
+                }
+                
+                continuation.resume(returning: samples)
+            }))
+        }
+        
+        guard let samples = samples as? [HKQuantitySample] else {
+            Logger.log(.error, "Failed to retrieve workout distance samples, returning empty", sender: String(describing: self))
+            return []
+        }
+        
+        var totalDistance: Double = 0.0
+        var totalTime: TimeInterval = 0.0
+        var mileSplits: [TimeInterval] = []
+        
+        Logger.log(.action, "Processing mile splits", sender: String(describing: self))
+
+        for sample in samples {
+            totalDistance += sample.quantity.doubleValue(for: HKUnit.meter())
+            totalTime += sample.endDate.timeIntervalSince(sample.startDate)
+            
+            // Calculate mile splits
+            if totalDistance >= 1609.34 { // Check if distance covered is at least a mile
+                let mileSplit = totalTime / 60.0 // Assuming you want the split in minutes
+                mileSplits.append(mileSplit)
+                totalDistance -= 1609.34 // Subtract a mile from totalDistance
+                totalTime = 0.0 // Reset time for the next mile
+            }
+        }
+        
+        Logger.log(.action, "Processed and returning mile splits for \(mileSplits.count) miles", sender: String(describing: self))
+        
+        return mileSplits
+    }
+    
 }
 

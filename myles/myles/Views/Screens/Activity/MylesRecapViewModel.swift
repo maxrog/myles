@@ -30,6 +30,8 @@ class MylesRecapViewModel: ObservableObject {
     
     func downloadMap() async {
         
+        await processSplits()
+        
         guard run.environment == .outdoor else {
             withAnimation {
                 showMap = false
@@ -50,6 +52,15 @@ class MylesRecapViewModel: ObservableObject {
             withAnimation {
                 showMap = mapAvailable
                 expanded.toggle()
+            }
+        }
+    }
+    
+    func processSplits() async {
+        Task {
+            let splits = await health.calculateMileSplits(startTime: run.startTime, endTime: run.endTime)
+            withAnimation {
+                run.mileSplits = splits
             }
         }
     }

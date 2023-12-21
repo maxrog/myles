@@ -15,28 +15,33 @@ struct MylesRecapView: View {
     @StateObject var viewModel: MylesRecapViewModel
     
     var body: some View {
-            VStack() {
-                MylesRecapMileageView(run: viewModel.run)
-                if viewModel.expanded {
-                    if viewModel.showMap {
-                        MylesMapView(viewModel: MapViewModel(run: viewModel.run))
-                        // TODO should be a ratio from width so all screens look good
-                            .frame(height: 240)
-                            .clipShape(.rect(cornerRadius: 8))
-                    } else {
-                        MylesHeartView()
-                        // TODO should be a ratio from width so all screens look good
-                            .frame(height: 80)
-                    }
-                }
-                MylesRecapBarView(viewModel: viewModel)
-            }.frame(maxWidth: .infinity, alignment: .center)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                Task {
-                    await viewModel.downloadMap()
+        VStack() {
+            MylesRecapMileageView(run: viewModel.run)
+            if viewModel.expanded {
+                if viewModel.showMap {
+                    MylesMapView(viewModel: MapViewModel(run: viewModel.run))
+                    // TODO should be a ratio from width so all screens look good
+                        .frame(height: 240)
+                        .clipShape(.rect(cornerRadius: 8))
+                } else {
+                    MylesHeartView()
+                    // TODO should be a ratio from width so all screens look good
+                        .frame(height: 80)
                 }
             }
+            MylesRecapBarView(viewModel: viewModel)
+            if viewModel.run.environment == .outdoor, viewModel.expanded {
+                MylesRecapeMileSplitsView(run: viewModel.run)
+                    .padding(.top, 8)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            Task {
+                await viewModel.downloadMap()
+            }
+        }
     }
 }
 
@@ -94,7 +99,7 @@ struct MylesRecapBarView : View {
                 }
             }.frame(maxWidth: .infinity)
             
-            Label("\(viewModel.run.averagePace)/mi", systemImage: "stopwatch")
+            Label("\(viewModel.run.averageMilePaceString)/mi", systemImage: "stopwatch")
                 .font(.custom("norwester", size: 15))
                 .labelStyle(MylesIconLabel())
                 .fixedSize()
@@ -107,6 +112,23 @@ struct MylesRecapBarView : View {
                 }
             }.frame(maxWidth: .infinity)
             Spacer()
+        }
+    }
+}
+
+// TODO change this to a marquee label below recap bar
+struct MylesRecapeMileSplitsView: View {
+    
+    @StateObject var run: MylesRun
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            ForEach(Array(run.mileSplitStrings.enumerated()), id: \.offset) { index, split in
+                Label("Mile \(index + 1): \(split)", systemImage: "stopwatch")
+                    .font(.custom("norwester", size: 13))
+                    .labelStyle(MylesIconLabel())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
         }
     }
 }

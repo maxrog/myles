@@ -34,7 +34,7 @@ class MylesRun: ObservableObject, Identifiable {
     var hasLocationData: Bool { !(locationPoints?.isEmpty ?? true) }
     
     
-    init(id: UUID, startTime: Date, endTime: Date, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil) {
+    init(id: UUID, startTime: Date, endTime: Date, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = []) {
         self.id = id
         self.startTime = startTime
         self.endTime = endTime
@@ -61,10 +61,17 @@ class MylesRun: ObservableObject, Identifiable {
         }
         self.weather = (temperature, humidity)
         self.locationPoints = locationPoints
+        self.mileSplits = mileSplits
     }
     
-    /// The average pace in the common string format mm:ss
-    var averagePace: String {
+    // MARK: Metrics
+    
+    /// The average mile pace
+    var averageMilePace: TimeInterval {
+        duration / distance
+    }
+    /// The average mile pace in the common string format mm:ss
+    var averageMilePaceString: String {
         guard distance > 0 else {
             return ""
         }
@@ -74,6 +81,21 @@ class MylesRun: ObservableObject, Identifiable {
         let secondsPerMile = Int(paceInSecondsPerMile.truncatingRemainder(dividingBy: 60))
         
         return String(format: "%2d:%02d", minutesPerMile, secondsPerMile)
+    }
+    
+    /// The splits for pace per mile
+    @Published var mileSplits: [TimeInterval] = []
+    /// The splits for pace per mile in the common mm:ss format
+    var mileSplitStrings: [String] {
+        var formattedSplits: [String] = []
+        for split in mileSplits {
+            let minutes = Int(split)
+            let seconds = Int((split - Double(minutes)) * 60)
+            let formattedSplit = String(format: "%2d:%02d", minutes, seconds)
+            formattedSplits.append(formattedSplit)
+            
+        }
+        return formattedSplits
     }
     
     /// A test run
@@ -91,7 +113,8 @@ class MylesRun: ObservableObject, Identifiable {
                                         CLLocation(latitude: 35.03643622, longitude: -80.93023495),
                                         CLLocation(latitude: 35.03982536, longitude: -80.94195882),
                                         CLLocation(latitude: 35.03972075, longitude: -80.94186949),
-                                    ])
+                                    ],
+                                  mileSplits: [9.2, 8.4, 7.8, 6.2, 4.9])
 }
 
 /// The environment type of the run, indoor or outdoor
