@@ -23,11 +23,14 @@ struct ActivityView: View {
         NavigationStack {
             Group {
                 if !runs.isEmpty {
-                    List(runs) { run in
-                        Section {
-                            MylesRecapView(run: run)
-                        } header: {
-                            MylesRecapHeaderView(run: run)
+                    List {
+                        ForEach(runs) { run in
+                            Section {
+                                MylesRecapView(viewModel: MylesRecapViewModel(run: run))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                            } header: {
+                                MylesRecapHeaderView(run: run)
+                            }
                         }
                     }
                 } else if healthPermissionGranted {
@@ -41,7 +44,6 @@ struct ActivityView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                // TODO not sure if I like this or not
                 ToolbarItem(placement: .topBarTrailing) {
                     MylesStreakView(streakCount: metrics.streakCount())
                 }

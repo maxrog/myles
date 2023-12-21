@@ -17,6 +17,8 @@ class MylesRun: ObservableObject, Identifiable {
     let startTime: Date
     /// The end time of the run
     let endTime: Date
+    /// The environment of the run, indoor or outdoor
+    let environment: MylesRunEnvironmentType
     /// The total duration of the run, in seconds
     let duration: TimeInterval
     /// The total distance of the run, in miles
@@ -29,15 +31,14 @@ class MylesRun: ObservableObject, Identifiable {
     let weather: (temperature: Int?, humidity: Int?)
     /// The locationPoints of the run - may not have value until requested
     @Published var locationPoints: [CLLocation]?
-    /// Indicates whether this run had location data on initial load attempt
-    var emptyLocationDataOnInitialLoad: Bool = false
     var hasLocationData: Bool { !(locationPoints?.isEmpty ?? true) }
     
     
-    init(id: UUID, startTime: Date, endTime: Date, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]?) {
+    init(id: UUID, startTime: Date, endTime: Date, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil) {
         self.id = id
         self.startTime = startTime
         self.endTime = endTime
+        self.environment = environment
         self.duration = duration
         self.distance = distance
         self.averageHeartRateBPM = Int(averageHeartRateBPM ?? 0)
@@ -79,6 +80,7 @@ class MylesRun: ObservableObject, Identifiable {
     static let testRun = MylesRun(id: UUID(),
                                   startTime: .now.addingTimeInterval(-3700),
                                   endTime: .now,
+                                  environment: .outdoor,
                                   duration: 3700,
                                   distance: 8.44443,
                                   averageHeartRateBPM: 135.242332, elevationChange: (600, 200), weather: (75, 90),
@@ -90,4 +92,12 @@ class MylesRun: ObservableObject, Identifiable {
                                         CLLocation(latitude: 35.03982536, longitude: -80.94195882),
                                         CLLocation(latitude: 35.03972075, longitude: -80.94186949),
                                     ])
+}
+
+/// The environment type of the run, indoor or outdoor
+enum MylesRunEnvironmentType {
+    case indoor, outdoor
+    init(indoor: Bool) {
+        self = indoor ? .indoor : .outdoor
+    }
 }

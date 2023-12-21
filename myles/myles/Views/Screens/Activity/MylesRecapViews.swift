@@ -10,49 +10,36 @@ import SwiftUI
 /// An accessory view for showing group of run recap metrics
 struct MylesRecapView: View {
     
-    @StateObject private var health = HealthStoreManager.shared
-
-    /// The run to display recap metrics
-    @StateObject var run: MylesRun
-    
-    /// Whether the map was attempted to load and failed, indicating indoor workout
-    @State var failedToLoadMap = false
+    @StateObject var viewModel: MylesRecapViewModel
     
     var body: some View {
-        VStack() {
-            MylesRecapMileageView(run: run)
-            if run.hasLocationData {
-                MylesMapView(viewModel: MapViewModel(run: run))
-                    .frame(height: 200)
-                    .clipShape(.rect(cornerRadius: 8))
-            } else if run.emptyLocationDataOnInitialLoad || failedToLoadMap {
-                Image(systemName: "figure.elliptical")
-                    .font(.system(size: 60))
-                    .padding(EdgeInsets(top: 20, leading: 40, bottom: 20, trailing: 40))
-                    .background(Color(.systemGray4))
-                    .cornerRadius(8)
-            } else {
-                Button() {
-                    Task {
-                        let mapAvailable = await health.loadMapData(for: run)
-                        withAnimation {
-                            failedToLoadMap = !mapAvailable
-                        }
+            VStack() {
+                MylesRecapMileageView(run: viewModel.run)
+                if viewModel.expanded {
+                    if viewModel.showMap {
+                        MylesMapView(viewModel: MapViewModel(run: viewModel.run))
+                        // TODO should be a ratio from width so all screens look good
+                            .frame(height: 240)
+                            .clipShape(.rect(cornerRadius: 8))
+                    } else {
+                        MylesHeartView()
+                        // TODO should be a ratio from width so all screens look good
+                            .frame(height: 80)
                     }
-                } label: {
-                    Label("Load Map", systemImage: "point.topleft.down.to.point.bottomright.filled.curvepath")
-                        .font(.custom("norwester", size: 18))
-                        .labelStyle(MylesIconLabel())
                 }
-                .buttonStyle(MylesButtonStyle(background: .blue))
+                MylesRecapBarView(viewModel: viewModel)
+            }.frame(maxWidth: .infinity, alignment: .center)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                Task {
+                    await viewModel.downloadMap()
+                }
             }
-            MylesRecapBarView(run: run)
-        }.frame(maxWidth: .infinity, alignment: .center)
     }
 }
 
 #Preview {
-    MylesRecapView(run: MylesRun.testRun)
+    MylesRecapView(viewModel: MylesRecapViewModel(run: MylesRun.testRun))
 }
 
 // MARK: AccessoryViews
@@ -89,31 +76,38 @@ struct MylesRecapMileageView: View {
     }
 }
 
+/*
+ Option in settings for what metrics to show
+ */
 /// Recap view containing run accessory data including pace, heart rate, elevation, and temp
 struct MylesRecapBarView : View {
     
-    @StateObject var run: MylesRun
+    @StateObject var viewModel: MylesRecapViewModel
     
     var body: some View {
         HStack {
-            Label("\(run.averagePace)/mi", systemImage: "stopwatch")
-                .font(.custom("norwester", size: 13))
+            Spacer()
+            VStack {
+                if let heartRate = viewModel.run.averageHeartRateBPM, heartRate > 0 {
+                    Label("\(heartRate)", systemImage: "heart")
+                        .font(.custom("norwester", size: 13))
+                        .labelStyle(MylesIconLabel())
+                }
+            }.frame(maxWidth: .infinity)
+            
+            Label("\(viewModel.run.averagePace)/mi", systemImage: "stopwatch")
+                .font(.custom("norwester", size: 15))
                 .labelStyle(MylesIconLabel())
-            if let heartRate = run.averageHeartRateBPM, heartRate > 0 {
-                Label("\(heartRate)", systemImage: "heart")
-                    .font(.custom("norwester", size: 13))
-                    .labelStyle(MylesIconLabel())
-            }
-            if let elevation = run.elevationChange.gain, elevation > 0 {
-                Label("\(elevation) ft", systemImage: "arrow.up.forward")
-                    .font(.custom("norwester", size: 13))
-                    .labelStyle(MylesIconLabel())
-            }
-            if run.hasLocationData, let temp = run.weather.temperature {
-                Label("\(temp)°F", systemImage: temp > 30 ? "thermometer.sun" : "thermometer.snowflake")
-                    .font(.custom("norwester", size: 13))
-                    .labelStyle(MylesIconLabel())
-            }
+                .fixedSize()
+            
+            VStack {
+                if let elevation = viewModel.run.elevationChange.gain, elevation > 0 {
+                    Label("\(elevation) ft", systemImage: "arrow.up.forward")
+                        .font(.custom("norwester", size: 13))
+                        .labelStyle(MylesIconLabel())
+                }
+            }.frame(maxWidth: .infinity)
+            Spacer()
         }
     }
 }

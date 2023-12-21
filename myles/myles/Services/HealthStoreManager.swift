@@ -77,6 +77,7 @@ class HealthStoreManager: ObservableObject {
             var elevationLoss: Double?
             var weatherTemp: Double?
             var weatherHumidity: Double?
+            var indoorWorkout = true
             if let workoutMetadata = workout.metadata {
                 if let elevationGainQuantity = workoutMetadata["HKElevationAscended"] as? HKQuantity {
                     elevationGain = elevationGainQuantity.doubleValue(for: HKUnit.foot())
@@ -92,32 +93,20 @@ class HealthStoreManager: ObservableObject {
                     weatherHumidity = humidityQuantity.doubleValue(for: .percent())
                 }
                 
-            }
-            
-            var locationPoints: [CLLocation]?
-            
-            // Don't fetch ALL workout location data as it is expensive
-            // Rather, gather the last 5 workouts
-            if index <= 4 {
-                let routes = await fetchWorkoutRoutes(for: workout) ?? []
-                locationPoints = []
-                for route in routes {
-                    await locationPoints?.append(contentsOf: fetchLocationData(for: route))
+                if let indoor = workoutMetadata["HKIndoorWorkout"] as? Bool {
+                    indoorWorkout = indoor
                 }
             }
             
             let run = MylesRun(id: id,
                                startTime: startTime,
                                endTime: endTime,
+                               environment: MylesRunEnvironmentType(indoor: indoorWorkout),
                                duration: durationSeconds,
                                distance: miles,
                                averageHeartRateBPM: heartRateBPM,
                                elevationChange: (elevationGain, elevationLoss),
-                               weather: (weatherTemp, weatherHumidity),
-                               locationPoints: locationPoints)
-            if let locationPoints = locationPoints, locationPoints.isEmpty {
-                run.emptyLocationDataOnInitialLoad = true
-            }
+                               weather: (weatherTemp, weatherHumidity))
             runs.append(run)
         }
         Logger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))

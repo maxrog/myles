@@ -35,6 +35,8 @@
 		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
 		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
 		AFE55EEF2B320D21009E4778 /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEE2B320D21009E4778 /* MetricsManager.swift */; };
+		AFFAD38E2B345E4E00A606B1 /* MylesRecapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38D2B345E4E00A606B1 /* MylesRecapViewModel.swift */; };
+		AFFAD3902B345F2700A606B1 /* MylesHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38F2B345F2700A606B1 /* MylesHeartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
 		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
 		AFE55EEE2B320D21009E4778 /* MetricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsManager.swift; sourceTree = "<group>"; };
+		AFFAD38D2B345E4E00A606B1 /* MylesRecapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRecapViewModel.swift; sourceTree = "<group>"; };
+		AFFAD38F2B345F2700A606B1 /* MylesHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesHeartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +94,9 @@
 				AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */,
 				AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */,
 				AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */,
+				AFFAD38D2B345E4E00A606B1 /* MylesRecapViewModel.swift */,
 				AF2BC9D32B32215C009AC760 /* MylesStreakView.swift */,
+				AFFAD38F2B345F2700A606B1 /* MylesHeartView.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -329,6 +335,8 @@
 				AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */,
 				AF6E46642B23A958002915DC /* TabView.swift in Sources */,
 				AFC1D9942B30B19700ED1114 /* MylesRecapViews.swift in Sources */,
+				AFFAD3902B345F2700A606B1 /* MylesHeartView.swift in Sources */,
+				AFFAD38E2B345E4E00A606B1 /* MylesRecapViewModel.swift in Sources */,
 				AF243B5C2B29361200608E1C /* SplashView.swift in Sources */,
 				AFC1D9922B3097FB00ED1114 /* MapViewModel.swift in Sources */,
 				AFC1D9902B2DCBDC00ED1114 /* MylesMapView.swift in Sources */,
