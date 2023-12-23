@@ -91,7 +91,7 @@ class MylesRun: ObservableObject, Identifiable {
         for (index, split) in mileSplits.enumerated() {
             let minutes = Int(split)
             let seconds = Int((split - Double(minutes)) * 60)
-            let formattedSplit = String(format: "m%d %2d:%02d", index + 1, minutes, seconds)
+            let formattedSplit = String(format: "%d.%2d:%02d", index + 1, minutes, seconds)
             formattedSplits.append(formattedSplit)
             
         }
