@@ -28,6 +28,7 @@ struct ActivityView: View {
                             Section {
                                 MylesRecapView(viewModel: MylesRecapViewModel(run: run, expanded: run.hasLocationData, showMap: run.hasLocationData))
                                     .frame(maxWidth: .infinity, alignment: .center)
+                                    .listRowInsets(EdgeInsets())
                             } header: {
                                 MylesRecapHeaderView(run: run)
                             }

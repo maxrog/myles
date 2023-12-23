@@ -88,10 +88,10 @@ class MylesRun: ObservableObject, Identifiable {
     /// The splits for pace per mile in the common mm:ss format
     var mileSplitStrings: [String] {
         var formattedSplits: [String] = []
-        for split in mileSplits {
+        for (index, split) in mileSplits.enumerated() {
             let minutes = Int(split)
             let seconds = Int((split - Double(minutes)) * 60)
-            let formattedSplit = String(format: "%2d:%02d", minutes, seconds)
+            let formattedSplit = String(format: "m%d %2d:%02d", index + 1, minutes, seconds)
             formattedSplits.append(formattedSplit)
             
         }
@@ -114,7 +114,7 @@ class MylesRun: ObservableObject, Identifiable {
                                         CLLocation(latitude: 35.03982536, longitude: -80.94195882),
                                         CLLocation(latitude: 35.03972075, longitude: -80.94186949),
                                     ],
-                                  mileSplits: [9.2, 8.4, 7.8, 6.2, 4.9])
+                                  mileSplits: [9.2, 8.4, 7.8, 6.2, 4.9, 4.9, 9.0])
 }
 
 /// The environment type of the run, indoor or outdoor

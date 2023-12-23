@@ -97,3 +97,15 @@ extension TimeInterval {
     
 }
   
+// MARK: String
+
+
+extension String {
+    /// The width of a string for a given font
+    func width(for font: UIFont) -> CGFloat {
+        let attributedText = NSAttributedString(string: self, attributes: [.font: font])
+        let boundingRect = attributedText.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 0), options: .usesLineFragmentOrigin, context: nil)
+        return ceil(boundingRect.width)
+    }
+    
+}

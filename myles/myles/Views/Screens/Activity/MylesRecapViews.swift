@@ -23,6 +23,7 @@ struct MylesRecapView: View {
                     // TODO should be a ratio from width so all screens look good
                         .frame(height: 240)
                         .clipShape(.rect(cornerRadius: 8))
+                        .padding(.horizontal, 16)
                 } else {
                     MylesHeartView()
                     // TODO should be a ratio from width so all screens look good
@@ -31,10 +32,12 @@ struct MylesRecapView: View {
             }
             MylesRecapBarView(viewModel: viewModel)
             if viewModel.run.environment == .outdoor, viewModel.expanded {
-                MylesRecapeMileSplitsView(run: viewModel.run)
-                    .padding(.top, 8)
+                MylesMarqueeText(text: viewModel.run.mileSplitStrings.joined(separator: "     "),
+                                 font: UIFont(name: "norwester", size: 13) ?? UIFont.systemFont(ofSize: 13))
             }
         }
+        .padding(.top, 8)
+        .padding(.bottom, viewModel.run.environment == .outdoor && viewModel.expanded ? 0 : 8)
         .frame(maxWidth: .infinity, alignment: .center)
         .contentShape(Rectangle())
         .onTapGesture {
@@ -46,10 +49,12 @@ struct MylesRecapView: View {
 }
 
 #Preview {
-    MylesRecapView(viewModel: MylesRecapViewModel(run: MylesRun.testRun))
+    let viewModel = MylesRecapViewModel(run: MylesRun.testRun)
+    viewModel.expanded = true
+    return MylesRecapView(viewModel: viewModel)
 }
 
-// MARK: AccessoryViews
+// MARK: Accessory Views
 
 /// Recap header view containing run date and duration information
 struct MylesRecapHeaderView: View {
@@ -112,23 +117,6 @@ struct MylesRecapBarView : View {
                 }
             }.frame(maxWidth: .infinity)
             Spacer()
-        }
-    }
-}
-
-// TODO change this to a marquee label below recap bar
-struct MylesRecapeMileSplitsView: View {
-    
-    @StateObject var run: MylesRun
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            ForEach(Array(run.mileSplitStrings.enumerated()), id: \.offset) { index, split in
-                Label("Mile \(index + 1): \(split)", systemImage: "stopwatch")
-                    .font(.custom("norwester", size: 13))
-                    .labelStyle(MylesIconLabel())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
         }
     }
 }
