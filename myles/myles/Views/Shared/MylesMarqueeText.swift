@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO support no animation if text width is smaller than geo width
+
 /// A marquee text view that animates horizontally and loops indefinitely
 struct MylesMarqueeText: View {
     
