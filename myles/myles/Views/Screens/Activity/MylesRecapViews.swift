@@ -32,7 +32,7 @@ struct MylesRecapView: View {
             }
             MylesRecapBarView(viewModel: viewModel)
             if viewModel.run.environment == .outdoor, viewModel.expanded {
-                MylesMarqueeText(text: viewModel.run.mileSplitStrings.joined(separator: "     "),
+                MylesMarqueeText(text: viewModel.run.mileSplitStrings.joined(separator: "   "),
                                  font: UIFont(name: "norwester", size: 13) ?? UIFont.systemFont(ofSize: 13))
             }
         }
