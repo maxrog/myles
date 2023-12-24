@@ -18,8 +18,8 @@ struct MylesMarqueeText: View {
     @State private var totalWidth: CGFloat = .zero
     @State private var offset: CGFloat = .zero
     
-    var animationSpeed: Double = 0.06
-    var delayTime: Double = 0.75
+    var animationSpeed: Double = 0.07
+    var delayTime: Double = 1.5
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

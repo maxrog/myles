@@ -37,7 +37,7 @@ struct MylesRecapView: View {
             }
         }
         .padding(.top, 8)
-        .padding(.bottom, viewModel.run.environment == .outdoor && viewModel.expanded ? 0 : 8)
+        .padding(.bottom, viewModel.run.environment == .outdoor && viewModel.expanded ? 2 : 8)
         .frame(maxWidth: .infinity, alignment: .center)
         .contentShape(Rectangle())
         .onTapGesture {
