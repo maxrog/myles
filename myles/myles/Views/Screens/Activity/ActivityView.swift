@@ -8,8 +8,6 @@
 import SwiftUI
 import HealthKit
 
-// TODO Loading animation / at least activity indicator
-
 struct ActivityView: View {
     
     @StateObject private var health = HealthStoreManager.shared
@@ -35,8 +33,7 @@ struct ActivityView: View {
                         }
                     }
                 } else if healthPermissionGranted {
-                    Text("Loading")
-                        .frame(maxWidth: .infinity)
+                    ProgressView()
                 } else {
                     EmptyActivityView()
                 }
