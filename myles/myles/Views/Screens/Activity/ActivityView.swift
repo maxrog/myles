@@ -13,6 +13,7 @@ struct ActivityView: View {
     @StateObject private var health = HealthStoreManager.shared
     @StateObject private var metrics = MetricsManager.shared
     @State var healthPermissionGranted = true
+    @State var streakBounce = 0
     
     var body: some View {
         
@@ -42,8 +43,16 @@ struct ActivityView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    MylesStreakView(streakCount: metrics.streakCount())
+                let streak = metrics.streakCount()
+                if streak > 0 {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        MylesStreakView(streakCount: streak)
+                            .symbolEffect(.bounce, value: streakBounce)
+                            .onTapGesture {
+                                streakBounce += 1
+                                // TODO display something explaining streak?
+                            }
+                    }
                 }
             }
         }
