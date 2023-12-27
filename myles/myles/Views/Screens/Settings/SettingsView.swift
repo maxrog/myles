@@ -8,6 +8,7 @@
 import SwiftUI
 
 /// TODO: View Model
+/// TODO: toggle for showing / hiding streak & minimum streak mileage per day
 /// TODO: mi/km preference + date format (24H option)
 
 
