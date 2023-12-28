@@ -10,8 +10,8 @@ import HealthKit
 
 struct ActivityView: View {
     
-    @StateObject private var health = HealthStoreManager.shared
-    @StateObject private var metrics = MetricsManager.shared
+    @EnvironmentObject var health: HealthManager
+
     @State var healthPermissionGranted = true
     @State var streakBounce = 0
     
@@ -25,7 +25,10 @@ struct ActivityView: View {
                     List {
                         ForEach(runs) { run in
                             Section {
-                                MylesRecapView(viewModel: MylesRecapViewModel(run: run, expanded: run.hasLocationData, showMap: run.hasLocationData))
+                                MylesRecapView(viewModel: MylesRecapViewModel(health: health,
+                                                                              run: run,
+                                                                              expanded: run.hasLocationData,
+                                                                              showMap: run.hasLocationData))
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     .listRowInsets(EdgeInsets())
                             } header: {
@@ -39,11 +42,11 @@ struct ActivityView: View {
                     EmptyActivityView()
                 }
             }
-            .toolbar(metrics.streakCount() == 0 ? .hidden : .visible)
+            .toolbar(health.streakCount() == 0 ? .hidden : .visible)
             .toolbarBackground(.hidden, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                let streak = metrics.streakCount()
+                let streak = health.streakCount()
                 if streak > 0 {
                     ToolbarItem(placement: .topBarTrailing) {
                         MylesStreakView(streakCount: streak)
@@ -63,7 +66,7 @@ struct ActivityView: View {
                 return
             }
             
-            // TODO this gets called everytime the screen appears - should only happen on pull to refresh
+            // TODO this gets called everytime the screen appears / state object changes - should only happen on pull to refresh
             await health.processWorkouts()
         }
     }

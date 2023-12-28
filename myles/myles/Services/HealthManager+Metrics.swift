@@ -1,29 +1,27 @@
 //
-//  MetricsManager.swift
+//  HealthManager+Metrics.swift
 //  myles
 //
-//  Created by Max Rogers on 12/19/23.
+//  Created by Max Rogers on 12/28/23.
 //
 
-import SwiftUI
+import Foundation
 
-/// Manager for processing workout metrics
-class MetricsManager: ObservableObject {
+/*
+ Health manager metrics related processing that doesn't require store queries
+ */
+
+extension HealthManager {
     
-    private var health = HealthStoreManager.shared
-    
-    static let shared = MetricsManager()
-    private init() { }
-        
     /// Calculates the user's run streak (days in a row) starting from today
     func streakCount() -> Int {
         Logger.log(.action, "Calculating run streak", sender: String(describing: self))
-
+        
         var streak = 0
         var currentDate = Date()
         var usedDates: [Date] = []
         
-        for run in health.runs {
+        for run in runs {
             let runDate = run.endTime
             let calendar = Calendar.current
             
@@ -45,8 +43,9 @@ class MetricsManager: ObservableObject {
             usedDates.append(runDate)
             currentDate = runDate
         }
-
+        
         Logger.log(.action, "Calculated \(streak) days run streak", sender: String(describing: self))
         return streak
     }
+    
 }

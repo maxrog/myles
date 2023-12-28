@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF240C772B2BCA900012AB3A /* MylesRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF240C762B2BCA900012AB3A /* MylesRun.swift */; };
 		AF243B542B28802D00608E1C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
-		AF243B562B2919AF00608E1C /* HealthStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B552B2919AF00608E1C /* HealthStoreManager.swift */; };
+		AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B552B2919AF00608E1C /* HealthManager.swift */; };
 		AF243B592B2932E300608E1C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B582B2932E300608E1C /* ActivityView.swift */; };
 		AF243B5C2B29361200608E1C /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B5B2B29361200608E1C /* SplashView.swift */; };
 		AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B5E2B29374100608E1C /* OnboardingView.swift */; };
@@ -30,12 +30,13 @@
 		AF6E46782B287B69002915DC /* LaunchView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF6E46772B287B69002915DC /* LaunchView.storyboard */; };
 		AF6E467D2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467B2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf */; };
 		AF6E467E2B287DE2002915DC /* norwester.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467C2B287DE2002915DC /* norwester.otf */; };
+		AFB0E5162B3CD0CB00E56706 /* ShoeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */; };
+		AFB0E51A2B3D958400E56706 /* HealthManager+Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */; };
 		AFC1D9902B2DCBDC00ED1114 /* MylesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */; };
 		AFC1D9922B3097FB00ED1114 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */; };
 		AFC1D9942B30B19700ED1114 /* MylesRecapViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */; };
 		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
 		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
-		AFE55EEF2B320D21009E4778 /* MetricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEE2B320D21009E4778 /* MetricsManager.swift */; };
 		AFFAD38E2B345E4E00A606B1 /* MylesRecapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38D2B345E4E00A606B1 /* MylesRecapViewModel.swift */; };
 		AFFAD3902B345F2700A606B1 /* MylesHeartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38F2B345F2700A606B1 /* MylesHeartView.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +44,7 @@
 /* Begin PBXFileReference section */
 		AF240C762B2BCA900012AB3A /* MylesRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRun.swift; sourceTree = "<group>"; };
 		AF243B532B28802D00608E1C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
-		AF243B552B2919AF00608E1C /* HealthStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthStoreManager.swift; sourceTree = "<group>"; };
+		AF243B552B2919AF00608E1C /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
 		AF243B582B2932E300608E1C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		AF243B5B2B29361200608E1C /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		AF243B5E2B29374100608E1C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -67,12 +68,13 @@
 		AF6E46772B287B69002915DC /* LaunchView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchView.storyboard; sourceTree = "<group>"; };
 		AF6E467B2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LeagueSpartan-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		AF6E467C2B287DE2002915DC /* norwester.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = norwester.otf; sourceTree = "<group>"; };
+		AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeManager.swift; sourceTree = "<group>"; };
+		AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Metrics.swift"; sourceTree = "<group>"; };
 		AFC1D98F2B2DCBDC00ED1114 /* MylesMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesMapView.swift; sourceTree = "<group>"; };
 		AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AFC1D9932B30B19700ED1114 /* MylesRecapViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRecapViews.swift; sourceTree = "<group>"; };
 		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
 		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
-		AFE55EEE2B320D21009E4778 /* MetricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsManager.swift; sourceTree = "<group>"; };
 		AFFAD38D2B345E4E00A606B1 /* MylesRecapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRecapViewModel.swift; sourceTree = "<group>"; };
 		AFFAD38F2B345F2700A606B1 /* MylesHeartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesHeartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -231,8 +233,9 @@
 			isa = PBXGroup;
 			children = (
 				AF6E46692B23A9E1002915DC /* ThemeManager.swift */,
-				AF243B552B2919AF00608E1C /* HealthStoreManager.swift */,
-				AFE55EEE2B320D21009E4778 /* MetricsManager.swift */,
+				AF243B552B2919AF00608E1C /* HealthManager.swift */,
+				AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */,
+				AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				AF2BC9D22B32212F009AC760 /* EmptyActivityView.swift in Sources */,
 				AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */,
 				AF6E46642B23A958002915DC /* TabView.swift in Sources */,
+				AFB0E51A2B3D958400E56706 /* HealthManager+Metrics.swift in Sources */,
 				AFC1D9942B30B19700ED1114 /* MylesRecapViews.swift in Sources */,
 				AFFAD3902B345F2700A606B1 /* MylesHeartView.swift in Sources */,
 				AFFAD38E2B345E4E00A606B1 /* MylesRecapViewModel.swift in Sources */,
@@ -350,11 +354,11 @@
 				AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */,
 				AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */,
 				AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */,
-				AF243B562B2919AF00608E1C /* HealthStoreManager.swift in Sources */,
+				AFB0E5162B3CD0CB00E56706 /* ShoeManager.swift in Sources */,
+				AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */,
 				AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */,
 				AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */,
 				AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */,
-				AFE55EEF2B320D21009E4778 /* MetricsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

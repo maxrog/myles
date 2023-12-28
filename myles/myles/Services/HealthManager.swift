@@ -1,5 +1,5 @@
 //
-//  HealthStoreManager.swift
+//  HealthManager.swift
 //  myles
 //
 //  Created by Max Rogers on 12/12/23.
@@ -13,10 +13,9 @@ import SwiftUI
 // TODO algorithm for grouping by weeks Monday-Sunday
 
 /// Manager for fetching and processing user's health data
-class HealthStoreManager: ObservableObject {
+class HealthManager: ObservableObject {
     
-    static let shared = HealthStoreManager()
-    private init() { }
+    init() { }
     
     private let store = HKHealthStore()
     
@@ -152,7 +151,7 @@ class HealthStoreManager: ObservableObject {
 
 // MARK: Queries
 
-extension HealthStoreManager {
+extension HealthManager {
     
     /// Fetches a list of workouts
     /// - Parameters:

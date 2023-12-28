@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 class MylesRecapViewModel: ObservableObject {
     
-    @Published var health = HealthStoreManager.shared
+    @Published var health: HealthManager
     
     /// The run to display recap metrics
     @Published var run: MylesRun
@@ -21,7 +21,7 @@ class MylesRecapViewModel: ObservableObject {
     /// Whether to show the map on expansion
     var showMap: Bool
     
-    init(health: HealthStoreManager = HealthStoreManager.shared, run: MylesRun, expanded: Bool = false, showMap: Bool = false) {
+    init(health: HealthManager, run: MylesRun, expanded: Bool = false, showMap: Bool = false) {
         self.health = health
         self.run = run
         self.expanded = expanded

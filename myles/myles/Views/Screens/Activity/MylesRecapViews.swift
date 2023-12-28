@@ -49,7 +49,7 @@ struct MylesRecapView: View {
 }
 
 #Preview {
-    let viewModel = MylesRecapViewModel(run: MylesRun.testRun)
+    let viewModel = MylesRecapViewModel(health: HealthManager(), run: MylesRun.testRun)
     viewModel.expanded = true
     return MylesRecapView(viewModel: viewModel)
 }

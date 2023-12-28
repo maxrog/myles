@@ -36,12 +36,12 @@ class ThemeManager: ObservableObject {
         } else {
             applyDarkMode = useSystemSetting ? systemInDarkMode : userDefaults.bool(forKey: ThemeUserDefaults.applyDarkModeKey)
         }
-        self.accentColor = userDefaults.object(forKey: ThemeUserDefaults.accentColorKey) as? Color ?? Self.defaultAccentColor
+        self.accentColor = userDefaults.color(forKey: ThemeUserDefaults.accentColorKey) ?? Self.defaultAccentColor
     }
     
     // MARK: Preferences
     
-    /// Mark the user's preferred theming style
+    /// The user's preferred theming style
     @Published private(set) var preferredStyle: PreferredUserInterfaceStyle = .system
     
     /// Whether user has opted to use something other than system settings
@@ -121,8 +121,8 @@ enum PreferredUserInterfaceStyle: String {
 
 /// User Default Keys
 private struct ThemeUserDefaults {
-    static let applySystemKey = "rogers.max.photosynth.applysystemsettingkey"
-    static let applyDarkModeKey = "rogers.max.photosynth.applydarkmodekey"
+    static let applySystemKey = "rogers.max.myles.applysystemsettingkey"
+    static let applyDarkModeKey = "rogers.max.myles.applydarkmodekey"
     
     static let accentColorKey = "rogers.max.themeaccentcolor"
 }

@@ -19,10 +19,10 @@ extension UserDefaults {
     }
 
     /// Fetch SwiftUIColor
-    func color(forKey key: String) -> Color {
-        guard let array = object(forKey: key) as? [CGFloat] else { return .accentColor }
-        let color = CGColor(colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, components: array)!
-        return Color(color)
+    func color(forKey key: String) -> Color? {
+        guard let array = object(forKey: key) as? [CGFloat] else { return nil }
+        guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB), let cgColor = CGColor(colorSpace: colorSpace, components: array) else { return nil }
+        return Color(cgColor)
     }
     
 }
