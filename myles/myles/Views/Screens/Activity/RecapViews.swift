@@ -63,7 +63,7 @@ struct RecapView: View {
             }
         }
         .popover(isPresented: $viewModel.displayShoePicker) {
-            
+            ShoePickerView()
         }
     }
 }
