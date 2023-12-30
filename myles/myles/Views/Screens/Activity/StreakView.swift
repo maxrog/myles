@@ -1,5 +1,5 @@
 //
-//  MylesStreakView.swift
+//  StreakView.swift
 //  myles
 //
 //  Created by Max Rogers on 12/19/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MylesStreakView: View {
+struct StreakView: View {
     
     @EnvironmentObject var theme: ThemeManager
     
@@ -22,5 +22,5 @@ struct MylesStreakView: View {
 }
 
 #Preview {
-    MylesStreakView(streakCount: 100)
+    StreakView(streakCount: 100)
 }

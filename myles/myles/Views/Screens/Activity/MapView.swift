@@ -1,5 +1,5 @@
 //
-//  MylesMapView.swift
+//  MapView.swift
 //  myles
 //
 //  Created by Max Rogers on 12/16/23.
@@ -10,7 +10,7 @@ import MapKit
 
 /// A Map view that displays a polyline of the user's run
 /// We disable panning until the user interacts with the map, to avoid scrolling conflicts with container
-struct MylesMapView: View {
+struct MapView: View {
     
     @EnvironmentObject var theme: ThemeManager
     @StateObject var viewModel: MapViewModel
@@ -69,5 +69,5 @@ struct MylesMapView: View {
 }
 
 #Preview {
-    MylesMapView(viewModel: MapViewModel(run: MylesRun.testRun))
+    MapView(viewModel: MapViewModel(run: MylesRun.testRun))
 }

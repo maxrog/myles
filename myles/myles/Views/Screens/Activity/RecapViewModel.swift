@@ -1,5 +1,5 @@
 //
-//  MylesRecapViewModel.swift
+//  RecapViewModel.swift
 //  myles
 //
 //  Created by Max Rogers on 12/21/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @MainActor
-class MylesRecapViewModel: ObservableObject {
+class RecapViewModel: ObservableObject {
     
     @Published var health: HealthManager
     
@@ -20,6 +20,9 @@ class MylesRecapViewModel: ObservableObject {
     
     /// Whether to show the map on expansion
     var showMap: Bool
+    
+    /// Whether to show shoe picker
+    @Published var displayShoePicker: Bool = false
     
     init(health: HealthManager, run: MylesRun, expanded: Bool = false, showMap: Bool = false) {
         self.health = health

@@ -1,5 +1,5 @@
 //
-//  MylesRecapViews.swift
+//  RecapViews.swift
 //  myles
 //
 //  Created by Max Rogers on 12/18/23.
@@ -10,27 +10,28 @@ import SwiftUI
 // TODO expand tap sometimes choppy 
 
 /// An accessory view for showing group of run recap metrics
-struct MylesRecapView: View {
+struct RecapView: View {
     
-    @StateObject var viewModel: MylesRecapViewModel
+    @EnvironmentObject var shoes: ShoeManager
+    @StateObject var viewModel: RecapViewModel
     
     var body: some View {
         VStack() {
-            MylesRecapMileageView(run: viewModel.run)
+            RecapMileageView(run: viewModel.run)
             if viewModel.expanded {
                 if viewModel.showMap {
-                    MylesMapView(viewModel: MapViewModel(run: viewModel.run))
+                    MapView(viewModel: MapViewModel(run: viewModel.run))
                     // TODO should be a ratio from width so all screens look good
                         .frame(height: 240)
                         .clipShape(.rect(cornerRadius: 8))
                         .padding(.horizontal, 16)
                 } else {
-                    MylesHeartView()
+                    HeartView()
                     // TODO should be a ratio from width so all screens look good
                         .frame(height: 80)
                 }
             }
-            MylesRecapBarView(viewModel: viewModel)
+            RecapBarView(viewModel: viewModel)
             if viewModel.run.environment == .outdoor, viewModel.expanded {
                 MylesMarqueeText(text: viewModel.run.mileSplitStrings.joined(separator: "   "),
                                  font: UIFont(name: "norwester", size: 13) ?? UIFont.systemFont(ofSize: 13))
@@ -45,19 +46,38 @@ struct MylesRecapView: View {
                 await viewModel.downloadMap()
             }
         }
+        .swipeActions {
+            Button {
+                // TODO - pop up menu to select shoe
+                viewModel.displayShoePicker = true
+                
+            } label: {
+                Image(systemName: "shoe")
+            }
+            Button {
+                // TODO - confirmation alert + delete
+                
+            } label: {
+                Image(systemName: "delete.backward.fill")
+                    .foregroundStyle(Color.red)
+            }
+        }
+        .popover(isPresented: $viewModel.displayShoePicker) {
+            
+        }
     }
 }
 
 #Preview {
-    let viewModel = MylesRecapViewModel(health: HealthManager(), run: MylesRun.testRun)
+    let viewModel = RecapViewModel(health: HealthManager(), run: MylesRun.testRun)
     viewModel.expanded = true
-    return MylesRecapView(viewModel: viewModel)
+    return RecapView(viewModel: viewModel)
 }
 
 // MARK: Accessory Views
 
 /// Recap header view containing run date and duration information
-struct MylesRecapHeaderView: View {
+struct RecapHeaderView: View {
     
     @StateObject var run: MylesRun
     
@@ -74,7 +94,7 @@ struct MylesRecapHeaderView: View {
 }
 
 /// Recap view containing run mileage
-struct MylesRecapMileageView: View {
+struct RecapMileageView: View {
     
     @StateObject var run: MylesRun
     
@@ -89,9 +109,9 @@ struct MylesRecapMileageView: View {
 }
 
 /// Recap view containing run accessory data including pace, heart rate, elevation, and temp
-struct MylesRecapBarView : View {
+struct RecapBarView : View {
     
-    @StateObject var viewModel: MylesRecapViewModel
+    @StateObject var viewModel: RecapViewModel
     
     var body: some View {
         HStack {

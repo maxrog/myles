@@ -25,14 +25,14 @@ struct ActivityView: View {
                     List {
                         ForEach(runs) { run in
                             Section {
-                                MylesRecapView(viewModel: MylesRecapViewModel(health: health,
+                                RecapView(viewModel: RecapViewModel(health: health,
                                                                               run: run,
                                                                               expanded: run.hasLocationData,
                                                                               showMap: run.hasLocationData))
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     .listRowInsets(EdgeInsets())
                             } header: {
-                                MylesRecapHeaderView(run: run)
+                                RecapHeaderView(run: run)
                             }
                         }
                     }
@@ -49,7 +49,7 @@ struct ActivityView: View {
                 let streak = health.streakCount()
                 if streak > 0 {
                     ToolbarItem(placement: .topBarTrailing) {
-                        MylesStreakView(streakCount: streak)
+                        StreakView(streakCount: streak)
                             .symbolEffect(.bounce, value: streakBounce)
                             .onTapGesture {
                                 streakBounce += 1

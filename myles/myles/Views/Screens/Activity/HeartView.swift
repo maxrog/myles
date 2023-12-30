@@ -1,5 +1,5 @@
 //
-//  MylesHeartView.swift
+//  HeartView.swift
 //  myles
 //
 //  Created by Max Rogers on 12/21/23.
@@ -12,7 +12,7 @@ import SwiftUI
  */
 
 /// Wrapper view for displaying heart
-struct MylesHeartView: View {
+struct HeartView: View {
     
     var body: some View {
         Image(uiImage: UIImage(named: "mylesHeart") ?? UIImage())
@@ -26,5 +26,5 @@ struct MylesHeartView: View {
 }
 
 #Preview {
-    MylesHeartView()
+    HeartView()
 }
