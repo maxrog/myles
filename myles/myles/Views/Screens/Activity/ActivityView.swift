@@ -8,6 +8,10 @@
 import SwiftUI
 import HealthKit
 
+/*
+ TODO refreshable modifier (pull to refresh)
+ */
+
 struct ActivityView: View {
     
     @EnvironmentObject var health: HealthManager
