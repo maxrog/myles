@@ -13,6 +13,8 @@ struct ShoePickerView: View {
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var shoes: ShoeManager
     
+    @StateObject var viewModel: RecapViewModel
+    
     @State var selectedShoe: MylesShoe?
     @State var newShoe: String = ""
     
@@ -25,7 +27,7 @@ struct ShoePickerView: View {
                             VStack(alignment: .leading) {
                                 Text(shoe.name)
                                     .font(.custom("norwester", size: 22))
-                                Text("\(shoe.miles) miles")
+                                Text("\(shoe.miles.prettyString) miles")
                                     .font(.custom("norwester", size: 14))
                                     .foregroundColor(Color(.systemGray2))
                             }
@@ -42,15 +44,20 @@ struct ShoePickerView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             if selectedShoe != shoe {
+                                if let existingSelection = selectedShoe {
+                                    shoes.removeShoe(existingSelection, from: viewModel.run)
+                                }
+                                shoes.addShoeToRun(shoe, run: viewModel.run)
                                 selectedShoe = shoe
                             } else {
+                                shoes.removeShoe(shoe, from: viewModel.run)
                                 selectedShoe = nil
                             }
                         }
                     }
                 }
                 Section {
-                    TextField("New Shoe", text: $newShoe)
+                    TextField("Add Shoe", text: $newShoe)
                         .font(.custom("norwester", size: 16))
                         .textInputAutocapitalization(.never)
                 }
@@ -70,5 +77,5 @@ struct ShoePickerView: View {
 }
 
 #Preview {
-    ShoePickerView()
+    ShoePickerView(viewModel: RecapViewModel(health: HealthManager(), run: MylesRun.testRun))
 }

@@ -48,9 +48,7 @@ struct RecapView: View {
         }
         .swipeActions {
             Button {
-                // TODO - pop up menu to select shoe
                 viewModel.displayShoePicker = true
-                
             } label: {
                 Image(systemName: "shoe")
             }
@@ -63,7 +61,7 @@ struct RecapView: View {
             }
         }
         .popover(isPresented: $viewModel.displayShoePicker) {
-            ShoePickerView()
+            ShoePickerView(viewModel: viewModel, selectedShoe: shoes.selectedShoe(for: viewModel.run))
         }
     }
 }

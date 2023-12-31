@@ -45,6 +45,42 @@ class ShoeManager: ObservableObject {
         shoes = allShoes
     }
     
+    /// Removes a shoe from the user's tracked shoe list
+    func deleteShoe(_ shoe: MylesShoe, from run: MylesRun) {
+        var allShoes = shoes
+        guard let index = allShoes.firstIndex(of: shoe) else { return }
+        allShoes.remove(at: index)
+        shoes = allShoes
+    }
+    
+    /// Adds a shoe to a specific run
+    func addShoeToRun(_ shoe: MylesShoe, run: MylesRun) {
+        var allShoes = shoes
+        guard let index = allShoes.firstIndex(of: shoe) else { return }
+        let shoeToUpdate = allShoes[index]
+        shoeToUpdate.miles += run.distance
+        shoeToUpdate.runId = run.id
+        allShoes[index] = shoeToUpdate
+        shoes = allShoes
+    }
+    
+    
+    /// Removes a shoe from a specific run
+    func removeShoe(_ shoe: MylesShoe, from run: MylesRun) {
+        var allShoes = shoes
+        guard let index = allShoes.firstIndex(where: { $0.runId == run.id }) else { return }
+        let shoeToUpdate = allShoes[index]
+        shoeToUpdate.miles -= run.distance
+        shoeToUpdate.runId = nil
+        allShoes[index] = shoeToUpdate
+        shoes = allShoes
+    }
+    
+    /// Returns an optional shoe connected to a specific run
+    func selectedShoe(for run: MylesRun) -> MylesShoe? {
+        return shoes.first(where: { $0.runId == run.id })
+    }
+    
 }
 
 /// User Default Keys
@@ -57,9 +93,10 @@ class MylesShoe: ObservableObject, Identifiable, Codable, Equatable {
     
     var id: UUID
     var name: String
-    var miles: Int
+    var miles: Double
+    var runId: UUID?
     
-    init(id: UUID = UUID(), name: String, miles: Int = 0) {
+    init(id: UUID = UUID(), name: String, miles: Double = 0) {
         self.id = id
         self.name = name
         self.miles = miles
