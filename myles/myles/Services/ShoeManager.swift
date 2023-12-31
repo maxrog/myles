@@ -53,16 +53,26 @@ private struct ShoeUserDefaults {
 }
 
 /// A shoe with information on name and mileage
-class MylesShoe: ObservableObject, Identifiable, Codable {
+class MylesShoe: ObservableObject, Identifiable, Codable, Equatable {
     
     var id: UUID
     var name: String
     var miles: Int
     
-    init(id: UUID = UUID(), name: String, miles: Int) {
+    init(id: UUID = UUID(), name: String, miles: Int = 0) {
         self.id = id
         self.name = name
         self.miles = miles
     }
     
+    static func == (lhs: MylesShoe, rhs: MylesShoe) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+}
+
+extension MylesShoe: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
