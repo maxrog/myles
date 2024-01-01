@@ -52,7 +52,7 @@ struct RecapView: View {
             } label: {
                 Image(systemName: "shoe")
             }
-            Button {
+            Button(role: .destructive) {
                 // TODO - confirmation alert + delete
                 
             } label: {
