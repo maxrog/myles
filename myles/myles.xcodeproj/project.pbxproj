@@ -36,6 +36,7 @@
 		AFC1D9922B3097FB00ED1114 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */; };
 		AFC1D9942B30B19700ED1114 /* RecapViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9932B30B19700ED1114 /* RecapViews.swift */; };
 		AFC5557C2B40355600D98729 /* ShoePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557B2B40355600D98729 /* ShoePickerView.swift */; };
+		AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557D2B42CAF200D98729 /* MylesShoe.swift */; };
 		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
 		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
 		AFFAD38E2B345E4E00A606B1 /* RecapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */; };
@@ -75,6 +76,7 @@
 		AFC1D9912B3097FB00ED1114 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		AFC1D9932B30B19700ED1114 /* RecapViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapViews.swift; sourceTree = "<group>"; };
 		AFC5557B2B40355600D98729 /* ShoePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoePickerView.swift; sourceTree = "<group>"; };
+		AFC5557D2B42CAF200D98729 /* MylesShoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesShoe.swift; sourceTree = "<group>"; };
 		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
 		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
 		AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapViewModel.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				AF240C762B2BCA900012AB3A /* MylesRun.swift */,
+				AFC5557D2B42CAF200D98729 /* MylesShoe.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */,
 				AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */,
 				AFB0E5162B3CD0CB00E56706 /* ShoeManager.swift in Sources */,
+				AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */,
 				AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */,
 				AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */,
 				AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */,

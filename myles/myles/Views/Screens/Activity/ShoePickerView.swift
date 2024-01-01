@@ -22,7 +22,7 @@ struct ShoePickerView: View {
         NavigationStack {
             List(selection: $selectedShoe) {
                 Section {
-                    ForEach(shoes.shoes) { shoe in
+                    ForEach(Array(shoes.shoes.enumerated()), id: \.element) { index, shoe in
                         HStack(alignment: .center) {
                             VStack(alignment: .leading) {
                                 Text(shoe.name)
@@ -54,12 +54,22 @@ struct ShoePickerView: View {
                                 selectedShoe = nil
                             }
                         }
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                // TODO confirmation alert to delete
+                                deleteShoe(at: index)
+                            } label: {
+                                Image(systemName: "delete.backward.fill")
+                                    .foregroundStyle(Color.red)
+                            }
+                        }
                     }
                 }
                 Section {
                     TextField("Add Shoe", text: $newShoe)
                         .font(.custom("norwester", size: 16))
                         .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
                 }
             }
         }
@@ -72,6 +82,12 @@ struct ShoePickerView: View {
         withAnimation {
             shoes.addShoe(MylesShoe(name: newShoe))
             newShoe = ""
+        }
+    }
+    
+    private func deleteShoe(at index: Int) {
+        withAnimation {
+            shoes.deleteShoe(at: index)
         }
     }
 }
