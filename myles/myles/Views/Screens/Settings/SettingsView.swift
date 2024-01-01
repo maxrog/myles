@@ -21,7 +21,12 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    
+                    NavigationLink {
+                        ShoesSettingsView()
+                    } label: {
+                        Text("Shoes")
+                    }
+
                 } header: {
                     Text("App")
                 }
@@ -42,7 +47,7 @@ struct SettingsView: View {
                     Text("Theme")
                 } footer: {
                     Image(systemName: "paintpalette.fill")
-                        .foregroundColor(theme.accentColor)
+                        .foregroundStyle(theme.accentColor)
                 }
                 .headerProminence(.increased)
             }

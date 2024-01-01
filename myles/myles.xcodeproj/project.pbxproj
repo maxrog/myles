@@ -37,6 +37,7 @@
 		AFC1D9942B30B19700ED1114 /* RecapViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D9932B30B19700ED1114 /* RecapViews.swift */; };
 		AFC5557C2B40355600D98729 /* ShoePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557B2B40355600D98729 /* ShoePickerView.swift */; };
 		AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557D2B42CAF200D98729 /* MylesShoe.swift */; };
+		AFC555802B430F9700D98729 /* ShoesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */; };
 		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
 		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
 		AFFAD38E2B345E4E00A606B1 /* RecapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */; };
@@ -77,6 +78,7 @@
 		AFC1D9932B30B19700ED1114 /* RecapViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapViews.swift; sourceTree = "<group>"; };
 		AFC5557B2B40355600D98729 /* ShoePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoePickerView.swift; sourceTree = "<group>"; };
 		AFC5557D2B42CAF200D98729 /* MylesShoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesShoe.swift; sourceTree = "<group>"; };
+		AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoesSettingsView.swift; sourceTree = "<group>"; };
 		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
 		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
 		AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapViewModel.swift; sourceTree = "<group>"; };
@@ -104,7 +106,6 @@
 				AFC1D9932B30B19700ED1114 /* RecapViews.swift */,
 				AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */,
 				AF2BC9D32B32215C009AC760 /* StreakView.swift */,
-				AFFAD38F2B345F2700A606B1 /* HeartView.swift */,
 				AFC5557B2B40355600D98729 /* ShoePickerView.swift */,
 			);
 			path = Activity;
@@ -190,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				AF6E46672B23A989002915DC /* SettingsView.swift */,
+				AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -261,6 +263,7 @@
 				AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */,
 				AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */,
 				AF3677372B35E20800AA4169 /* MylesMarqueeText.swift */,
+				AFFAD38F2B345F2700A606B1 /* HeartView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				AF2BC9D22B32212F009AC760 /* EmptyActivityView.swift in Sources */,
 				AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */,
 				AF6E46642B23A958002915DC /* TabView.swift in Sources */,
+				AFC555802B430F9700D98729 /* ShoesSettingsView.swift in Sources */,
 				AFB0E51A2B3D958400E56706 /* HealthManager+Metrics.swift in Sources */,
 				AFC1D9942B30B19700ED1114 /* RecapViews.swift in Sources */,
 				AFFAD3902B345F2700A606B1 /* HeartView.swift in Sources */,

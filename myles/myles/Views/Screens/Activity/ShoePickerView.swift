@@ -54,15 +54,6 @@ struct ShoePickerView: View {
                                 selectedShoe = nil
                             }
                         }
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                // TODO confirmation alert to delete
-                                deleteShoe(at: index)
-                            } label: {
-                                Image(systemName: "delete.backward.fill")
-                                    .foregroundStyle(Color.red)
-                            }
-                        }
                     }
                 }
                 Section {
@@ -73,7 +64,6 @@ struct ShoePickerView: View {
                 }
             }
         }
-        .navigationTitle("Shoes")
         .onSubmit(addNewShoe)
         .presentationDetents([.medium])
     }
