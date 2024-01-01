@@ -52,13 +52,6 @@ struct RecapView: View {
             } label: {
                 Image(systemName: "shoe")
             }
-            Button(role: .destructive) {
-                // TODO - confirmation alert + delete
-                
-            } label: {
-                Image(systemName: "delete.backward.fill")
-                    .foregroundStyle(Color.red)
-            }
         }
         .popover(isPresented: $viewModel.displayShoePicker) {
             ShoePickerView(viewModel: viewModel, selectedShoe: shoes.selectedShoe(for: viewModel.run))
