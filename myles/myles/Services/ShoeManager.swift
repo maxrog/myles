@@ -57,15 +57,28 @@ class ShoeManager: ObservableObject {
         Logger.log(.action, "Deleting shoe \(shoe.name) from store", sender: String(describing: self))
     }
     
+    /// Modifies a shoe at a certain index
+    /// - Parameters:
+    /// - updatedShoe: The updated shoe value to replace the old one
+    /// - index: The index at which to replace the shoe
+    func modifyShoe(_ updatedShoe: MylesShoe, at index: Int) {
+        guard shoes.indices.contains(index) else {
+            Logger.log(.action, "Could not find shoe to delete at index \(index)", sender: String(describing: self))
+            return
+        }
+        var allShoes = shoes
+        allShoes[index] = updatedShoe
+        shoes = allShoes
+        Logger.log(.action, "Modifying index \(index) with new shoe \(updatedShoe.name)", sender: String(describing: self))
+    }
+    
     /// Removes a shoe from the user's tracked shoe list using provided index
     func deleteShoe(at index: Int) {
         var shoeName: String?
         if shoes.indices.contains(index) {
             shoeName = shoes[index].name
-        }
-        guard shoeName != nil else {
+        } else {
             Logger.log(.action, "Could not find shoe to delete at index \(index)", sender: String(describing: self))
-            return
         }
         
         var allShoes = shoes
