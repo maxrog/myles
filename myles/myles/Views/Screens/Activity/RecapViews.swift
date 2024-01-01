@@ -26,7 +26,7 @@ struct RecapView: View {
                         .clipShape(.rect(cornerRadius: 8))
                         .padding(.horizontal, 16)
                 } else {
-                    HeartView()
+                    MylesHeartView()
                     // TODO should be a ratio from width so all screens look good
                         .frame(height: 80)
                 }
