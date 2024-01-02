@@ -38,6 +38,7 @@
 		AFC5557C2B40355600D98729 /* ShoePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557B2B40355600D98729 /* ShoePickerView.swift */; };
 		AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557D2B42CAF200D98729 /* MylesShoe.swift */; };
 		AFC555802B430F9700D98729 /* ShoesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */; };
+		AFC555842B442EAB00D98729 /* ShoeSettingsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC555832B442EAB00D98729 /* ShoeSettingsEditView.swift */; };
 		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
 		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
 		AFFAD38E2B345E4E00A606B1 /* RecapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */; };
@@ -79,6 +80,7 @@
 		AFC5557B2B40355600D98729 /* ShoePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoePickerView.swift; sourceTree = "<group>"; };
 		AFC5557D2B42CAF200D98729 /* MylesShoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesShoe.swift; sourceTree = "<group>"; };
 		AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoesSettingsView.swift; sourceTree = "<group>"; };
+		AFC555832B442EAB00D98729 /* ShoeSettingsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeSettingsEditView.swift; sourceTree = "<group>"; };
 		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
 		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
 		AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapViewModel.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			children = (
 				AF6E46672B23A989002915DC /* SettingsView.swift */,
 				AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */,
+				AFC555832B442EAB00D98729 /* ShoeSettingsEditView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF240C772B2BCA900012AB3A /* MylesRun.swift in Sources */,
+				AFC555842B442EAB00D98729 /* ShoeSettingsEditView.swift in Sources */,
 				AF243B592B2932E300608E1C /* ActivityView.swift in Sources */,
 				AF6E46682B23A989002915DC /* SettingsView.swift in Sources */,
 				AF6E46662B23A965002915DC /* TabViewModel.swift in Sources */,

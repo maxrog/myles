@@ -17,93 +17,39 @@ struct ShoesSettingsView: View {
     
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var shoes: ShoeManager
-        
-    @State var editingIndex: Int?
-    @State var editedName = ""
-    @State var newShoe: String = ""
     
+    @State var newShoeName: String = ""
+        
     var body: some View {
         NavigationStack {
             List {
                 Section {
                     ForEach(Array(shoes.shoes.enumerated()), id: \.element) { index, shoe in
-                        VStack(alignment: .leading) {
-                            if editingIndex == index {
-                                HStack {
-                                    TextField(shoe.name, text: $editedName)
-                                        .font(.custom("norwester", size: 16))
-                                        .textInputAutocapitalization(.never)
-                                        .autocorrectionDisabled()
-                                    Button {
-                                        modifyShoeName(shoe, at: index)
-                                    } label: {
-                                        Text("Save")
-                                            .font(.custom("norwester", size: 22))
-                                    }
-                                    .buttonStyle(MylesButtonStyle())
-                                }
-                            } else {
-                                Text(shoe.name)
-                                    .font(.custom("norwester", size: 22))
-                                Text("\(shoe.miles.prettyString) miles")
-                                    .font(.custom("norwester", size: 14))
-                                    .foregroundColor(Color(.systemGray2))
-                            }
-                        }
-                        .padding(12)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .listRowInsets(EdgeInsets())
-                        .swipeActions {
-                            Button() {
-                                withAnimation {
-                                    editingIndex = index
-                                }
-                            } label: {
-                                Image(systemName: "pencil")
-                            }
-                            Button(role: .destructive) {
-                                // TODO confirmation alert to delete
-                                deleteShoe(at: index)
-                            } label: {
-                                Image(systemName: "delete.backward.fill")
-                            }
-                        }
+                        ShoeSettingsEditView(index: index, shoe: shoe)
                     }
                 }
                 Section {
-                    TextField("Add Shoe", text: $newShoe)
+                    TextField("Add Shoe", text: $newShoeName)
+                        .lineLimit(1)
                         .font(.custom("norwester", size: 16))
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .submitLabel(.done)
                 }
+                .onSubmit(addNewShoe)
             }
             .navigationTitle("Shoes")
         }
-        .onSubmit(addNewShoe)
     }
     
     private func addNewShoe() {
+        guard !newShoeName.isEmpty else { return }
         withAnimation {
-            shoes.addShoe(MylesShoe(name: newShoe))
-            newShoe = ""
+            shoes.addShoe(MylesShoe(name: newShoeName))
+            newShoeName = ""
         }
     }
-    
-    private func deleteShoe(at index: Int) {
-        withAnimation {
-            shoes.deleteShoe(at: index)
-        }
-    }
-    
-    private func modifyShoeName(_ shoe: MylesShoe, at index: Int) {
-        let updatedShoe = shoe
-        updatedShoe.name = editedName
-        withAnimation {
-            shoes.modifyShoe(updatedShoe, at: index)
-            editedName = ""
-            editingIndex = nil
-        }
-    }
+
 }
 
 #Preview {

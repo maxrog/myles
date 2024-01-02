@@ -16,7 +16,7 @@ struct ShoePickerView: View {
     @StateObject var viewModel: RecapViewModel
     
     @State var selectedShoe: MylesShoe?
-    @State var newShoe: String = ""
+    @State var newShoeName: String = ""
     
     var body: some View {
         NavigationStack {
@@ -57,10 +57,12 @@ struct ShoePickerView: View {
                     }
                 }
                 Section {
-                    TextField("Add Shoe", text: $newShoe)
+                    TextField("Add Shoe", text: $newShoeName)
+                        .lineLimit(1)
                         .font(.custom("norwester", size: 16))
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
+                        .submitLabel(.done)
                 }
             }
         }
@@ -69,9 +71,10 @@ struct ShoePickerView: View {
     }
     
     private func addNewShoe() {
+        guard !newShoeName.isEmpty else { return }
         withAnimation {
-            shoes.addShoe(MylesShoe(name: newShoe))
-            newShoe = ""
+            shoes.addShoe(MylesShoe(name: newShoeName))
+            newShoeName = ""
         }
     }
     
