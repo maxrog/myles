@@ -81,7 +81,7 @@ struct ShoeSettingsEditView: View {
     @MainActor
     func toggleTextField(enabled: Bool) {
         editing = enabled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
             self.textFieldFocused = enabled
         }
     }
