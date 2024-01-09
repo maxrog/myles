@@ -24,8 +24,19 @@ struct SettingsView: View {
                     NavigationLink {
                         ShoesSettingsView()
                     } label: {
-                        Text("Shoes")
+                        HStack(spacing: 12) {
+                            Image(systemName: "shoe")
+                                .frame(width: 35, height: 35)
+                                .background(
+                                 RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color.blue)
+                                )
+                            Text("Shoes")
+                            Spacer()
+                        }
+                        .padding(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                     }
+
 
                 } header: {
                     Text("App")
