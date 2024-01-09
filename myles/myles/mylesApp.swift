@@ -12,6 +12,7 @@ import SwiftUI
  • Observation Swift 5.9 Refactor
  • SF Symbol Animation
  • Refactor .font(.custom("norwester", size: 28)) to something more reliable (Fonts Struct or something in theming) Allow user to change font?
+ • Xcode Cloud
  */
 
 @main
