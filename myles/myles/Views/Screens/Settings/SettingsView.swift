@@ -16,7 +16,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    
+
     var body: some View {
         NavigationStack {
             Form {

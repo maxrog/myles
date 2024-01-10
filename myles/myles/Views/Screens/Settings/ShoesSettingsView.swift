@@ -16,8 +16,8 @@ import SwiftUI
 struct ShoesSettingsView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    @EnvironmentObject var shoes: ShoeManager
-    
+    @Environment(ShoeManager.self) var shoes
+
     @State var newShoeName: String = ""
         
     var body: some View {

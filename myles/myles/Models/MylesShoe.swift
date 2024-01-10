@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import Observation
 
 
 /// A shoe with information on name and mileage
-class MylesShoe: ObservableObject, Identifiable, Codable, Equatable {
+@Observable
+class MylesShoe: Identifiable, Codable, Equatable {
     
     /// A UUID for the shoe
-    var id: UUID
+    let id: UUID
     /// The shoe name input by the user
-    @Published var name: String
+    var name: String
     /// The number of miles run on the shoe
     var miles: Double
     /// An array of run ids connected to the shoe

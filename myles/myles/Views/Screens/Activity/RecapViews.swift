@@ -12,8 +12,8 @@ import SwiftUI
 /// An accessory view for showing group of run recap metrics
 struct RecapView: View {
     
-    @EnvironmentObject var shoes: ShoeManager
-    @StateObject var viewModel: RecapViewModel
+    @Environment(ShoeManager.self) var shoes
+    @State var viewModel: RecapViewModel
     
     var body: some View {
         VStack() {
@@ -70,7 +70,7 @@ struct RecapView: View {
 /// Recap header view containing run date and duration information
 struct RecapHeaderView: View {
     
-    @StateObject var run: MylesRun
+    @State var run: MylesRun
     
     var body: some View {
         HStack {
@@ -87,7 +87,7 @@ struct RecapHeaderView: View {
 /// Recap view containing run mileage
 struct RecapMileageView: View {
     
-    @StateObject var run: MylesRun
+    @State var run: MylesRun
     
     var body: some View {
         Text("\(run.distance.prettyString) mi")
@@ -102,7 +102,7 @@ struct RecapMileageView: View {
 /// Recap view containing run accessory data including pace, heart rate, elevation, and temp
 struct RecapBarView : View {
     
-    @StateObject var viewModel: RecapViewModel
+    @State var viewModel: RecapViewModel
     
     var body: some View {
         HStack {

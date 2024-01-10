@@ -11,9 +11,9 @@ import SwiftUI
 struct ShoePickerView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    @EnvironmentObject var shoes: ShoeManager
+    @Environment(ShoeManager.self) var shoes
     
-    @StateObject var viewModel: RecapViewModel
+    @State var viewModel: RecapViewModel
     
     @State var selectedShoe: MylesShoe?
     @State var newShoeName: String = ""

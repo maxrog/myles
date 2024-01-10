@@ -9,12 +9,14 @@ import Foundation
 import HealthKit
 import CoreLocation
 import SwiftUI
+import Observation
 
 // TODO algorithm for grouping by weeks Monday-Sunday
 // TODO Cross training - get workouts that aren't runs and show them with a different color line for stats (base off of duration - 10 ~= 1 mile)
 
 /// Manager for fetching and processing user's health data
-class HealthManager: ObservableObject {
+@Observable
+class HealthManager {
     
     init() { }
     
@@ -23,7 +25,7 @@ class HealthManager: ObservableObject {
     /// HKWorkouts that back our data model
     private var storedWorkouts: [HKWorkout] = []
     
-    @Published var runs: [MylesRun] = []
+    var runs: [MylesRun] = []
     
     /// Requests health data access from the user
     func requestPermission() async -> Bool {

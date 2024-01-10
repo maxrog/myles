@@ -14,7 +14,7 @@ import HealthKit
 
 struct ActivityView: View {
     
-    @EnvironmentObject var health: HealthManager
+    @Environment(HealthManager.self) var health
 
     @State var healthPermissionGranted = true
     @State var streakBounce = 0

@@ -13,7 +13,7 @@ import MapKit
 struct MapView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    @StateObject var viewModel: MapViewModel
+    @State var viewModel: MapViewModel
         
     /// The enabled interactionModes which change after user adjusts the map for first time
     private var interactionModes: MapInteractionModes {

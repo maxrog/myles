@@ -7,12 +7,14 @@
 
 import Foundation
 import CoreLocation
+import Observation
 
 /// A running workout with essential information gathered from HealthStore
-class MylesRun: ObservableObject, Identifiable {
+@Observable
+class MylesRun: Identifiable {
     
     /// The unique identifier
-    @Published var id: UUID
+    let id: UUID
     /// The start time of the run
     let startTime: Date
     /// The end time of the run
@@ -30,7 +32,7 @@ class MylesRun: ObservableObject, Identifiable {
     /// The average temperature of the run in fahrenheit, and humidity as a percentage
     let weather: (temperature: Int?, humidity: Int?)
     /// The locationPoints of the run - may not have value until requested
-    @Published var locationPoints: [CLLocation]?
+    var locationPoints: [CLLocation]?
     var hasLocationData: Bool { !(locationPoints?.isEmpty ?? true) }
     
     
@@ -84,7 +86,7 @@ class MylesRun: ObservableObject, Identifiable {
     }
     
     /// The splits for pace per mile
-    @Published var mileSplits: [TimeInterval] = []
+    var mileSplits: [TimeInterval] = []
     /// The splits for pace per mile in the common mm:ss format
     var mileSplitStrings: [String] {
         var formattedSplits: [String] = []

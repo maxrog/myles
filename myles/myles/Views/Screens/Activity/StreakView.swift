@@ -10,7 +10,7 @@ import SwiftUI
 struct StreakView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    
+
     var streakCount: Int
     
     var body: some View {

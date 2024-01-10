@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
+import Observation
 
 /*
  TODO migrate from UserDefaults to SwiftData? Make sure migration works for app updates
  */
 
 /// Manager for the user's shoe tracking
-class ShoeManager: ObservableObject {
+@Observable
+class ShoeManager {
     
     /// Standard user defaults
     let userDefaults = UserDefaults.standard
@@ -31,7 +33,7 @@ class ShoeManager: ObservableObject {
     }
     
     /// The user's tracked shoes
-    @Published private(set) var shoes: [MylesShoe] {
+    private(set) var shoes: [MylesShoe] {
         didSet {
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(shoes) {

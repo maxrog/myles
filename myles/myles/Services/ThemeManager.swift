@@ -12,7 +12,7 @@ import SwiftUI
 TODO test system preference + changing back and forth
  TODO dynamic text (Use System Text Size / slider for text size (if not use system text size)
  TODO app icon switcher
- 
+ TODO migrate to @Observable once these computed properties are supported
  */
 
 /// Manager for the user's app/color theme preference

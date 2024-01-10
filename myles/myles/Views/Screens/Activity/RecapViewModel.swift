@@ -6,23 +6,25 @@
 //
 
 import SwiftUI
+import Observation
 
 @MainActor
-class RecapViewModel: ObservableObject {
+@Observable
+class RecapViewModel {
     
-    @Published var health: HealthManager
+    let health: HealthManager
     
     /// The run to display recap metrics
-    @Published var run: MylesRun
+    let run: MylesRun
     
     /// Whether the map was attempted to load and failed, indicating indoor workout
-    @Published var expanded: Bool
+    var expanded: Bool
     
     /// Whether to show the map on expansion
     var showMap: Bool
     
     /// Whether to show shoe picker
-    @Published var displayShoePicker: Bool = false
+    var displayShoePicker: Bool = false
     
     init(health: HealthManager, run: MylesRun, expanded: Bool = false, showMap: Bool = false) {
         self.health = health

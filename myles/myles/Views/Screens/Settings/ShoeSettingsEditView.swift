@@ -11,8 +11,8 @@ import SwiftUI
 struct ShoeSettingsEditView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    @EnvironmentObject var shoes: ShoeManager
-    
+    @Environment(ShoeManager.self) var shoes
+
     @State var editedName = ""
     @State var editing = false
     @FocusState var textFieldFocused: Bool

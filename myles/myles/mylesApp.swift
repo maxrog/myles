@@ -21,8 +21,8 @@ struct mylesApp: App {
     @Environment(\.scenePhase) var scenePhase
     
     @StateObject var theme: ThemeManager = ThemeManager()
-    @StateObject var health: HealthManager = HealthManager()
-    @StateObject var shoes: ShoeManager = ShoeManager()
+    @State var health: HealthManager = HealthManager()
+    @State var shoes: ShoeManager = ShoeManager()
    
     var body: some Scene {
         WindowGroup {
@@ -30,20 +30,20 @@ struct mylesApp: App {
             case .dark:
                 TabNavigationView()
                     .environmentObject(theme)
-                    .environmentObject(health)
-                    .environmentObject(shoes)
+                    .environment(health)
+                    .environment(shoes)
                     .preferredColorScheme(.dark)
             case .light:
                 TabNavigationView()
                     .environmentObject(theme)
-                    .environmentObject(health)
-                    .environmentObject(shoes)
+                    .environment(health)
+                    .environment(shoes)
                     .preferredColorScheme(.light)
             case .system:
                 TabNavigationView()
                     .environmentObject(theme)
-                    .environmentObject(health)
-                    .environmentObject(shoes)
+                    .environment(health)
+                    .environment(shoes)
                     .preferredColorScheme(.none)
             }
         }.onChange(of: scenePhase, { oldValue, newValue in

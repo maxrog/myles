@@ -10,7 +10,7 @@ import SwiftUI
 struct TabNavigationView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    @StateObject private var viewModel = TabViewModel()
+    @State private var viewModel = TabViewModel()
     
     var body: some View {
         TabView(selection: $viewModel.selectedTabIndex) {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 // TODO - allow user to set whether this is enabled
+// TODO - migrate to @Observable once @AppStorage is supported
 
 enum Tabs: Int {
     case activity = 0
