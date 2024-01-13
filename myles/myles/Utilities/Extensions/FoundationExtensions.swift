@@ -42,6 +42,11 @@ extension Date {
         return components.day ?? 0
     }
     
+    /// Determines whether date is in same day
+    func isInSameDay(as otherDate: Date) -> Bool {
+        return Calendar.current.isDate(otherDate, inSameDayAs: self)
+    }
+    
     /// Common date format
     var shortCalendarDateFormat: String {
         let formatter = DateFormatter()

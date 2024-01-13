@@ -117,6 +117,19 @@ class MylesRun: Identifiable {
                                         CLLocation(latitude: 35.03972075, longitude: -80.94186949),
                                     ],
                                   mileSplits: [9.2, 8.4, 7.8, 6.2, 4.9, 4.9, 9.0])
+    
+    /// An empty run
+    static func emptyRun(date: Date = Date()) -> MylesRun {
+        MylesRun(id: UUID(),
+                 startTime: date,
+                 endTime: date,
+                 environment: .outdoor,
+                 duration: 0,
+                 distance: 0,
+                 averageHeartRateBPM: nil,
+                 elevationChange: (nil, nil),
+                 weather: (nil, nil))
+    }
 }
 
 /// The environment type of the run, indoor or outdoor

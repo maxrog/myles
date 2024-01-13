@@ -47,5 +47,33 @@ extension HealthManager {
         Logger.log(.action, "Calculated \(streak) days run streak", sender: String(describing: self))
         return streak
     }
-    
+        
+    /// Returns the user's activities based on the current week (M-S)
+    func currentWeekRuns() -> [MylesRun] {
+        let currentDate = Date()
+        var calendar = Calendar.current
+        // TODO account for user's phone calendar preference or have option in settings page
+        calendar.firstWeekday = 2
+        var weekRuns: [MylesRun] = []
+        // Get the start and end dates of the current week
+        if let weekStartDate = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)),
+            let weekEndDate = calendar.date(byAdding: .weekOfYear, value: 1, to: weekStartDate) {
+            
+            var steppingDate = weekStartDate
+            
+            while steppingDate <= weekEndDate {
+                let matchingRuns = self.runs.filter({$0.endTime.isInSameDay(as: steppingDate)})
+                if !matchingRuns.isEmpty {
+                    weekRuns.append(contentsOf: matchingRuns)
+                } else {
+                    weekRuns.append(MylesRun.emptyRun(date: steppingDate))
+                }
+                guard let nextDay = calendar.date(byAdding: .day, value: 1, to: steppingDate) else { break }
+                steppingDate = nextDay
+            }
+            return weekRuns
+        } else {
+            return weekRuns
+        }
+    }
 }

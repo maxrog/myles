@@ -19,7 +19,7 @@ struct TabNavigationView: View {
                     Image(systemName: "figure.run.square.stack.fill")
                 }
                 .tag(Tabs.activity.rawValue)
-            Text("My Miles page (My Miles in nav bar + swift charts of stats)")
+            MetricsView()
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                 }
