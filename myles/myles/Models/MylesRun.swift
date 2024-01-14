@@ -11,7 +11,7 @@ import Observation
 
 /// A running workout with essential information gathered from HealthStore
 @Observable
-class MylesRun: Identifiable {
+class MylesRun: Identifiable, Equatable {
     
     /// The unique identifier
     let id: UUID
@@ -35,6 +35,9 @@ class MylesRun: Identifiable {
     var locationPoints: [CLLocation]?
     var hasLocationData: Bool { !(locationPoints?.isEmpty ?? true) }
     
+    static func == (lhs: MylesRun, rhs: MylesRun) -> Bool {
+        lhs.id == rhs.id
+    }
     
     init(id: UUID, startTime: Date, endTime: Date, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = []) {
         self.id = id
@@ -68,6 +71,11 @@ class MylesRun: Identifiable {
     
     // MARK: Metrics
     
+    /// The duration of the run, in minutes
+    var durationMinutes: TimeInterval {
+        duration / 60
+    }
+    
     /// The average mile pace
     var averageMilePace: TimeInterval {
         duration / distance
@@ -99,6 +107,9 @@ class MylesRun: Identifiable {
         }
         return formattedSplits
     }
+}
+
+extension MylesRun {
     
     /// A test run
     static let testRun = MylesRun(id: UUID(),
@@ -130,6 +141,7 @@ class MylesRun: Identifiable {
                  elevationChange: (nil, nil),
                  weather: (nil, nil))
     }
+    
 }
 
 /// The environment type of the run, indoor or outdoor
