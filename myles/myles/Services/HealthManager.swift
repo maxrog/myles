@@ -52,6 +52,7 @@ class HealthManager {
         return true
     }
     
+    // TODO Make sure this doesn't get spam triggered
     /// Process HealthKit workouts
     /// Query essential metrics including time, duration, distance, and location
     /// Only gathers location for workouts within the last week or last 4 workouts due to expensive fetches

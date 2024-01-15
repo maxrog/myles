@@ -10,6 +10,7 @@ import Charts
 
 /*
  TODO - Gauge view for goals
+ TODO - refreshable modifier (pull to refresh will call health.processWorkouts)
  */
 
 enum MetricsPrimaryFilterType: Int {
@@ -89,6 +90,9 @@ struct MetricsView: View {
                 }
             }
             .navigationTitle("My Miles")
+        }
+        .onAppear {
+            focusedRuns = health.focusedRuns(for: spanFilter)
         }
         .onChange(of: health.runs) {
             focusedRuns = health.focusedRuns(for: spanFilter)

@@ -8,6 +8,7 @@
 import Foundation
 
 /*
+ TODO Add Logging
  Health manager metrics related processing that doesn't require store queries
  */
 

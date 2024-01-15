@@ -9,14 +9,13 @@ import SwiftUI
 import HealthKit
 
 /*
- TODO refreshable modifier (pull to refresh)
+ TODO refreshable modifier (pull to refresh will call health.processWorkouts)
  */
 
 struct ActivityView: View {
     
     @Environment(HealthManager.self) var health
 
-    @State var healthPermissionGranted = true
     @State var streakBounce = 0
     
     var body: some View {
@@ -40,8 +39,6 @@ struct ActivityView: View {
                             }
                         }
                     }
-                } else if healthPermissionGranted {
-                    ProgressView()
                 } else {
                     EmptyActivityView()
                 }
@@ -62,16 +59,6 @@ struct ActivityView: View {
                     }
                 }
             }
-        }
-        .task {
-            // TODO look into diff of task vs onAppear?
-            guard await health.requestPermission() else {
-                healthPermissionGranted = false
-                return
-            }
-            
-            // TODO this gets called everytime the screen appears / state object changes - should only happen on pull to refresh
-            await health.processWorkouts()
         }
     }
 }
