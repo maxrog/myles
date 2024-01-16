@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// TODO - allow user to set whether this is enabled
+// TODO - allow user to set whether this is enabled (saving selection)
 // TODO - migrate to @Observable once @AppStorage is supported
 
 enum Tabs: Int {

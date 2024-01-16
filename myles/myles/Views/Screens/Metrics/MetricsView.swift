@@ -11,6 +11,7 @@ import Charts
 /*
  TODO - Gauge view for goals
  TODO - refreshable modifier (pull to refresh will call health.processWorkouts)
+ TODO - XTraining stats (toggleable in settings)
  */
 
 enum MetricsPrimaryFilterType: Int {
