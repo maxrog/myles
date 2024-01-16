@@ -8,10 +8,6 @@
 import SwiftUI
 import HealthKit
 
-/*
- TODO refreshable modifier (pull to refresh will call health.processWorkouts)
- */
-
 struct ActivityView: View {
     
     @Environment(HealthManager.self) var health
@@ -39,6 +35,7 @@ struct ActivityView: View {
                             }
                         }
                     }
+                    .refreshable { await health.processWorkouts() }
                 } else {
                     EmptyActivityView()
                 }

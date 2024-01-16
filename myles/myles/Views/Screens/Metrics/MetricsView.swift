@@ -89,6 +89,7 @@ struct MetricsView: View {
                     }
                 }
             }
+            .refreshable { await health.processWorkouts() }
             .navigationTitle("My Miles")
         }
         .onAppear {

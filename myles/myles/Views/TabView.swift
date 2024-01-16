@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-
-// TODO figure out how to display empty activity view if health permission granted but no workouts found
-
+/*
+ TODO page for lifting with timer / current 1RM? idk maybe & has to be toggle-able in settings
+ */
 struct TabNavigationView: View {
     
     @EnvironmentObject var theme: ThemeManager
@@ -16,11 +16,13 @@ struct TabNavigationView: View {
     
     @State private var viewModel = TabViewModel()
     
-    @State var healthPermissionGranted = true
+    @State private var splashComplete = false
     
     var body: some View {
         Group {
-            if !health.runs.isEmpty {
+            if !splashComplete {
+                SplashView(splashComplete: $splashComplete)
+            } else if !health.runs.isEmpty {
                 TabView(selection: $viewModel.selectedTabIndex) {
                     ActivityView()
                         .tabItem {
@@ -39,19 +41,9 @@ struct TabNavigationView: View {
                         .tag(Tabs.settings.rawValue)
                 }
                 .accentColor(theme.accentColor)
-            } else if healthPermissionGranted {
-                SplashView()
             } else {
                 EmptyActivityView()
             }
-        }
-        .task {
-            // TODO look into diff of task vs onAppear?
-            guard await health.requestPermission() else {
-                healthPermissionGranted = false
-                return
-            }
-            await health.processWorkouts()
         }
     }
 }
