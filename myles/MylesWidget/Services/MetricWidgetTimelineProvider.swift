@@ -13,7 +13,7 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
     /// placeholder while loading (auto redacts so data doesn't matter
     func placeholder(in context: Context) -> MetricEntry {
         MetricEntry(date: .now,
-                    focusedRuns: [MylesRun.testRun],
+                    focusedRuns: MylesRun.widgetSnapshotRuns(),
                     primaryFilter: .distance,
                     spanFilter: .week)
     }
@@ -22,7 +22,7 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (MetricEntry) -> ()) {
         getTimeline(in: context) { timeline in
             completion(timeline.entries.first ?? MetricEntry(date: .now,
-                                                             focusedRuns: [],
+                                                             focusedRuns: MylesRun.widgetSnapshotRuns(),
                                                              primaryFilter: .distance,
                                                              spanFilter: .week))
         }

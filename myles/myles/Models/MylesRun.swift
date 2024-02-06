@@ -39,6 +39,11 @@ class MylesRun: Identifiable, Equatable {
         lhs.id == rhs.id
     }
     
+    
+    convenience init(date: Date = Date(), distance: Double = 0.0, duration: TimeInterval = 0.0) {
+        self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration), environment: .outdoor, duration: duration, distance: distance, averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil))
+    }
+    
     init(id: UUID, startTime: Date, endTime: Date, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = []) {
         self.id = id
         self.startTime = startTime
@@ -140,6 +145,14 @@ extension MylesRun {
                  averageHeartRateBPM: nil,
                  elevationChange: (nil, nil),
                  weather: (nil, nil))
+    }
+    
+    static func widgetSnapshotRuns() -> [MylesRun] {
+        guard let dates = Calendar.datesForLastMWF() else { return [] }
+        let monRun = MylesRun(date: dates.monday, distance: 4.0, duration: 3600)
+        let wedRun = MylesRun(date: dates.wednesday, distance: 7.5, duration: 4000)
+        let friRun = MylesRun(date: dates.friday, distance: 4.5, duration: 3800)
+        return [monRun, wedRun, friRun]
     }
     
 }
