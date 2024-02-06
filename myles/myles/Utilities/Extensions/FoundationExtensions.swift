@@ -60,6 +60,12 @@ extension Date {
         return formatter.string(from: self)
     }
     /// Common date format
+    var veryShortDayOfWeekDateFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEEE"
+        return formatter.string(from: self)
+    }
+    /// Common date format
     var shortTimeOfDayDateFormat: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a"

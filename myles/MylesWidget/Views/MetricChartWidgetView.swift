@@ -19,7 +19,7 @@ struct MetricChartWidgetView: View {
             case .distance:
                 switch entry.spanFilter {
                 case .week:
-                    BarMark(x: .value("Label", run.endTime.shortDayOfWeekDateFormat),
+                    BarMark(x: .value("Label", run.endTime.veryShortDayOfWeekDateFormat),
                             y: .value("Value", run.distance))
                 case .month:
                     BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
@@ -31,7 +31,7 @@ struct MetricChartWidgetView: View {
             case .duration:
                 switch entry.spanFilter {
                 case .week:
-                    BarMark(x: .value("Label", run.endTime.shortDayOfWeekDateFormat),
+                    BarMark(x: .value("Label", run.endTime.veryShortDayOfWeekDateFormat),
                             y: .value("Value", run.durationMinutes))
                 case .month:
                     BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
