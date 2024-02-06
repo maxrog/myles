@@ -15,13 +15,6 @@ import Charts
  // TODO look into custom view for refreshable -- have little beating heart
  */
 
-enum MetricsPrimaryFilterType: Int {
-    case distance, duration
-}
-enum MetricsSpanFilterType: Int {
-    case week, month, year
-}
-
 /// View that displays filterable metrics 
 struct MetricsView: View {
     

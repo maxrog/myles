@@ -208,3 +208,12 @@ extension HealthManager {
     }
     
 }
+
+/// A main filter, either distance or duration
+enum MetricsPrimaryFilterType: Int {
+    case distance, duration
+}
+/// A filter representing a span of time
+enum MetricsSpanFilterType: Int {
+    case week, month, year
+}
