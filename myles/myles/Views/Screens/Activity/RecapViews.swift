@@ -74,7 +74,7 @@ struct RecapHeaderView: View {
     
     var body: some View {
         HStack {
-            Text(run.startTime.shortDayOfWeekDateFormat + "." + run.startTime.shortCalendarDateFormat)
+            Text(run.startTime.shortDayOfWeekDateFormat + " " + run.startTime.shortCalendarDateFormat)
                 .font(.custom("norwester", size: 18))
             Text("|")
                 .font(.custom("norwester", size: 16))
