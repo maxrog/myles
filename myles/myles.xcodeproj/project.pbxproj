@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF12868B2B76E40400A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
+		AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF240C772B2BCA900012AB3A /* MylesRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF240C762B2BCA900012AB3A /* MylesRun.swift */; };
 		AF243B542B28802D00608E1C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
 		AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B552B2919AF00608E1C /* HealthManager.swift */; };
@@ -88,6 +90,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF12868A2B76E40400A890FA /* HealthManager+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Background.swift"; sourceTree = "<group>"; };
 		AF240C762B2BCA900012AB3A /* MylesRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRun.swift; sourceTree = "<group>"; };
 		AF243B532B28802D00608E1C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AF243B552B2919AF00608E1C /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 				AF243B552B2919AF00608E1C /* HealthManager.swift */,
 				AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */,
 				AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */,
+				AF12868A2B76E40400A890FA /* HealthManager+Background.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -522,6 +526,7 @@
 				AF6E46722B23AAF6002915DC /* SwiftUIExtensions.swift in Sources */,
 				AF2BC9D42B32215C009AC760 /* StreakView.swift in Sources */,
 				AFC5557C2B40355600D98729 /* ShoePickerView.swift in Sources */,
+				AF12868B2B76E40400A890FA /* HealthManager+Background.swift in Sources */,
 				AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */,
 				AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */,
 				AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */,
@@ -548,6 +553,7 @@
 				AF2FD91A2B71C5EE003FBE2A /* Logger.swift in Sources */,
 				AF2FD9122B71C211003FBE2A /* HealthManager.swift in Sources */,
 				AF2FD9162B71C328003FBE2A /* HealthManager+Metrics.swift in Sources */,
+				AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */,
 				AF2FD9192B71C5E7003FBE2A /* UIKitExtensions.swift in Sources */,
 				AF2FD9172B71C4DA003FBE2A /* FoundationExtensions.swift in Sources */,
 			);

@@ -20,7 +20,7 @@ class HealthManager {
     
     init() { }
     
-    private let store = HKHealthStore()
+    let store = HKHealthStore()
     
     /// HKWorkouts that back our data model
     private var storedWorkouts: [HKWorkout] = []
@@ -47,7 +47,7 @@ class HealthManager {
             Logger.log(.error, "Failed to receive user's Health data permission", sender: String(describing: self))
             return false
         }
-        
+        self.setUpBackgroundDeliveryForDataTypes()
         Logger.log(.action, "User has been prompted for Health data permission", sender: String(describing: self))
         return true
     }
