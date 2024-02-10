@@ -147,12 +147,16 @@ extension MylesRun {
                  weather: (nil, nil))
     }
     
+    /// Snapshot for displaying widget
     static func widgetSnapshotRuns() -> [MylesRun] {
-        guard let dates = Calendar.datesForLastMWF() else { return [] }
-        let monRun = MylesRun(date: dates.monday, distance: 4.0, duration: 3600)
-        let wedRun = MylesRun(date: dates.wednesday, distance: 7.5, duration: 4000)
-        let friRun = MylesRun(date: dates.friday, distance: 4.5, duration: 3800)
-        return [monRun, wedRun, friRun]
+        guard let dates = Calendar.datesForLastWeek() else { return [] }
+        var runs: [MylesRun] = []
+        for date in dates {
+            runs.append(MylesRun(date: date, 
+                                 distance: Double.random(in: 3.0...8.0),
+                                 duration: TimeInterval.random(in: 3000...5000)))
+        }
+        return runs
     }
     
 }

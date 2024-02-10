@@ -77,24 +77,27 @@ extension Date {
 
 extension Calendar {
     
-    /// calculates dates for last weeks MWF
-    static func datesForLastMWF() -> (monday: Date, wednesday: Date, friday: Date)? {
+    /// calculates dates for last week Monday-Sunday
+    static func datesForLastWeek() -> [Date]? {
         let today = Date()
         
         // Find the date components for today
-        let todayComponents = current.dateComponents([.year, .month, .day, .weekday], from: today)
+        let todayComponents = Calendar.current.dateComponents([.year, .month, .day, .weekday], from: today)
         
-        // Calculate the number of days to subtract to find the dates for Monday, Wednesday, and Friday of last week
+        // Calculate the number of days to subtract to find the dates for Monday to Sunday of last week
         let daysToSubtract = (todayComponents.weekday! + 7 - 2) % 7 // 2 corresponds to Monday
         
-        // Calculate the dates for Monday, Wednesday, and Friday of last week
-        guard let lastMonday = current.date(byAdding: .day, value: -daysToSubtract, to: today),
-              let lastWednesday = current.date(byAdding: .day, value: -daysToSubtract + 2, to: today),
-              let lastFriday = current.date(byAdding: .day, value: -daysToSubtract + 4, to: today) else {
-            return nil
+        var datesForLastWeek = [Date]()
+        
+        // Calculate the dates for Monday to Sunday of last week
+        for i in 0..<7 {
+            guard let date = Calendar.current.date(byAdding: .day, value: -daysToSubtract + i, to: today) else {
+                return nil
+            }
+            datesForLastWeek.append(date)
         }
         
-        return (lastMonday, lastWednesday, lastFriday)
+        return datesForLastWeek
     }
 }
 
