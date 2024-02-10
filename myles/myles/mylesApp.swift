@@ -25,10 +25,6 @@ struct mylesApp: App {
     @StateObject var theme: ThemeManager = ThemeManager()
     @State var health: HealthManager = HealthManager()
     @State var shoes: ShoeManager = ShoeManager()
-    
-    init() {
-        health.setUpBackgroundDeliveryForDataTypes()
-    }
    
     var body: some Scene {
         WindowGroup {
