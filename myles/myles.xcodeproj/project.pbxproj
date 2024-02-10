@@ -315,9 +315,9 @@
 			children = (
 				AF6E46692B23A9E1002915DC /* ThemeManager.swift */,
 				AF243B552B2919AF00608E1C /* HealthManager.swift */,
+				AF12868A2B76E40400A890FA /* HealthManager+Background.swift */,
 				AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */,
 				AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */,
-				AF12868A2B76E40400A890FA /* HealthManager+Background.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
