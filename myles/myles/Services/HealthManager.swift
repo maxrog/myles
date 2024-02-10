@@ -56,11 +56,14 @@ class HealthManager {
     /// Process HealthKit workouts
     /// Query essential metrics including time, duration, distance, and location
     /// Only gathers location for workouts within the last week or last 4 workouts due to expensive fetches
+    /// - Parameters:
+    ///   - startDate: The date in which to begin looking for workouts
+    ///   - limit: The limit to number of activities to query
     /// @MainActor
     @MainActor
-    func processWorkouts() async {
+    func processWorkouts(startDate: Date? = nil, limit: Int = HKObjectQueryNoLimit) async {
         Logger.log(.action, "Processing workout data", sender: String(describing: self))
-        let workouts = await fetchWorkouts() ?? []
+        let workouts = await fetchWorkouts(startDate: startDate, limit: limit) ?? []
         var runs: [MylesRun] = []
         for (index, workout) in workouts.enumerated() {
             guard let distanceStats = workout.statistics(for: HKQuantityType(.distanceWalkingRunning)),
@@ -160,12 +163,18 @@ extension HealthManager {
     /// Fetches a list of workouts
     /// - Parameters:
     ///   - type: The activity type to query
+    ///   - startDate: The date in which to begin looking for workouts
+    ///   - limit: The limit to number of activities to query
     /// - Returns: The matching workouts
-    private func fetchWorkouts(type: HKWorkoutActivityType = .running) async -> [HKWorkout]? {
-        let workoutPredicate = HKQuery.predicateForWorkouts(with: type)
-        
+    private func fetchWorkouts(type: HKWorkoutActivityType = .running, startDate: Date? = nil, limit: Int = HKObjectQueryNoLimit) async -> [HKWorkout]? {
+        var predicates = [HKQuery.predicateForWorkouts(with: type)]
+        if let startDate = startDate {
+            predicates.append(HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate))
+        }
+        let compoundPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+
         let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
-            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
+            store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: compoundPredicate, limit: limit, sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
                 if let error = error {
                     Logger.log(.error, "Failed to retrieve workout samples, \(error.localizedDescription)", sender: String(describing: self))
                     continuation.resume(throwing: error)

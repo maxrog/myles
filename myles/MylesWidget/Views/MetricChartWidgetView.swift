@@ -13,41 +13,48 @@ import Charts
 struct MetricChartWidgetView: View {
     
     let entry: MetricEntry
-        
-        private func generateBarMark(for run: MylesRun) -> BarMark {
-            switch entry.primaryFilter {
-            case .distance:
-                switch entry.spanFilter {
-                case .week:
-                    BarMark(x: .value("Label", run.endTime.veryShortDayOfWeekDateFormat),
-                            y: .value("Value", run.distance))
-                case .month:
-                    BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
-                            y: .value("Value", run.distance))
-                case .year:
-                    BarMark(x: .value("Label", run.endTime, unit: .weekOfYear),
-                            y: .value("Value", run.distance))
-                }
-            case .duration:
-                switch entry.spanFilter {
-                case .week:
-                    BarMark(x: .value("Label", run.endTime.veryShortDayOfWeekDateFormat),
-                            y: .value("Value", run.durationMinutes))
-                case .month:
-                    BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
-                            y: .value("Value", run.durationMinutes))
-                case .year:
-                    BarMark(x: .value("Label", run.endTime, unit: .weekOfYear),
-                            y: .value("Value", run.durationMinutes))
-                }
+    
+    private func generateBarMark(for run: MylesRun) -> BarMark {
+        switch entry.primaryFilter {
+        case .distance:
+            switch entry.spanFilter {
+            case .week:
+                BarMark(x: .value("Label", run.endTime.veryShortDayOfWeekDateFormat),
+                        y: .value("Value", run.distance))
+            case .month:
+                BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
+                        y: .value("Value", run.distance))
+            case .year:
+                BarMark(x: .value("Label", run.endTime, unit: .weekOfYear),
+                        y: .value("Value", run.distance))
+            }
+        case .duration:
+            switch entry.spanFilter {
+            case .week:
+                BarMark(x: .value("Label", run.endTime.veryShortDayOfWeekDateFormat),
+                        y: .value("Value", run.durationMinutes))
+            case .month:
+                BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
+                        y: .value("Value", run.durationMinutes))
+            case .year:
+                BarMark(x: .value("Label", run.endTime, unit: .weekOfYear),
+                        y: .value("Value", run.durationMinutes))
             }
         }
-        
-        var body: some View {
-            Chart(entry.focusedRuns) { run in
-                generateBarMark(for: run)
+    }
+    
+    var body: some View {
+        GeometryReader { geo in
+            HStack {
+                Chart(entry.focusedRuns) { run in
+                    generateBarMark(for: run)
+                }
+                Text("\(entry.focusedRuns.count) \n runs")
+                Spacer()
+                    .frame(width: geo.size.width / 4)
             }
         }
+    }
 }
 
 #Preview {

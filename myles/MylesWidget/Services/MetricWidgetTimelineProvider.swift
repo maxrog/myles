@@ -31,8 +31,16 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
     /// gather data and provide timeline
     func getTimeline(in context: Context, completion: @escaping (Timeline<MetricEntry>) -> ()) {
         Task {
+            let currentDate = Date()
+            let refreshMinuteGranuity = 15
+            let refreshDate = Calendar.current.date(
+                byAdding: .minute,
+                value: refreshMinuteGranuity,
+                to: currentDate
+            ) ?? currentDate.addingTimeInterval(900)
+            
             let health = HealthManager()
-            await health.processWorkouts()
+            await health.processWorkouts(limit: 16)
             let primaryFilter = MetricsPrimaryFilterType.distance
             let spanFilter = MetricsSpanFilterType.week
             let runs = health.focusedRuns(for: spanFilter)
@@ -40,7 +48,7 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
                                                           focusedRuns: runs,
                                                           primaryFilter: primaryFilter,
                                                           spanFilter: spanFilter)],
-                                    policy: .after(.now.addingTimeInterval(600)))
+                                    policy: .after(refreshDate))
             completion(timeline)
         }
     }
