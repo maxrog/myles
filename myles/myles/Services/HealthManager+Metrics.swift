@@ -90,7 +90,9 @@ extension HealthManager {
         let currentDate = Date()
         switch spanFilter {
         case .week:
-            return 7
+            let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)) ?? currentDate
+            let daysElapsed = calendar.dateComponents([.day], from: startOfWeek, to: currentDate).day ?? 0 + 1
+            return Double(daysElapsed)
         case .month:
             if let monthStartDate = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate)) {
                     let numberOfDaysElapsed = calendar.dateComponents([.day], from: monthStartDate, to: currentDate).day ?? 0
