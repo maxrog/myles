@@ -68,17 +68,11 @@ struct MetricChartWidgetView: View {
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
                 
-                // TODO 30 should be user's goal
-                Gauge(value: totalMiles, in: 0...30) {
-                    VStack {
-                        Text(totalMiles.prettyString)
-                            .font(.custom("norwester", size: 20))
-                        Text(NSLocalizedString("miles", comment: "miles"))
-                            .font(.custom("norwester", size: 10))
-                    }
-                }
-                .gaugeStyle(.accessoryCircularCapacity)
-                .frame(width: geo.size.width / 2.5, height: geo.size.height)
+                // TODO 30 should be users goal
+                MetricGaugeView(progress: min(1.0, totalMiles / 30),
+                                total: totalMiles.prettyString,
+                                metric: NSLocalizedString("miles", comment: "miles"))
+                .frame(height: geo.size.height * 0.9)
             }
         }
     }

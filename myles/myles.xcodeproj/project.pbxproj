@@ -13,6 +13,7 @@
 		AF1E61612B77C3FE00DBE63D /* norwester.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467C2B287DE2002915DC /* norwester.otf */; };
 		AF1E61622B77C40100DBE63D /* LeagueSpartan-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467B2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf */; };
 		AF1E61642B77C6FB00DBE63D /* MetricGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */; };
+		AF1E61652B77FA7600DBE63D /* MetricGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */; };
 		AF240C772B2BCA900012AB3A /* MylesRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF240C762B2BCA900012AB3A /* MylesRun.swift */; };
 		AF243B542B28802D00608E1C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
 		AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B552B2919AF00608E1C /* HealthManager.swift */; };
@@ -559,6 +560,7 @@
 				AF8B5C702B6127B800AC5ED4 /* MetricWidget.swift in Sources */,
 				AF8B5C6E2B6127B800AC5ED4 /* MylesWidgetBundle.swift in Sources */,
 				AF2FD9182B71C5DD003FBE2A /* SwiftUIExtensions.swift in Sources */,
+				AF1E61652B77FA7600DBE63D /* MetricGaugeView.swift in Sources */,
 				AF2FD90D2B706764003FBE2A /* MetricWidgetTimelineProvider.swift in Sources */,
 				AF2FD91A2B71C5EE003FBE2A /* Logger.swift in Sources */,
 				AF2FD9122B71C211003FBE2A /* HealthManager.swift in Sources */,
