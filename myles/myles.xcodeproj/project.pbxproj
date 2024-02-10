@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		AF12868B2B76E40400A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
+		AF1E61602B779B2600DBE63D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
+		AF1E61612B77C3FE00DBE63D /* norwester.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467C2B287DE2002915DC /* norwester.otf */; };
+		AF1E61622B77C40100DBE63D /* LeagueSpartan-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF6E467B2B287DE2002915DC /* LeagueSpartan-VariableFont_wght.ttf */; };
+		AF1E61642B77C6FB00DBE63D /* MetricGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */; };
 		AF240C772B2BCA900012AB3A /* MylesRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF240C762B2BCA900012AB3A /* MylesRun.swift */; };
 		AF243B542B28802D00608E1C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
 		AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF243B552B2919AF00608E1C /* HealthManager.swift */; };
@@ -91,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		AF12868A2B76E40400A890FA /* HealthManager+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Background.swift"; sourceTree = "<group>"; };
+		AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricGaugeView.swift; sourceTree = "<group>"; };
 		AF240C762B2BCA900012AB3A /* MylesRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRun.swift; sourceTree = "<group>"; };
 		AF243B532B28802D00608E1C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AF243B552B2919AF00608E1C /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
@@ -394,6 +399,7 @@
 				AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */,
 				AF3677372B35E20800AA4169 /* MylesMarqueeText.swift */,
 				AFFAD38F2B345F2700A606B1 /* HeartView.swift */,
+				AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -493,6 +499,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF8B5C722B6127B900AC5ED4 /* Assets.xcassets in Resources */,
+				AF1E61602B779B2600DBE63D /* Colors.xcassets in Resources */,
+				AF1E61622B77C40100DBE63D /* LeagueSpartan-VariableFont_wght.ttf in Resources */,
+				AF1E61612B77C3FE00DBE63D /* norwester.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +542,7 @@
 				AFB0E5162B3CD0CB00E56706 /* ShoeManager.swift in Sources */,
 				AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */,
 				AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */,
+				AF1E61642B77C6FB00DBE63D /* MetricGaugeView.swift in Sources */,
 				AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */,
 				AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */,
 				AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */,
