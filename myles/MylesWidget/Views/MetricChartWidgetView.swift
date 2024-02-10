@@ -51,6 +51,7 @@ struct MetricChartWidgetView: View {
         // TODO distance vs duration switch here
         let totalMiles = entry.focusedRuns.reduce(0) { $0 + $1.distance }
         let maxRun = entry.focusedRuns.max(by: { $0.distance < $1.distance })
+        
         GeometryReader { geo in
             HStack {
                 Chart(entry.focusedRuns) { run in
@@ -64,7 +65,17 @@ struct MetricChartWidgetView: View {
                                 .font(.custom("norwester", size: 10))
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(by: .value(run.endTime.shortDayOfWeekDateFormat, run.distance))
                 }
+                .chartForegroundStyleScale(
+                    domain: .automatic,
+                    range: [
+                        Color(uiColor: UIColor(named: "CosmicLatte") ?? .white),
+                        Color(uiColor:UIColor(named: "mylesLight") ?? .yellow),
+                        Color(uiColor:UIColor(named: "mylesMedium") ?? .orange),
+                        Color(uiColor: UIColor(named: "mylesDark") ?? .red)
+                    ]
+                )
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
                 
