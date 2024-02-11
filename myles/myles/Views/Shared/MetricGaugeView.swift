@@ -23,10 +23,10 @@ struct MetricGaugeView: View {
             return UIColor(named: "mylesMedium") ?? .orange
         case 0.5..<0.75:
             return UIColor(named: "mylesLight") ?? .orange
-        case 0.75...1:
+        case 0.75...0.99:
             return UIColor(named: "mylesDark") ?? .red
         default:
-            return UIColor(named: "CosmicLatte") ?? .white
+            return UIColor(named: "mylesGold") ?? .green
         }
     }
     
