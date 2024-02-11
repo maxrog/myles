@@ -43,8 +43,6 @@ extension HealthManager {
     private func dataTypesToRead() -> Set<HKObjectType> {
         return Set(arrayLiteral:
                 .workoutType(),
-                   HKSeriesType.workoutType(),
-                   HKSeriesType.workoutRoute(),
                    HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)!
         )
     }
