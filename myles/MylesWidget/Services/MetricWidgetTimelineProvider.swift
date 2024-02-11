@@ -7,6 +7,10 @@
 
 import WidgetKit
 
+/*
+ TODO sometimes getting 0 miles for some reason
+ */
+
 /// Provides timelines of how to bundle data to be shown and when to refresh or cycle through items
 struct MetricWidgetTimelineProvider: TimelineProvider {
     
