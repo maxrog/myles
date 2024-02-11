@@ -23,10 +23,10 @@ struct MetricChartView: View {
                 BarMark(x: .value("Label", run.endTime.shortDayOfWeekDateFormat),
                         y: .value("Value", run.distance))
             case .month:
-                BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
+                BarMark(x: .value("Label", "wk \(run.endTime.weekOfMonthDateFormat)"),
                         y: .value("Value", run.distance))
             case .year:
-                BarMark(x: .value("Label", run.endTime, unit: .weekOfYear),
+                BarMark(x: .value("Label", run.endTime.shortMonthOfYearDateFormat),
                         y: .value("Value", run.distance))
             }
         case .duration:
@@ -35,10 +35,10 @@ struct MetricChartView: View {
                 BarMark(x: .value("Label", run.endTime.shortDayOfWeekDateFormat),
                         y: .value("Value", run.durationMinutes))
             case .month:
-                BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
+                BarMark(x: .value("Label", "wk \(run.endTime.weekOfMonthDateFormat)"),
                         y: .value("Value", run.durationMinutes))
             case .year:
-                BarMark(x: .value("Label", run.endTime, unit: .weekOfYear),
+                BarMark(x: .value("Label", run.endTime.shortMonthOfYearDateFormat),
                         y: .value("Value", run.durationMinutes))
             }
         }

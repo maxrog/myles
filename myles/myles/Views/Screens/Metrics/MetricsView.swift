@@ -10,9 +10,9 @@ import Charts
 
 /*
  TODO - Gauge view for goals
- TODO - refreshable modifier (pull to refresh will call health.processWorkouts)
  TODO - XTraining stats (toggleable in settings)
  // TODO look into custom view for refreshable -- have little beating heart
+ TODO - support average somehow for month/year
  */
 
 /// View that displays filterable metrics 
@@ -65,21 +65,25 @@ struct MetricsView: View {
                         .pickerStyle(.segmented)
                     }
                 } header: {
-                    let averageDenominator =  health.elapsedDaysForSpan(spanFilter) / health.groupedDayCountForSpan(spanFilter)
+                    let averageDenominator = 1.0
                     HStack {
                         switch primaryFilter {
                         case .distance:
                             Text("Total: \(health.runsTotalDistance(focusedRuns).prettyString)")
                                 .font(.custom("norwester", size: 16))
-                            Spacer()
-                            Text("Avg: \((health.runsTotalDistance(focusedRuns) / averageDenominator).prettyString)\(averageUnit)")
-                                .font(.custom("norwester", size: 16))
+                            if spanFilter == .week {
+                                Spacer()
+                                Text("Avg: \((health.runsTotalDistance(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyString)\(averageUnit)")
+                                    .font(.custom("norwester", size: 16))
+                            }
                         case .duration:
                             Text("Total: \(health.runsTotalDuration(focusedRuns).prettyTimeString)")
                                 .font(.custom("norwester", size: 16))
                             Spacer()
-                            Text("Avg: \((health.runsTotalDuration(focusedRuns) / averageDenominator).prettyTimeString)\(averageUnit)")
-                                .font(.custom("norwester", size: 16))
+                            if spanFilter == .week {
+                                Text("Avg: \((health.runsTotalDuration(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyString)\(averageUnit)")
+                                    .font(.custom("norwester", size: 16))
+                            }
                         }
                     }
                 }

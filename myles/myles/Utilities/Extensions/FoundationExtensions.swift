@@ -47,6 +47,20 @@ extension Date {
         return Calendar.current.isDate(otherDate, inSameDayAs: self)
     }
     
+    /// Determines whether date is in current week
+    var isInCurrentWeek: Bool {
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2
+        let currentDate = Date()
+        guard let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)) else {
+            return false
+        }
+        guard let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek) else {
+            return false
+        }
+        return (self >= startOfWeek && self <= endOfWeek)
+    }
+    
     /// Common date format
     var shortCalendarDateFormat: String {
         let formatter = DateFormatter()
@@ -70,6 +84,20 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a"
         return formatter.string(from: self)
+    }
+    
+    /// Common date format
+    var weekOfMonthDateFormat: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "W"
+        return dateFormatter.string(from: self)
+    }
+    
+    /// Common date format
+    var shortMonthOfYearDateFormat: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        return dateFormatter.string(from: self)
     }
 }
 

@@ -86,7 +86,8 @@ extension HealthManager {
     /// - Parameters:
     ///     - spanFilter: The span in which to calculated the elapsed days
     func elapsedDaysForSpan(_ spanFilter: MetricsSpanFilterType) -> Double {
-        let calendar = Calendar.current
+        var calendar = Calendar.current
+        calendar.firstWeekday = 2
         let currentDate = Date()
         switch spanFilter {
         case .week:
@@ -110,39 +111,42 @@ extension HealthManager {
         }
     }
     
-    /// Returns a grouped day count for a current span. E.g. if a month span, will be grouped by week (7), if year span, grouped by month (30ish)
+    /// Grouped runs by span
     /// - Parameters:
     ///     - spanFilter: The span in which to calculated the elapsed days
-    func groupedDayCountForSpan(_ spanFilter: MetricsSpanFilterType) -> Double {
+    ///     - focusedRuns: The runs to group
+    func groupedRunsForSpan(_ spanFilter: MetricsSpanFilterType, focusedRuns: [MylesRun]) -> [Date: [MylesRun]] {
+        var calendar = Calendar.current
+        // TODO account for user's phone calendar preference or have option in settings page (check app wide for other usage)
+        calendar.firstWeekday = 2
+        var groupedRuns: [Date : [MylesRun]] = [:]
         switch spanFilter {
         case .week:
-            return 1
+            let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+            let startOfWeek = calendar.date(from: components) ?? Date()
+            groupedRuns[startOfWeek] = focusedRuns
         case .month:
-            return 7
-        case .year:
-            let calendar = Calendar.current
-            let currentDate = Date()
-            if let yearStartDate = calendar.date(from: calendar.dateComponents([.year], from: currentDate)) {
-                let components = calendar.dateComponents([.year, .month, .day], from: yearStartDate, to: currentDate)
-                guard let numberOfMonthsElapsed = components.month else {
-                    return 30.44
+            for run in focusedRuns {
+                let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: run.endTime)) ?? Date()
+                if var weekRuns = groupedRuns[startOfWeek] {
+                    weekRuns.append(run)
+                    groupedRuns[startOfWeek] = weekRuns
+                } else {
+                    groupedRuns[startOfWeek] = [run]
                 }
-                var daysInMonths: [Int] = []
-                for month in 0..<numberOfMonthsElapsed {
-                    guard let startDateOfMonth = calendar.date(byAdding: .month, value: month, to: yearStartDate),
-                          let endDateOfMonth = calendar.date(byAdding: .month, value: month + 1, to: yearStartDate),
-                          let numberOfDaysInMonth = calendar.dateComponents([.day], from: startDateOfMonth, to: endDateOfMonth).day else {
-                        continue
-                    }
-                    daysInMonths.append(numberOfDaysInMonth)
-                }
-                let totalDays = daysInMonths.reduce(0, +)
-                let numberOfMonths = daysInMonths.count
-                let averageDays = max(elapsedDaysForSpan(.month), Double(totalDays) / Double(numberOfMonths))
-                return averageDays
             }
-            return 30.44
+        case .year:
+            for run in focusedRuns {
+                let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: run.endTime)) ?? Date()
+                if var monthRuns = groupedRuns[startOfMonth] {
+                    monthRuns.append(run)
+                    groupedRuns[startOfMonth] = monthRuns
+                } else {
+                    groupedRuns[startOfMonth] = [run]
+                }
+            }
         }
+        return groupedRuns
     }
     
     /// Returns the user's activities based on the current week (M-S)
