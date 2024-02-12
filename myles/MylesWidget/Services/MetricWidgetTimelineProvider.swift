@@ -36,12 +36,12 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<MetricEntry>) -> ()) {
         Task {
             let currentDate = Date()
-            let refreshMinuteGranuity = 20
+            let refreshMinuteGranuity = 45
             let refreshDate = Calendar.current.date(
                 byAdding: .minute,
                 value: refreshMinuteGranuity,
                 to: currentDate
-            ) ?? currentDate.addingTimeInterval(1200)
+            ) ?? currentDate.addingTimeInterval(2700)
             
             let health = HealthManager()
             await health.processWorkouts(limit: 16)
