@@ -65,24 +65,27 @@ struct MetricsView: View {
                         .pickerStyle(.segmented)
                     }
                 } header: {
-                    let averageDenominator = 1.0
                     HStack {
                         switch primaryFilter {
                         case .distance:
-                            Text("Total: \(health.runsTotalDistance(focusedRuns).prettyString)")
-                                .font(.custom("norwester", size: 16))
-                            if spanFilter == .week {
-                                Spacer()
-                                Text("Avg: \((health.runsTotalDistance(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyString)\(averageUnit)")
+                            if health.runsTotalDistance(focusedRuns) > 0 {
+                                Text("Total: \(health.runsTotalDistance(focusedRuns).prettyString)")
                                     .font(.custom("norwester", size: 16))
+                                if spanFilter == .week {
+                                    Spacer()
+                                    Text("Avg: \((health.runsTotalDistance(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyString)\(averageUnit)")
+                                        .font(.custom("norwester", size: 16))
+                                }
                             }
                         case .duration:
-                            Text("Total: \(health.runsTotalDuration(focusedRuns).prettyTimeString)")
-                                .font(.custom("norwester", size: 16))
-                            Spacer()
-                            if spanFilter == .week {
-                                Text("Avg: \((health.runsTotalDuration(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyString)\(averageUnit)")
+                            if health.runsTotalDistance(focusedRuns) > 0 {
+                                Text("Total: \(health.runsTotalDuration(focusedRuns).prettyTimeString)")
                                     .font(.custom("norwester", size: 16))
+                                Spacer()
+                                if spanFilter == .week {
+                                    Text("Avg: \((health.runsTotalDuration(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyTimeString)\(averageUnit)")
+                                        .font(.custom("norwester", size: 16))
+                                }
                             }
                         }
                     }
