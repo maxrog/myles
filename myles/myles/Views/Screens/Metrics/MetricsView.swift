@@ -73,7 +73,7 @@ struct MetricsView: View {
                                     .font(.custom("norwester", size: 16))
                                 if spanFilter == .week {
                                     Spacer()
-                                    Text("Avg: \((health.runsTotalDistance(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyString)\(averageUnit)")
+                                    Text("Avg: \((health.runsTotalDistance(focusedRuns) / (health.elapsedDaysForSpan(spanFilter) + 1)).prettyString)\(averageUnit)")
                                         .font(.custom("norwester", size: 16))
                                 }
                             }
@@ -83,7 +83,7 @@ struct MetricsView: View {
                                     .font(.custom("norwester", size: 16))
                                 Spacer()
                                 if spanFilter == .week {
-                                    Text("Avg: \((health.runsTotalDuration(focusedRuns) / health.elapsedDaysForSpan(spanFilter)).prettyTimeString)\(averageUnit)")
+                                    Text("Avg: \((health.runsTotalDuration(focusedRuns) / (health.elapsedDaysForSpan(spanFilter) + 1)).prettyTimeString)\(averageUnit)")
                                         .font(.custom("norwester", size: 16))
                                 }
                             }
