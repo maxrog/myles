@@ -44,7 +44,7 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
             ) ?? currentDate.addingTimeInterval(2700)
             
             let health = HealthManager()
-            await health.processWorkouts(limit: 16)
+            await health.processWorkouts(limit: 20)
             let primaryFilter = MetricsPrimaryFilterType.distance
             let spanFilter = MetricsSpanFilterType.week
             let runs = health.focusedRuns(for: spanFilter)
