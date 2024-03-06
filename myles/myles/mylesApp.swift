@@ -23,6 +23,7 @@ struct mylesApp: App {
     @Environment(\.scenePhase) var scenePhase
     
     @StateObject var theme: ThemeManager = ThemeManager()
+    @StateObject var goals: GoalsManager = GoalsManager()
     @State var health: HealthManager = HealthManager()
     @State var shoes: ShoeManager = ShoeManager()
    
@@ -32,18 +33,21 @@ struct mylesApp: App {
             case .dark:
                 TabNavigationView()
                     .environmentObject(theme)
+                    .environmentObject(goals)
                     .environment(health)
                     .environment(shoes)
                     .preferredColorScheme(.dark)
             case .light:
                 TabNavigationView()
                     .environmentObject(theme)
+                    .environmentObject(goals)
                     .environment(health)
                     .environment(shoes)
                     .preferredColorScheme(.light)
             case .system:
                 TabNavigationView()
                     .environmentObject(theme)
+                    .environmentObject(goals)
                     .environment(health)
                     .environment(shoes)
                     .preferredColorScheme(.none)

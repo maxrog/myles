@@ -16,10 +16,37 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject var theme: ThemeManager
+    @EnvironmentObject var goals: GoalsManager
 
     var body: some View {
         NavigationStack {
             Form {
+                Section {
+                    HStack(spacing: 12) {
+                        Image(systemName: "calendar")
+                            .frame(width: 35, height: 35)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color.blue)
+                            )
+                        Stepper(onIncrement: {
+                            goals.weeklyMileageGoal += 1
+                        }, onDecrement: {
+                            guard goals.weeklyMileageGoal > 0 else { return }
+                            goals.weeklyMileageGoal -= 1
+                        }, label: {
+                            HStack {
+                                Text("Weekly Mileage:")
+                                Text("\(goals.weeklyMileageGoal)")
+                                    .fontWeight(.bold)
+                            }
+                        })
+                    }
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+                } header: {
+                    Text("Goals")
+                }
+                .headerProminence(.increased)
                 Section {
                     NavigationLink {
                         ShoesSettingsView()
@@ -34,10 +61,8 @@ struct SettingsView: View {
                             Text("Shoes")
                             Spacer()
                         }
-                        .padding(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
+                        .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
                     }
-
-
                 } header: {
                     Text("App")
                 }

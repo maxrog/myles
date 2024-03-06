@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF0097ED2B990D6D0065D7A6 /* GoalsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */; };
+		AF0097EE2B990E700065D7A6 /* GoalsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */; };
 		AF12868B2B76E40400A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF1E61602B779B2600DBE63D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
@@ -95,6 +97,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsManager.swift; sourceTree = "<group>"; };
 		AF12868A2B76E40400A890FA /* HealthManager+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Background.swift"; sourceTree = "<group>"; };
 		AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricGaugeView.swift; sourceTree = "<group>"; };
 		AF240C762B2BCA900012AB3A /* MylesRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRun.swift; sourceTree = "<group>"; };
@@ -324,6 +327,7 @@
 				AF12868A2B76E40400A890FA /* HealthManager+Background.swift */,
 				AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */,
 				AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */,
+				AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -546,6 +550,7 @@
 				AF1E61642B77C6FB00DBE63D /* MetricGaugeView.swift in Sources */,
 				AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */,
 				AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */,
+				AF0097ED2B990D6D0065D7A6 /* GoalsManager.swift in Sources */,
 				AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +569,7 @@
 				AF2FD90D2B706764003FBE2A /* MetricWidgetTimelineProvider.swift in Sources */,
 				AF2FD91A2B71C5EE003FBE2A /* MylesLogger.swift in Sources */,
 				AF2FD9122B71C211003FBE2A /* HealthManager.swift in Sources */,
+				AF0097EE2B990E700065D7A6 /* GoalsManager.swift in Sources */,
 				AF2FD9162B71C328003FBE2A /* HealthManager+Metrics.swift in Sources */,
 				AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */,
 				AF2FD9192B71C5E7003FBE2A /* UIKitExtensions.swift in Sources */,
