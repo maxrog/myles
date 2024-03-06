@@ -9,6 +9,7 @@ import SwiftUI
 import WidgetKit
 import Charts
 
+// TODO case where there's no miles (data get messed up for whatever reason), let's have an empty view
 // TODO use myles red colors, base light,med, dark on distance compared to rest of week
 // TODO custom font
 // TODO issue with duplicate x value labels. Maybe try putting custom label above the bar mark with short day of week
