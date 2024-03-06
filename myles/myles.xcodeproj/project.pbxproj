@@ -29,7 +29,7 @@
 		AF2FD9172B71C4DA003FBE2A /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466D2B23AAC2002915DC /* FoundationExtensions.swift */; };
 		AF2FD9182B71C5DD003FBE2A /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46712B23AAF6002915DC /* SwiftUIExtensions.swift */; };
 		AF2FD9192B71C5E7003FBE2A /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466F2B23AAD9002915DC /* UIKitExtensions.swift */; };
-		AF2FD91A2B71C5EE003FBE2A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466B2B23A9FE002915DC /* Logger.swift */; };
+		AF2FD91A2B71C5EE003FBE2A /* MylesLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466B2B23A9FE002915DC /* MylesLogger.swift */; };
 		AF3677382B35E20800AA4169 /* MylesMarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3677372B35E20800AA4169 /* MylesMarqueeText.swift */; };
 		AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E464B2B23A6F4002915DC /* mylesApp.swift */; };
 		AF6E46502B23A6F5002915DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6E464F2B23A6F5002915DC /* Assets.xcassets */; };
@@ -38,7 +38,7 @@
 		AF6E46662B23A965002915DC /* TabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46652B23A965002915DC /* TabViewModel.swift */; };
 		AF6E46682B23A989002915DC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46672B23A989002915DC /* SettingsView.swift */; };
 		AF6E466A2B23A9E1002915DC /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46692B23A9E1002915DC /* ThemeManager.swift */; };
-		AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466B2B23A9FE002915DC /* Logger.swift */; };
+		AF6E466C2B23A9FE002915DC /* MylesLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466B2B23A9FE002915DC /* MylesLogger.swift */; };
 		AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466D2B23AAC2002915DC /* FoundationExtensions.swift */; };
 		AF6E46702B23AAD9002915DC /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466F2B23AAD9002915DC /* UIKitExtensions.swift */; };
 		AF6E46722B23AAF6002915DC /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E46712B23AAF6002915DC /* SwiftUIExtensions.swift */; };
@@ -117,7 +117,7 @@
 		AF6E46652B23A965002915DC /* TabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewModel.swift; sourceTree = "<group>"; };
 		AF6E46672B23A989002915DC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF6E46692B23A9E1002915DC /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
-		AF6E466B2B23A9FE002915DC /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		AF6E466B2B23A9FE002915DC /* MylesLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesLogger.swift; sourceTree = "<group>"; };
 		AF6E466D2B23AAC2002915DC /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		AF6E466F2B23AAD9002915DC /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		AF6E46712B23AAF6002915DC /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
@@ -291,7 +291,7 @@
 		AF6E465E2B23A8B4002915DC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				AF6E466B2B23A9FE002915DC /* Logger.swift */,
+				AF6E466B2B23A9FE002915DC /* MylesLogger.swift */,
 				AF6E465F2B23A8C5002915DC /* Extensions */,
 			);
 			path = Utilities;
@@ -538,7 +538,7 @@
 				AFC5557C2B40355600D98729 /* ShoePickerView.swift in Sources */,
 				AF12868B2B76E40400A890FA /* HealthManager+Background.swift in Sources */,
 				AF6E466E2B23AAC2002915DC /* FoundationExtensions.swift in Sources */,
-				AF6E466C2B23A9FE002915DC /* Logger.swift in Sources */,
+				AF6E466C2B23A9FE002915DC /* MylesLogger.swift in Sources */,
 				AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */,
 				AFB0E5162B3CD0CB00E56706 /* ShoeManager.swift in Sources */,
 				AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */,
@@ -562,7 +562,7 @@
 				AF2FD9182B71C5DD003FBE2A /* SwiftUIExtensions.swift in Sources */,
 				AF1E61652B77FA7600DBE63D /* MetricGaugeView.swift in Sources */,
 				AF2FD90D2B706764003FBE2A /* MetricWidgetTimelineProvider.swift in Sources */,
-				AF2FD91A2B71C5EE003FBE2A /* Logger.swift in Sources */,
+				AF2FD91A2B71C5EE003FBE2A /* MylesLogger.swift in Sources */,
 				AF2FD9122B71C211003FBE2A /* HealthManager.swift in Sources */,
 				AF2FD9162B71C328003FBE2A /* HealthManager+Metrics.swift in Sources */,
 				AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */,

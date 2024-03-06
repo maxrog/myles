@@ -63,7 +63,7 @@ struct mylesApp: App {
             case .inactive: newPhase = "inactive"
             default: break
             }
-            Logger.log(.action, "Scene changed from \(oldPhase) to \(newPhase)", sender: String(describing: self))
+            MylesLogger.log(.action, "Scene changed from \(oldPhase) to \(newPhase)", sender: String(describing: self))
         })
     }
 }

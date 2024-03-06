@@ -1,15 +1,17 @@
 //
-//  Logger.swift
+//  MylesLogger.swift
 //  myles
 //
 //  Created by Max Rogers on 12/8/23.
 //
 
 import Foundation
+import OSLog
 
-// TODO use new Swift logging subsystem
 
-struct Logger {
+struct MylesLogger {
+    
+    static private var loggers: [String : Logger] = [:]
     
     static var logLevel: LogLevel = .verbose
     
@@ -19,29 +21,25 @@ struct Logger {
     ///   - message: Simple message to log
     ///   - sender: String describing callsite
     ///   - verbose: Additional log messaging to provide
-    static func log(_ logType: LogType, _ message: String, sender: String, verbose: String? = nil) {
+    static func log(_ logType: LogType, _ message: String, sender: String) {
         guard logLevel != .none else { return }
+        let logger = loggers[sender] ?? Logger(subsystem: Bundle.main.bundleIdentifier ?? "", category: sender)
+        if loggers[sender] == nil {
+            loggers[sender] = logger
+        }
         switch logType {
         case .error:
-            print("📕 Error:\(sender) \(message)")
+            logger.error("\(message)")
         case .fatal:
-            fatalError("🌋 FATAL:\(sender) - \(message)")
+            logger.critical("\(message)")
         case .warning:
-            print("📙:\(sender) - \(message)")
+            logger.warning("\(message)")
         case .success:
-            print("📗:\(sender) - \(message)")
+            logger.info("\(message)")
         case .action:
-            print("📓:\(sender) - \(message)")
+            logger.notice("\(message)")
         case .cancelled:
-            print("📘:\(sender) - \(message)")
-        }
-        if let verbose = verbose, logLevel == .verbose {
-            print(
-                """
-                \(sender)
-                \(verbose)
-              """
-            )
+            logger.warning("\(message)")
         }
     }
     

@@ -30,7 +30,7 @@ class HealthManager {
     /// Requests health data access from the user
     func requestPermission() async -> Bool {
         guard HKHealthStore.isHealthDataAvailable() else {
-            Logger.log(.error, "Health data is not available on user's device", sender: String(describing: self))
+            MylesLogger.log(.error, "Health data is not available on user's device", sender: String(describing: self))
             return false
         }
         
@@ -44,11 +44,11 @@ class HealthManager {
         
         let response: ()? = try? await store.requestAuthorization(toShare: Set<HKSampleType>(), read: read)
         guard response != nil else {
-            Logger.log(.error, "Failed to receive user's Health data permission", sender: String(describing: self))
+            MylesLogger.log(.error, "Failed to receive user's Health data permission", sender: String(describing: self))
             return false
         }
         self.setUpBackgroundDeliveryForDataTypes()
-        Logger.log(.action, "User has been prompted for Health data permission", sender: String(describing: self))
+        MylesLogger.log(.action, "User has been prompted for Health data permission", sender: String(describing: self))
         return true
     }
     
@@ -62,7 +62,7 @@ class HealthManager {
     /// @MainActor
     @MainActor
     func processWorkouts(startDate: Date? = nil, limit: Int = HKObjectQueryNoLimit) async {
-        Logger.log(.action, "Processing workout data", sender: String(describing: self))
+        MylesLogger.log(.action, "Processing workout data", sender: String(describing: self))
         let workouts = await fetchWorkouts(startDate: startDate, limit: limit) ?? []
         var runs: [MylesRun] = []
         for (index, workout) in workouts.enumerated() {
@@ -132,7 +132,7 @@ class HealthManager {
                                mileSplits: splits)
             runs.append(run)
         }
-        Logger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))
+        MylesLogger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))
         self.runs = runs
     }
     
@@ -144,13 +144,13 @@ class HealthManager {
     public func loadMapData(for run: MylesRun) async -> Bool {
         let id = run.id
         guard let locationPoints = await fetchWorkoutLocationData(for: id), locationPoints.count > 0 else {
-            Logger.log(.action, "Run \(run.id) does not contain location data", sender: String(describing: self))
+            MylesLogger.log(.action, "Run \(run.id) does not contain location data", sender: String(describing: self))
             return false
         }
         withAnimation {
             run.locationPoints = locationPoints
         }
-        Logger.log(.success, "Run \(run.id) successfully updated with \(locationPoints.count) location points", sender: String(describing: self))
+        MylesLogger.log(.success, "Run \(run.id) successfully updated with \(locationPoints.count) location points", sender: String(describing: self))
         return true
     }
 }
@@ -176,13 +176,13 @@ extension HealthManager {
         let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: compoundPredicate, limit: limit, sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: false)], resultsHandler: { query, samples, error in
                 if let error = error {
-                    Logger.log(.error, "Failed to retrieve workout samples, \(error.localizedDescription)", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve workout samples, \(error.localizedDescription)", sender: String(describing: self))
                     continuation.resume(throwing: error)
                     return
                 }
                 
                 guard let samples = samples else {
-                    Logger.log(.error, "Failed to retrieve workout samples, returning empty", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve workout samples, returning empty", sender: String(describing: self))
                     continuation.resume(returning: [])
                     return
                 }
@@ -192,11 +192,11 @@ extension HealthManager {
         }
         
         guard let workouts = samples as? [HKWorkout], workouts.count > 0 else {
-            Logger.log(.error, "Failed to retrieve workouts, returning empty", sender: String(describing: self))
+            MylesLogger.log(.error, "Failed to retrieve workouts, returning empty", sender: String(describing: self))
             return nil
         }
         
-        Logger.log(.success, "Successfully retrieved \(workouts.count) workouts", sender: String(describing: self))
+        MylesLogger.log(.success, "Successfully retrieved \(workouts.count) workouts", sender: String(describing: self))
         self.storedWorkouts = workouts
         return workouts
     }
@@ -206,19 +206,19 @@ extension HealthManager {
     ///   - workout: The workout for desired routes
     /// - Returns: The matching routes, if available
     private func fetchWorkoutRoutes(for workout: HKWorkout) async -> [HKWorkoutRoute]? {
-        Logger.log(.action, "Attemping to fetch workout routes for workout \(workout.uuid.uuidString)", sender: String(describing: self))
+        MylesLogger.log(.action, "Attemping to fetch workout routes for workout \(workout.uuid.uuidString)", sender: String(describing: self))
         
         let byWorkout = HKQuery.predicateForObjects(from: workout)
         let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             store.execute(HKAnchoredObjectQuery(type: HKSeriesType.workoutRoute(), predicate: byWorkout, anchor: nil, limit: HKObjectQueryNoLimit, resultsHandler: { (query, samples, deletedObjects, anchor, error) in
                 if let error = error {
-                    Logger.log(.error, "Failed to retrieve route samples, \(error.localizedDescription)", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve route samples, \(error.localizedDescription)", sender: String(describing: self))
                     continuation.resume(throwing: error)
                     return
                 }
                 
                 guard let samples = samples else {
-                    Logger.log(.error, "Failed to retrieve route samples, returning empty", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve route samples, returning empty", sender: String(describing: self))
                     continuation.resume(returning: [])
                     return
                 }
@@ -228,11 +228,11 @@ extension HealthManager {
         }
         
         guard let workoutRoutes = samples as? [HKWorkoutRoute] else {
-            Logger.log(.error, "Failed to retrieve workout routes, returning empty", sender: String(describing: self))
+            MylesLogger.log(.error, "Failed to retrieve workout routes, returning empty", sender: String(describing: self))
             return nil
         }
         
-        Logger.log(.success, "Successfully retrieved \(workoutRoutes.count) workout routes", sender: String(describing: self))
+        MylesLogger.log(.success, "Successfully retrieved \(workoutRoutes.count) workout routes", sender: String(describing: self))
         return workoutRoutes
     }
     
@@ -241,19 +241,19 @@ extension HealthManager {
     ///   - route: The route for desired location data
     /// - Returns: The location data, if available
     private func fetchLocationData(for route: HKWorkoutRoute) async -> [CLLocation] {
-        Logger.log(.action, "Attemping to fetch workout locations for route \(route.uuid.uuidString)", sender: String(describing: self))
+        MylesLogger.log(.action, "Attemping to fetch workout locations for route \(route.uuid.uuidString)", sender: String(describing: self))
         let locations = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[CLLocation], Error>) in
             var allLocations: [CLLocation] = []
             let query = HKWorkoutRouteQuery(route: route) {  (query, locations, finished, error) in
                 
                 if let error = error {
-                    Logger.log(.error, "Failed to retrieve route location data, \(error.localizedDescription)", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve route location data, \(error.localizedDescription)", sender: String(describing: self))
                     continuation.resume(throwing: error)
                     return
                 }
                 
                 guard let currentLocationBatch = locations else {
-                    Logger.log(.error, "Failed to retrieve route location batch, returning empty", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve route location batch, returning empty", sender: String(describing: self))
                     continuation.resume(returning: [])
                     return
                 }
@@ -268,11 +268,11 @@ extension HealthManager {
         }
         
         guard let locations = locations else {
-            Logger.log(.error, "Failed to retrieve route location data, returning empty", sender: String(describing: self))
+            MylesLogger.log(.error, "Failed to retrieve route location data, returning empty", sender: String(describing: self))
             return []
         }
         
-        Logger.log(.success, "Successfully retrieved \(locations.count) location points", sender: String(describing: self))
+        MylesLogger.log(.success, "Successfully retrieved \(locations.count) location points", sender: String(describing: self))
         return locations
     }
     
@@ -287,13 +287,13 @@ extension HealthManager {
         let samples = try? await withCheckedThrowingContinuation { (continuation: CheckedContinuation<[HKSample], Error>) in
             store.execute(HKSampleQuery(sampleType: .workoutType(), predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil, resultsHandler: { query, samples, error in
                 if let error = error {
-                    Logger.log(.error, "Failed to retrieve workout, \(error.localizedDescription)", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve workout, \(error.localizedDescription)", sender: String(describing: self))
                     continuation.resume(throwing: error)
                     return
                 }
                 
                 guard let samples = samples else {
-                    Logger.log(.error, "Failed to retrieve workout sample with id \(id.uuidString), returning empty", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve workout sample with id \(id.uuidString), returning empty", sender: String(describing: self))
                     continuation.resume(returning: [])
                     return
                 }
@@ -303,11 +303,11 @@ extension HealthManager {
         }
         
         guard let workout = (samples as? [HKWorkout])?.first else {
-            Logger.log(.error, "Failed to retrieve workout with id \(id.uuidString), returning empty", sender: String(describing: self))
+            MylesLogger.log(.error, "Failed to retrieve workout with id \(id.uuidString), returning empty", sender: String(describing: self))
             return nil
         }
         
-        Logger.log(.success, "Successfully retrieved workout \(workout.uuid.uuidString)", sender: String(describing: self))
+        MylesLogger.log(.success, "Successfully retrieved workout \(workout.uuid.uuidString)", sender: String(describing: self))
         
         var locationPoints: [CLLocation]?
         let routes = await fetchWorkoutRoutes(for: workout) ?? []
@@ -333,13 +333,13 @@ extension HealthManager {
             store.execute(HKSampleQuery(sampleType: distanceType!, predicate: predicate,
                                         limit: HKObjectQueryNoLimit, sortDescriptors: [.init(keyPath: \HKSample.startDate, ascending: true)], resultsHandler: { (query, samples, error) -> Void in
                 if let error = error {
-                    Logger.log(.error, "Failed to retrieve workout distance samples, \(error.localizedDescription)", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve workout distance samples, \(error.localizedDescription)", sender: String(describing: self))
                     continuation.resume(throwing: error)
                     return
                 }
                 
                 guard let samples = samples else {
-                    Logger.log(.error, "Failed to retrieve workout distance samples, returning empty", sender: String(describing: self))
+                    MylesLogger.log(.error, "Failed to retrieve workout distance samples, returning empty", sender: String(describing: self))
                     continuation.resume(returning: [])
                     return
                 }
@@ -349,7 +349,7 @@ extension HealthManager {
         }
         
         guard let samples = samples as? [HKQuantitySample] else {
-            Logger.log(.error, "Failed to retrieve workout distance samples, returning empty", sender: String(describing: self))
+            MylesLogger.log(.error, "Failed to retrieve workout distance samples, returning empty", sender: String(describing: self))
             return []
         }
         
@@ -357,7 +357,7 @@ extension HealthManager {
         var totalTime: TimeInterval = 0.0
         var mileSplits: [TimeInterval] = []
         
-        Logger.log(.action, "Processing mile splits", sender: String(describing: self))
+        MylesLogger.log(.action, "Processing mile splits", sender: String(describing: self))
 
         for sample in samples {
             totalDistance += sample.quantity.doubleValue(for: HKUnit.meter())
@@ -372,7 +372,7 @@ extension HealthManager {
             }
         }
         
-        Logger.log(.action, "Processed and returning mile splits for \(mileSplits.count) miles", sender: String(describing: self))
+        MylesLogger.log(.action, "Processed and returning mile splits for \(mileSplits.count) miles", sender: String(describing: self))
         
         return mileSplits
     }

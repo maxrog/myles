@@ -47,7 +47,7 @@ class ShoeManager {
         var allShoes = shoes
         allShoes.append(shoe)
         shoes = allShoes
-        Logger.log(.action, "Adding shoe \(shoe.name) to store", sender: String(describing: self))
+        MylesLogger.log(.action, "Adding shoe \(shoe.name) to store", sender: String(describing: self))
     }
     
     /// Removes a shoe from the user's tracked shoe list
@@ -56,7 +56,7 @@ class ShoeManager {
         guard let index = allShoes.firstIndex(of: shoe) else { return }
         allShoes.remove(at: index)
         shoes = allShoes
-        Logger.log(.action, "Deleting shoe \(shoe.name) from store", sender: String(describing: self))
+        MylesLogger.log(.action, "Deleting shoe \(shoe.name) from store", sender: String(describing: self))
     }
     
     /// Modifies a shoe at a certain index
@@ -65,13 +65,13 @@ class ShoeManager {
     /// - index: The index at which to replace the shoe
     func modifyShoe(_ updatedShoe: MylesShoe, at index: Int) {
         guard shoes.indices.contains(index) else {
-            Logger.log(.action, "Could not find shoe to delete at index \(index)", sender: String(describing: self))
+            MylesLogger.log(.action, "Could not find shoe to delete at index \(index)", sender: String(describing: self))
             return
         }
         var allShoes = shoes
         allShoes[index] = updatedShoe
         shoes = allShoes
-        Logger.log(.action, "Modifying index \(index) with new shoe \(updatedShoe.name)", sender: String(describing: self))
+        MylesLogger.log(.action, "Modifying index \(index) with new shoe \(updatedShoe.name)", sender: String(describing: self))
     }
     
     /// Removes a shoe from the user's tracked shoe list using provided index
@@ -80,13 +80,13 @@ class ShoeManager {
         if shoes.indices.contains(index) {
             shoeName = shoes[index].name
         } else {
-            Logger.log(.action, "Could not find shoe to delete at index \(index)", sender: String(describing: self))
+            MylesLogger.log(.action, "Could not find shoe to delete at index \(index)", sender: String(describing: self))
         }
         
         var allShoes = shoes
         allShoes.remove(at: index)
         shoes = allShoes
-        Logger.log(.action, "Deleting shoe \(shoeName ?? "") from store", sender: String(describing: self))
+        MylesLogger.log(.action, "Deleting shoe \(shoeName ?? "") from store", sender: String(describing: self))
     }
     
     /// Adds a shoe to a specific run
@@ -98,7 +98,7 @@ class ShoeManager {
         shoeToUpdate.runIds.append(run.id)
         allShoes[index] = shoeToUpdate
         shoes = allShoes
-        Logger.log(.action, "Adding shoe \(shoe.name) for run with id \(run.id.uuidString)", sender: String(describing: self))
+        MylesLogger.log(.action, "Adding shoe \(shoe.name) for run with id \(run.id.uuidString)", sender: String(describing: self))
     }
     
     
@@ -112,7 +112,7 @@ class ShoeManager {
             shoeToUpdate.runIds.remove(at: idIndex)
         }
         allShoes[index] = shoeToUpdate
-        Logger.log(.action, "Removing shoe \(shoe.name) for run with id \(run.id.uuidString)", sender: String(describing: self))
+        MylesLogger.log(.action, "Removing shoe \(shoe.name) for run with id \(run.id.uuidString)", sender: String(describing: self))
         shoes = allShoes
     }
     
@@ -120,9 +120,9 @@ class ShoeManager {
     func selectedShoe(for run: MylesRun) -> MylesShoe? {
         let matchingShoe = shoes.first(where: { $0.runIds.contains(run.id) })
         if let shoe = matchingShoe {
-            Logger.log(.action, "Returning matching shoe \(shoe.name) for id: \(run.id)", sender: String(describing: self))
+            MylesLogger.log(.action, "Returning matching shoe \(shoe.name) for id: \(run.id)", sender: String(describing: self))
         } else {
-            Logger.log(.action, "Could not find matching shoe for id \(run.id)", sender: String(describing: self))
+            MylesLogger.log(.action, "Could not find matching shoe for id \(run.id)", sender: String(describing: self))
         }
         return matchingShoe
     }

@@ -71,7 +71,7 @@ class ThemeManager: ObservableObject {
             userDefaults.set(false, forKey: ThemeUserDefaults.applySystemKey)
             preferredStyle = applyDarkMode ? .dark : .light
         }
-        Logger.log(.action, "Theme Configured: \(preferredStyle.rawValue)", sender: String(describing: self), verbose: "Theme configured with values: Preferred Style = \(preferredStyle.rawValue), System Setting = \(useSystemSetting), Dark Mode = \(applyDarkMode)")
+        MylesLogger.log(.action, "Theme configured with values: Preferred Style = \(preferredStyle.rawValue), System Setting = \(useSystemSetting), Dark Mode = \(applyDarkMode)", sender: String(describing: self))
     }
     
     // MARK: Colors
