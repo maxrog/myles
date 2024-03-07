@@ -9,12 +9,13 @@ import SwiftUI
 
 /*
  TODO
- • Observation Swift 5.9 Refactor
+ • Manual provisioning
+ • Xcode Cloud
+ • Refactor references to Asset images to something more reliable
  • SF Symbol Animation
  • Refactor .font(.custom("norwester", size: 28)) to something more reliable (Fonts Struct or something in theming) Allow user to change font?
- • Refactor references to Asset images to something more reliable
- • Xcode Cloud
  • make properties private that can be project wide
+ • Observation Swift 5.9 Refactor
  */
 
 @main
