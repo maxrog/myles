@@ -30,10 +30,9 @@ struct SettingsView: View {
                                     .foregroundStyle(Color.blue)
                             )
                         Stepper(onIncrement: {
-                            goals.weeklyMileageGoal += 1
+                            goals.updateWeeklyMileageGoal(to: goals.weeklyMileageGoal + 1)
                         }, onDecrement: {
-                            guard goals.weeklyMileageGoal > 0 else { return }
-                            goals.weeklyMileageGoal -= 1
+                            goals.updateWeeklyMileageGoal(to: goals.weeklyMileageGoal - 1)
                         }, label: {
                             HStack {
                                 Text("Weekly Mileage:")

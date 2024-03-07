@@ -7,11 +7,31 @@
 
 import SwiftUI
 
-// TODO - migrate to @Observable once @AppStorage is supported\
+// TODO - migrate to @Observable once this flow with user defaults works
 
+/// Manager for user workout goals
 class GoalsManager: ObservableObject {
+    
+    /// Shared user defaults
+    let userDefaults = UserDefaults(suiteName: "group.com.marfodub.myles")
+    
+    init() {
+        self.weeklyMileageGoal = userDefaults?.integer(forKey: GoalKeys.weeklyMileage.rawValue) ?? 0
+    }
 
-    @AppStorage(GoalKeys.weeklyMileage.rawValue) var weeklyMileageGoal: Int = 0
+    // MARK: Weekly Mileage
+    
+    /// User's weekly mileage goal
+    @Published private(set) var weeklyMileageGoal: Int = 0 {
+        didSet { saveWeeklyMileageGoal() }
+    }
+    func updateWeeklyMileageGoal(to newGoal: Int) {
+        guard newGoal > 0 else { return }
+        self.weeklyMileageGoal = newGoal
+    }
+    private func saveWeeklyMileageGoal() {
+        userDefaults?.setValue(weeklyMileageGoal, forKey: GoalKeys.weeklyMileage.rawValue)
+    }
     
 }
 

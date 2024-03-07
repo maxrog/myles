@@ -10,14 +10,13 @@ import WidgetKit
 import Charts
 
 // TODO case where there's no miles (data get messed up for whatever reason), let's have an empty view
-// TODO use myles red colors, base light,med, dark on distance compared to rest of week
 // TODO custom font
-// TODO issue with duplicate x value labels. Maybe try putting custom label above the bar mark with short day of week
 
 /// A widget view for displaying metrics including a chart
 struct MetricChartWidgetView: View {
     
     let entry: MetricEntry
+    let goals = GoalsManager()
     
     private func generateBarMark(for run: MylesRun) -> BarMark {
         switch entry.primaryFilter {
@@ -80,8 +79,8 @@ struct MetricChartWidgetView: View {
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
                 
-                // TODO 30 should be users goal
-                MetricGaugeView(progress: min(1.0, totalMiles / 30),
+                MetricGaugeView(progress: min(1.0, 
+                                              totalMiles / Double(goals.weeklyMileageGoal)),
                                 total: totalMiles.prettyString,
                                 metric: NSLocalizedString("miles", comment: "miles"))
                 .frame(height: geo.size.height * 0.9)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AF0097ED2B990D6D0065D7A6 /* GoalsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */; };
 		AF0097EE2B990E700065D7A6 /* GoalsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */; };
+		AF0097F52B99DB5C0065D7A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0097F42B99DB5C0065D7A6 /* Assets.xcassets */; };
 		AF12868B2B76E40400A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF1E61602B779B2600DBE63D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
@@ -53,7 +54,6 @@
 		AF8B5C6B2B6127B800AC5ED4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF8B5C6A2B6127B800AC5ED4 /* SwiftUI.framework */; };
 		AF8B5C6E2B6127B800AC5ED4 /* MylesWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5C6D2B6127B800AC5ED4 /* MylesWidgetBundle.swift */; };
 		AF8B5C702B6127B800AC5ED4 /* MetricWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5C6F2B6127B800AC5ED4 /* MetricWidget.swift */; };
-		AF8B5C722B6127B900AC5ED4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8B5C712B6127B900AC5ED4 /* Assets.xcassets */; };
 		AF8B5C762B6127B900AC5ED4 /* MylesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AF8B5C662B6127B800AC5ED4 /* MylesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AF8B5C7C2B612C9300AC5ED4 /* MylesRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF240C762B2BCA900012AB3A /* MylesRun.swift */; };
 		AF8B5C822B61335B00AC5ED4 /* MetricChartWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5C802B61335900AC5ED4 /* MetricChartWidgetView.swift */; };
@@ -98,6 +98,9 @@
 
 /* Begin PBXFileReference section */
 		AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsManager.swift; sourceTree = "<group>"; };
+		AF0097F22B99DB530065D7A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF0097F32B99DB530065D7A6 /* MylesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MylesWidgetExtension.entitlements; sourceTree = "<group>"; };
+		AF0097F42B99DB5C0065D7A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF12868A2B76E40400A890FA /* HealthManager+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Background.swift"; sourceTree = "<group>"; };
 		AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricGaugeView.swift; sourceTree = "<group>"; };
 		AF240C762B2BCA900012AB3A /* MylesRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRun.swift; sourceTree = "<group>"; };
@@ -135,8 +138,6 @@
 		AF8B5C6A2B6127B800AC5ED4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		AF8B5C6D2B6127B800AC5ED4 /* MylesWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesWidgetBundle.swift; sourceTree = "<group>"; };
 		AF8B5C6F2B6127B800AC5ED4 /* MetricWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricWidget.swift; sourceTree = "<group>"; };
-		AF8B5C712B6127B900AC5ED4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AF8B5C732B6127B900AC5ED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF8B5C802B61335900AC5ED4 /* MetricChartWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricChartWidgetView.swift; sourceTree = "<group>"; };
 		AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeManager.swift; sourceTree = "<group>"; };
 		AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Metrics.swift"; sourceTree = "<group>"; };
@@ -173,6 +174,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF0097F12B99DB210065D7A6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AF0097F42B99DB5C0065D7A6 /* Assets.xcassets */,
+				AF0097F22B99DB530065D7A6 /* Info.plist */,
+				AF0097F32B99DB530065D7A6 /* MylesWidgetExtension.entitlements */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		AF243B572B2932CE00608E1C /* Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,13 +373,12 @@
 		AF8B5C6C2B6127B800AC5ED4 /* MylesWidget */ = {
 			isa = PBXGroup;
 			children = (
+				AF0097F12B99DB210065D7A6 /* Resources */,
 				AF8B5C832B6133A700AC5ED4 /* Views */,
 				AF8B5C842B613B6400AC5ED4 /* Models */,
 				AF8B5C852B613B6B00AC5ED4 /* Services */,
 				AF8B5C6D2B6127B800AC5ED4 /* MylesWidgetBundle.swift */,
 				AF8B5C6F2B6127B800AC5ED4 /* MetricWidget.swift */,
-				AF8B5C712B6127B900AC5ED4 /* Assets.xcassets */,
-				AF8B5C732B6127B900AC5ED4 /* Info.plist */,
 			);
 			path = MylesWidget;
 			sourceTree = "<group>";
@@ -503,9 +513,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF8B5C722B6127B900AC5ED4 /* Assets.xcassets in Resources */,
 				AF1E61602B779B2600DBE63D /* Colors.xcassets in Resources */,
 				AF1E61622B77C40100DBE63D /* LeagueSpartan-VariableFont_wght.ttf in Resources */,
+				AF0097F52B99DB5C0065D7A6 /* Assets.xcassets in Resources */,
 				AF1E61612B77C3FE00DBE63D /* norwester.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -709,6 +719,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = myles/Resources/myles.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"myles/Preview Content\"";
@@ -736,6 +747,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marfodub.myles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -751,6 +763,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = myles/Resources/myles.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"myles/Preview Content\"";
@@ -778,6 +791,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marfodub.myles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -791,11 +805,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MylesWidget/Resources/MylesWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3JSTV9NEF8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MylesWidget/Info.plist;
+				INFOPLIST_FILE = MylesWidget/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MylesWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -807,6 +823,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marfodub.myles.MylesWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -820,11 +837,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = MylesWidget/Resources/MylesWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3JSTV9NEF8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MylesWidget/Info.plist;
+				INFOPLIST_FILE = MylesWidget/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MylesWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -836,6 +855,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.marfodub.myles.MylesWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

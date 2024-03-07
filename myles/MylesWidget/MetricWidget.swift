@@ -23,8 +23,8 @@ struct MetricWidget: Widget {
             MetricChartWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Metrics")
+        .description("Track your weekly goals.")
     }
 }
 
