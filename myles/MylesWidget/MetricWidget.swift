@@ -20,11 +20,12 @@ struct MetricWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: MetricWidgetTimelineProvider()) { entry in
-            MetricChartWidgetView(entry: entry)
+            MetricWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
+        .supportedFamilies([.systemSmall, .systemMedium])
         .configurationDisplayName("Metrics")
-        .description("Track your weekly goals.")
+        .description("Track your week.")
     }
 }
 

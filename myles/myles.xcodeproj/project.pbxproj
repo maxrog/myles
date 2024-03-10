@@ -10,6 +10,9 @@
 		AF0097ED2B990D6D0065D7A6 /* GoalsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */; };
 		AF0097EE2B990E700065D7A6 /* GoalsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097EC2B990D6D0065D7A6 /* GoalsManager.swift */; };
 		AF0097F52B99DB5C0065D7A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF0097F42B99DB5C0065D7A6 /* Assets.xcassets */; };
+		AF0097F72B9B3A9F0065D7A6 /* CompactMetricWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097F62B9B3A9F0065D7A6 /* CompactMetricWidgetView.swift */; };
+		AF0097F92B9B3AC60065D7A6 /* ChartMetricWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0097F82B9B3AC50065D7A6 /* ChartMetricWidgetView.swift */; };
+		AF0097FB2B9DC23A0065D7A6 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
 		AF12868B2B76E40400A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF12868A2B76E40400A890FA /* HealthManager+Background.swift */; };
 		AF1E61602B779B2600DBE63D /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF243B532B28802D00608E1C /* Colors.xcassets */; };
@@ -56,7 +59,7 @@
 		AF8B5C702B6127B800AC5ED4 /* MetricWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5C6F2B6127B800AC5ED4 /* MetricWidget.swift */; };
 		AF8B5C762B6127B900AC5ED4 /* MylesWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AF8B5C662B6127B800AC5ED4 /* MylesWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AF8B5C7C2B612C9300AC5ED4 /* MylesRun.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF240C762B2BCA900012AB3A /* MylesRun.swift */; };
-		AF8B5C822B61335B00AC5ED4 /* MetricChartWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5C802B61335900AC5ED4 /* MetricChartWidgetView.swift */; };
+		AF8B5C822B61335B00AC5ED4 /* MetricWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B5C802B61335900AC5ED4 /* MetricWidgetView.swift */; };
 		AFB0E5162B3CD0CB00E56706 /* ShoeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */; };
 		AFB0E51A2B3D958400E56706 /* HealthManager+Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */; };
 		AFC1D9902B2DCBDC00ED1114 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC1D98F2B2DCBDC00ED1114 /* MapView.swift */; };
@@ -101,6 +104,8 @@
 		AF0097F22B99DB530065D7A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF0097F32B99DB530065D7A6 /* MylesWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MylesWidgetExtension.entitlements; sourceTree = "<group>"; };
 		AF0097F42B99DB5C0065D7A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AF0097F62B9B3A9F0065D7A6 /* CompactMetricWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactMetricWidgetView.swift; sourceTree = "<group>"; };
+		AF0097F82B9B3AC50065D7A6 /* ChartMetricWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMetricWidgetView.swift; sourceTree = "<group>"; };
 		AF12868A2B76E40400A890FA /* HealthManager+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Background.swift"; sourceTree = "<group>"; };
 		AF1E61632B77C6FB00DBE63D /* MetricGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricGaugeView.swift; sourceTree = "<group>"; };
 		AF240C762B2BCA900012AB3A /* MylesRun.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesRun.swift; sourceTree = "<group>"; };
@@ -138,7 +143,7 @@
 		AF8B5C6A2B6127B800AC5ED4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		AF8B5C6D2B6127B800AC5ED4 /* MylesWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesWidgetBundle.swift; sourceTree = "<group>"; };
 		AF8B5C6F2B6127B800AC5ED4 /* MetricWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricWidget.swift; sourceTree = "<group>"; };
-		AF8B5C802B61335900AC5ED4 /* MetricChartWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricChartWidgetView.swift; sourceTree = "<group>"; };
+		AF8B5C802B61335900AC5ED4 /* MetricWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricWidgetView.swift; sourceTree = "<group>"; };
 		AFB0E5152B3CD0CB00E56706 /* ShoeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeManager.swift; sourceTree = "<group>"; };
 		AFB0E5192B3D958400E56706 /* HealthManager+Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HealthManager+Metrics.swift"; sourceTree = "<group>"; };
 		AFC1D98F2B2DCBDC00ED1114 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -386,7 +391,9 @@
 		AF8B5C832B6133A700AC5ED4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AF8B5C802B61335900AC5ED4 /* MetricChartWidgetView.swift */,
+				AF8B5C802B61335900AC5ED4 /* MetricWidgetView.swift */,
+				AF0097F62B9B3A9F0065D7A6 /* CompactMetricWidgetView.swift */,
+				AF0097F82B9B3AC50065D7A6 /* ChartMetricWidgetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -569,16 +576,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF8B5C822B61335B00AC5ED4 /* MetricChartWidgetView.swift in Sources */,
+				AF8B5C822B61335B00AC5ED4 /* MetricWidgetView.swift in Sources */,
 				AF2FD90A2B70665A003FBE2A /* MetricEntry.swift in Sources */,
+				AF0097F72B9B3A9F0065D7A6 /* CompactMetricWidgetView.swift in Sources */,
 				AF8B5C7C2B612C9300AC5ED4 /* MylesRun.swift in Sources */,
 				AF8B5C702B6127B800AC5ED4 /* MetricWidget.swift in Sources */,
 				AF8B5C6E2B6127B800AC5ED4 /* MylesWidgetBundle.swift in Sources */,
 				AF2FD9182B71C5DD003FBE2A /* SwiftUIExtensions.swift in Sources */,
 				AF1E61652B77FA7600DBE63D /* MetricGaugeView.swift in Sources */,
 				AF2FD90D2B706764003FBE2A /* MetricWidgetTimelineProvider.swift in Sources */,
+				AF0097F92B9B3AC60065D7A6 /* ChartMetricWidgetView.swift in Sources */,
 				AF2FD91A2B71C5EE003FBE2A /* MylesLogger.swift in Sources */,
 				AF2FD9122B71C211003FBE2A /* HealthManager.swift in Sources */,
+				AF0097FB2B9DC23A0065D7A6 /* MylesIconLabel.swift in Sources */,
 				AF0097EE2B990E700065D7A6 /* GoalsManager.swift in Sources */,
 				AF2FD9162B71C328003FBE2A /* HealthManager+Metrics.swift in Sources */,
 				AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */,
@@ -728,7 +738,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myles/Resources/Info.plist;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "I need access to these metrics to display useful workout data! ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "I need access to the listed metrics to display useful workout data.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -772,7 +782,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myles/Resources/Info.plist;
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "I need access to these metrics to display useful workout data! ";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "I need access to the listed metrics to display useful workout data.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

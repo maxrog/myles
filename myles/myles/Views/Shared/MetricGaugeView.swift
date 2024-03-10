@@ -13,6 +13,7 @@ struct MetricGaugeView: View {
     
     let progress: Double
     let total: String
+    let goal: Int?
     let metric: String
     
     var progressColor: UIColor {
@@ -51,13 +52,20 @@ struct MetricGaugeView: View {
                         .rotationEffect(.degrees(-90))
                         .animation(.easeOut, value: progress)
                 }
-                VStack {
+                VStack(spacing: 0) {
                     Text(total)
                         .font(.custom("norwester", size: 28))
                         .lineLimit(2)
                     Text(metric)
                         .font(.custom("norwester", size: 12))
                 }.frame(width: geo.size.width * 0.9)
+                
+                if let goal = goal, goal > 0 {
+                    Label("\(goal)", systemImage: "star.circle.fill")
+                        .font(.custom("norwester", size: 10))
+                        .labelStyle(MylesIconLabel())
+                        .position(CGPoint(x: geo.size.width - 20, y: 0))
+                }
             }
         }
     }
