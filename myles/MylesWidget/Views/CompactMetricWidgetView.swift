@@ -17,26 +17,22 @@ struct CompactMetricWidgetView: View {
     var body: some View {
         let totalMiles = entry.focusedRuns.reduce(0) { $0 + $1.distance }
         let goal = goals.weeklyMileageGoal
-        HStack {
+        HStack(spacing: 0) {
             Spacer()
-            VStack(alignment: .center, spacing: 0) {
+            VStack(spacing: 0) {
                 if goal > 0 {
                     Label("\(goal)", systemImage: "star.circle.fill")
                         .font(.custom("norwester", size: 10))
                         .labelStyle(MylesIconLabel())
                 }
                 Spacer()
-                HStack {
-                    Spacer()
-                    MetricGaugeView(progress: min(1.0,
-                                                  totalMiles / Double(goals.weeklyMileageGoal)),
-                                    total: totalMiles.prettyString,
-                                    goal: nil,
-                                    metric: NSLocalizedString("mi", comment: "miles"))
-                    .frame(height: geometry.size.height * 0.8)
-                    .padding(2)
-                    Spacer()
-                }
+                MetricGaugeView(progress: min(1.0,
+                                              totalMiles / Double(goals.weeklyMileageGoal)),
+                                total: totalMiles.prettyString,
+                                goal: nil,
+                                metric: NSLocalizedString("mi", comment: "miles"))
+                .frame(width: geometry.size.height * 0.82, height: geometry.size.height * 0.82)
+                Spacer()
             }
             Spacer()
         }
