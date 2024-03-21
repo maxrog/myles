@@ -23,9 +23,11 @@ extension HealthManager {
             }
             
             let query = HKObserverQuery(sampleType: sampleType, predicate: nil) { query, completionHandler, error in
-                MylesLogger.log(.action, "Observer query update handler called for type \(type)", sender: String(describing: self))
-                WidgetCenter.shared.reloadAllTimelines()
-                completionHandler()
+                MylesLogger.log(.action, "Observer query update handler called for type \(type), with error \(error?.localizedDescription ?? "nil")", sender: String(describing: self))
+                if error == nil {
+                    WidgetCenter.shared.reloadAllTimelines()
+                    completionHandler()
+                }
             }
 
             store.execute(query)

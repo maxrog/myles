@@ -8,7 +8,6 @@
 import SwiftUI
 import WidgetKit
 
-// TODO make a cache of runs from this week (cleared on new week), if have runs from this week but entry has none, use ones from cache -- can prob do this in timeline provider
 // TODO custom font
 
 /// A widget view for displaying metrics
