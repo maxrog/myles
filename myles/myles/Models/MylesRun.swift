@@ -8,6 +8,11 @@
 import Foundation
 import CoreLocation
 import Observation
+import HealthKit
+
+/*
+ TODO refactor naming now that we support more than just a run - hiking, walking, crosstraining too
+ */
 
 /// A running workout with essential information gathered from HealthStore
 @Observable
@@ -19,6 +24,8 @@ class MylesRun: Identifiable, Equatable {
     let startTime: Date
     /// The end time of the run
     let endTime: Date
+    /// The type of workout
+    let workoutType: MylesWorkoutType
     /// The environment of the run, indoor or outdoor
     let environment: MylesRunEnvironmentType
     /// The total duration of the run, in seconds
@@ -41,13 +48,14 @@ class MylesRun: Identifiable, Equatable {
     
     
     convenience init(date: Date = Date(), distance: Double = 0.0, duration: TimeInterval = 0.0) {
-        self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration), environment: .outdoor, duration: duration, distance: distance, averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil))
+        self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration), workoutType: .running, environment: .outdoor, duration: duration, distance: distance, averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil))
     }
     
-    init(id: UUID, startTime: Date, endTime: Date, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = []) {
+    init(id: UUID, startTime: Date, endTime: Date, workoutType: HKWorkoutActivityType, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = []) {
         self.id = id
         self.startTime = startTime
         self.endTime = endTime
+        self.workoutType = MylesWorkoutType(type: workoutType)
         self.environment = environment
         self.duration = duration
         self.distance = distance
@@ -120,6 +128,7 @@ extension MylesRun {
     static let testRun = MylesRun(id: UUID(),
                                   startTime: .now.addingTimeInterval(-3700),
                                   endTime: .now,
+                                  workoutType: .running,
                                   environment: .outdoor,
                                   duration: 3700,
                                   distance: 8.44443,
@@ -139,6 +148,7 @@ extension MylesRun {
         MylesRun(id: UUID(),
                  startTime: date,
                  endTime: date,
+                 workoutType: .running,
                  environment: .outdoor,
                  duration: 0,
                  distance: 0,
@@ -166,5 +176,22 @@ enum MylesRunEnvironmentType {
     case indoor, outdoor
     init(indoor: Bool) {
         self = indoor ? .indoor : .outdoor
+    }
+}
+
+/// The workout type
+enum MylesWorkoutType {
+    case run, hike, walk, crosstrain
+    init(type: HKWorkoutActivityType) {
+        switch type {
+        case .running:
+            self = .run
+        case .hiking:
+            self = .hike
+        case .walking:
+            self = .walk
+        default:
+            self = .crosstrain
+        }
     }
 }

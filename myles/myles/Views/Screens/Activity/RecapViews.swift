@@ -84,18 +84,42 @@ struct RecapHeaderView: View {
     }
 }
 
+/*
+ TODO find better symbols for run/hike/walk
+ */
+
 /// Recap view containing run mileage
 struct RecapMileageView: View {
     
+    @EnvironmentObject var theme: ThemeManager
     @State var run: MylesRun
     
     var body: some View {
-        Text("\(run.distance.prettyString) mi")
-            .font(.custom("norwester", size: 28))
-            .padding(8)
-            .background(
-                RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemGray4))
-            )
+        HStack {
+            Spacer()
+                .overlay {
+                    switch run.workoutType {
+                    case .run:
+                        Image(systemName: "figure.run")
+                            .foregroundStyle(theme.accentColor)
+                    case .hike:
+                        Image(systemName: "figure.hiking")
+                            .foregroundStyle(theme.accentColor)
+                    case .walk:
+                        Image(systemName: "figure.walk")
+                            .foregroundStyle(theme.accentColor)
+                    case .crosstrain:
+                        EmptyView()
+                    }
+                }
+            Text("\(run.distance.prettyString) mi")
+                .font(.custom("norwester", size: 28))
+                .padding(8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemGray4))
+                )
+            Spacer()
+        }
     }
 }
 

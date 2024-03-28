@@ -63,7 +63,11 @@ class HealthManager {
     @MainActor
     func processWorkouts(startDate: Date? = nil, limit: Int = HKObjectQueryNoLimit) async {
         MylesLogger.log(.action, "Processing workout data", sender: String(describing: self))
-        let workouts = await fetchWorkouts(startDate: startDate, limit: limit) ?? []
+        let runningWorkouts = await fetchWorkouts(type: .running, startDate: startDate, limit: limit) ?? []
+        let hikingWorkouts = await fetchWorkouts(type: .hiking, startDate: startDate, limit: limit) ?? []
+        let walkingWorkouts = await fetchWorkouts(type: .walking, startDate: startDate, limit: limit) ?? []
+        
+        let workouts = (runningWorkouts + hikingWorkouts + walkingWorkouts).sorted(by:{$0.endDate > $1.endDate })
         var runs: [MylesRun] = []
         for (index, workout) in workouts.enumerated() {
             guard let distanceStats = workout.statistics(for: HKQuantityType(.distanceWalkingRunning)),
@@ -121,7 +125,8 @@ class HealthManager {
             
             let run = MylesRun(id: id,
                                startTime: startTime,
-                               endTime: endTime,
+                               endTime: endTime, 
+                               workoutType: workout.workoutActivityType,
                                environment: MylesRunEnvironmentType(indoor: indoorWorkout),
                                duration: durationSeconds,
                                distance: miles,
