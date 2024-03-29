@@ -66,17 +66,28 @@ class HealthManager {
         let runningWorkouts = await fetchWorkouts(type: .running, startDate: startDate, limit: limit) ?? []
         let hikingWorkouts = await fetchWorkouts(type: .hiking, startDate: startDate, limit: limit) ?? []
         let walkingWorkouts = await fetchWorkouts(type: .walking, startDate: startDate, limit: limit) ?? []
+        var crossTrainWorkouts: [HKWorkout] = []
+        for type in [HKWorkoutActivityType.cycling,
+                     HKWorkoutActivityType.rowing,
+                     HKWorkoutActivityType.jumpRope,
+                     HKWorkoutActivityType.elliptical,
+                     HKWorkoutActivityType.swimming, HKWorkoutActivityType.traditionalStrengthTraining] {
+            crossTrainWorkouts.append(contentsOf: await fetchWorkouts(type: type, startDate: startDate, limit: limit) ?? [])
+        }
         
-        let workouts = (runningWorkouts + hikingWorkouts + walkingWorkouts).sorted(by:{$0.endDate > $1.endDate })
+        let workouts = (runningWorkouts + hikingWorkouts + walkingWorkouts + crossTrainWorkouts).sorted(by:{$0.endDate > $1.endDate })
         var runs: [MylesRun] = []
         for (index, workout) in workouts.enumerated() {
-            guard let distanceStats = workout.statistics(for: HKQuantityType(.distanceWalkingRunning)),
-                  let distanceQuantity = distanceStats.sumQuantity() else { continue }
+            let distanceStats = workout.statistics(for: HKQuantityType(.distanceWalkingRunning))
+            ?? workout.statistics(for: HKQuantityType(.distanceCycling))
+            ?? workout.statistics(for: HKQuantityType(.distanceSwimming))
+            let distanceQuantity = distanceStats?.sumQuantity()
             let id = workout.uuid
             let startTime = workout.startDate
             let endTime = workout.endDate
             let durationSeconds = workout.duration
-            let miles = distanceQuantity.doubleValue(for: .mile())
+            // TODO should we or maybe setting for non mileage cross train to mile conversion?
+            let miles = distanceQuantity?.doubleValue(for: .mile()) ?? 0.0
             
             var heartRateBPM: Double?
             if let heartRateStats = workout.statistics(for: HKQuantityType(.heartRate)),

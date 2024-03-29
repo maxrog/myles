@@ -15,10 +15,13 @@ import Charts
  TODO - support average somehow for month/year
  */
 
-/// View that displays filterable metrics 
+/// View that displays filterable metrics
 struct MetricsView: View {
     
     @Environment(HealthManager.self) var health
+    @EnvironmentObject var goals: GoalsManager
+    
+    @AppStorage("com.marfodub.myles.MetricsWeekCountFilter") var chartWeekCount: Int = 1
     
     @State var primaryFilter = MetricsPrimaryFilterType.distance
     @State var spanFilter = MetricsSpanFilterType.week
@@ -45,63 +48,83 @@ struct MetricsView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            List {
-                Section {
-                    VStack {
-                        Picker("", selection: $primaryFilter) {
-                            Text("distance").tag(MetricsPrimaryFilterType.distance)
-                            Text("duration").tag(MetricsPrimaryFilterType.duration)
+        GeometryReader { geo in
+            NavigationStack {
+                List {
+                    if goals.weeklyMileageGoal > 0 {
+                        let weeklyRuns = health.focusedRuns(for: .week)
+                        let totalMiles = health.runsTotalDistance(weeklyRuns)
+                        let gaugeSize = min(115, geo.size.height / 6)
+                        Section {
+                            HStack {
+                                Spacer()
+                                MetricGaugeView(progress: min(1.0,
+                                                              totalMiles / Double(goals.weeklyMileageGoal)),
+                                                total: totalMiles.prettyString,
+                                                goal: nil,
+                                                metric: NSLocalizedString("miles", comment: "miles"))
+                                .frame(width: gaugeSize, height: gaugeSize)
+                                .padding(12)
+                                Spacer()
+                            }
+                        } header: {
+                            Text("Weekly Goal: \(goals.weeklyMileageGoal) miles")
+                                .font(.custom("norwester", size: 16))
                         }
-                        .pickerStyle(.segmented)
-                        
-                        MetricChartView(focusedRuns: focusedRuns, primaryFilter: primaryFilter, spanFilter: spanFilter)
-                        
-                        Picker("", selection: $spanFilter) {
-                            Text("week").tag(MetricsSpanFilterType.week)
-                            Text("month").tag(MetricsSpanFilterType.month)
-                            Text("year").tag(MetricsSpanFilterType.year)
-                        }
-                        .pickerStyle(.segmented)
+                        .listRowBackground(Color.clear)
                     }
-                } header: {
-                    HStack {
+                    
+                    Section {
+                        SteppedMetricChartView(numberOfWeeks: chartWeekCount)
+                    } header: {
+                        Text("Last ^[\(chartWeekCount) Week](inflect: true)")
+                            .font(.custom("norwester", size: 16))
+                    }
+                    
+                    Section {
+                        VStack {
+                            Picker("", selection: $primaryFilter) {
+                                Text("distance").tag(MetricsPrimaryFilterType.distance)
+                                Text("duration").tag(MetricsPrimaryFilterType.duration)
+                            }
+                            .pickerStyle(.segmented)
+                            
+                            MetricChartView(focusedRuns: focusedRuns, primaryFilter: primaryFilter, spanFilter: spanFilter)
+                            
+                            Picker("", selection: $spanFilter) {
+                                Text("week").tag(MetricsSpanFilterType.week)
+                                Text("month").tag(MetricsSpanFilterType.month)
+                                Text("year").tag(MetricsSpanFilterType.year)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                    } header: {
                         switch primaryFilter {
                         case .distance:
                             if health.runsTotalDistance(focusedRuns) > 0 {
                                 Text("Total: \(health.runsTotalDistance(focusedRuns).prettyString)")
                                     .font(.custom("norwester", size: 16))
-                                if spanFilter == .week {
-                                    Spacer()
-                                    Text("Avg: \((health.runsTotalDistance(focusedRuns) / (health.elapsedDaysForSpan(spanFilter) + 1)).prettyString)\(averageUnit)")
-                                        .font(.custom("norwester", size: 16))
-                                }
                             }
                         case .duration:
                             if health.runsTotalDistance(focusedRuns) > 0 {
                                 Text("Total: \(health.runsTotalDuration(focusedRuns).prettyTimeString)")
                                     .font(.custom("norwester", size: 16))
-                                Spacer()
-                                if spanFilter == .week {
-                                    Text("Avg: \((health.runsTotalDuration(focusedRuns) / (health.elapsedDaysForSpan(spanFilter) + 1)).prettyTimeString)\(averageUnit)")
-                                        .font(.custom("norwester", size: 16))
-                                }
                             }
                         }
                     }
                 }
+                .refreshable { await health.processWorkouts() }
+                .navigationTitle("My Miles")
             }
-            .refreshable { await health.processWorkouts() }
-            .navigationTitle("My Miles")
-        }
-        .onAppear {
-            focusedRuns = health.focusedRuns(for: spanFilter)
-        }
-        .onChange(of: health.runs) {
-            focusedRuns = health.focusedRuns(for: spanFilter)
-        }
-        .onChange(of: spanFilter) {
-            focusedRuns = health.focusedRuns(for: spanFilter)
+            .onAppear {
+                focusedRuns = health.focusedRuns(for: spanFilter)
+            }
+            .onChange(of: health.runs) {
+                focusedRuns = health.focusedRuns(for: spanFilter)
+            }
+            .onChange(of: spanFilter) {
+                focusedRuns = health.focusedRuns(for: spanFilter)
+            }
         }
     }
 }

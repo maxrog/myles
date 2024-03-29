@@ -8,6 +8,10 @@
 import SwiftUI
 import Charts
 
+/*
+ TODO different colors for cross training
+ */
+
 /// A view designed for a Widget that displays a chart next to a gauge
 struct ChartMetricWidgetView: View {
     

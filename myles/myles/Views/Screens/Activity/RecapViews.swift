@@ -42,15 +42,20 @@ struct RecapView: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .contentShape(Rectangle())
         .onTapGesture {
+            guard viewModel.run.distance > 0.0 else { return }
             Task {
                 await viewModel.downloadMap()
             }
         }
         .swipeActions {
-            Button {
-                viewModel.displayShoePicker = true
-            } label: {
-                Image(systemName: "shoe")
+            if viewModel.run.workoutType == .run
+                || viewModel.run.workoutType == .hike
+                || viewModel.run.workoutType == .walk {
+                Button {
+                    viewModel.displayShoePicker = true
+                } label: {
+                    Image(systemName: "shoe")
+                }
             }
         }
         .popover(isPresented: $viewModel.displayShoePicker) {
@@ -102,22 +107,26 @@ struct RecapMileageView: View {
                     case .run:
                         Image(systemName: "figure.run")
                             .foregroundStyle(theme.accentColor)
-                    case .hike:
-                        Image(systemName: "figure.hiking")
-                            .foregroundStyle(theme.accentColor)
-                    case .walk:
+                    case .hike, .walk:
                         Image(systemName: "figure.walk")
                             .foregroundStyle(theme.accentColor)
                     case .crosstrain:
-                        EmptyView()
+                        Image(systemName: "figure.mixed.cardio")
+                            .foregroundStyle(theme.accentColor)
                     }
                 }
-            Text("\(run.distance.prettyString) mi")
-                .font(.custom("norwester", size: 28))
-                .padding(8)
-                .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemGray4))
-                )
+            if run.distance > 0.0 {
+                Text("\(run.distance.prettyString) mi")
+                    .font(.custom("norwester", size: 28))
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemGray4))
+                    )
+            } else {
+                MylesHeartView()
+                // TODO should be a ratio from width so all screens look good
+                    .frame(height: 80)
+            }
             Spacer()
         }
     }
@@ -130,28 +139,37 @@ struct RecapBarView : View {
     
     var body: some View {
         HStack {
-            Spacer()
-            VStack {
+            if viewModel.run.distance > 0.0 {
+                Spacer()
+                VStack {
+                    if let heartRate = viewModel.run.averageHeartRateBPM, heartRate > 0 {
+                        Label("\(heartRate)", systemImage: "heart")
+                            .font(.custom("norwester", size: 13))
+                            .labelStyle(MylesIconLabel())
+                    }
+                }.frame(maxWidth: .infinity)
+                
+                Label("\(viewModel.run.averageMilePaceString)/mi", systemImage: "stopwatch")
+                    .font(.custom("norwester", size: 15))
+                    .labelStyle(MylesIconLabel())
+                    .fixedSize()
+                
+                VStack {
+                    if let elevation = viewModel.run.elevationChange.gain, elevation > 0 {
+                        Label("\(elevation) ft", systemImage: "arrow.up.forward")
+                            .font(.custom("norwester", size: 13))
+                            .labelStyle(MylesIconLabel())
+                    }
+                }.frame(maxWidth: .infinity)
+                Spacer()
+            } else {
                 if let heartRate = viewModel.run.averageHeartRateBPM, heartRate > 0 {
                     Label("\(heartRate)", systemImage: "heart")
                         .font(.custom("norwester", size: 13))
                         .labelStyle(MylesIconLabel())
+                        .frame(maxWidth: .infinity)
                 }
-            }.frame(maxWidth: .infinity)
-            
-            Label("\(viewModel.run.averageMilePaceString)/mi", systemImage: "stopwatch")
-                .font(.custom("norwester", size: 15))
-                .labelStyle(MylesIconLabel())
-                .fixedSize()
-            
-            VStack {
-                if let elevation = viewModel.run.elevationChange.gain, elevation > 0 {
-                    Label("\(elevation) ft", systemImage: "arrow.up.forward")
-                        .font(.custom("norwester", size: 13))
-                        .labelStyle(MylesIconLabel())
-                }
-            }.frame(maxWidth: .infinity)
-            Spacer()
+            }
         }
     }
 }

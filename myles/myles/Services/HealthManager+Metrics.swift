@@ -43,6 +43,8 @@ extension HealthManager {
             let runDate = run.endTime
             let calendar = Calendar.current
             
+            guard run.workoutType == .run, run.distance >= 1.0 else { continue }
+            
             guard !usedDates.contains(where: ({ calendar.isDate($0, inSameDayAs: runDate) })) else { continue }
             
             if calendar.isDate(runDate, inSameDayAs: currentDate) {
@@ -80,73 +82,6 @@ extension HealthManager {
         case .year:
             return currentYearRuns()
         }
-    }
-    
-    /// Returns the current calendar's elapsed days within a given span
-    /// - Parameters:
-    ///     - spanFilter: The span in which to calculated the elapsed days
-    func elapsedDaysForSpan(_ spanFilter: MetricsSpanFilterType) -> Double {
-        var calendar = Calendar.current
-        calendar.firstWeekday = 2
-        let currentDate = Date()
-        switch spanFilter {
-        case .week:
-            let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)) ?? currentDate
-            let daysElapsed = calendar.dateComponents([.day], from: startOfWeek, to: currentDate).day ?? 0 + 1
-            return Double(daysElapsed)
-        case .month:
-            if let monthStartDate = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate)) {
-                    let numberOfDaysElapsed = calendar.dateComponents([.day], from: monthStartDate, to: currentDate).day ?? 0
-                    return Double(numberOfDaysElapsed)
-            } else {
-                return 30
-            }
-        case .year:
-            if let yearStartDate = calendar.date(from: calendar.dateComponents([.year], from: currentDate)) {
-                let numberOfDaysElapsed = calendar.dateComponents([.day], from: yearStartDate, to: currentDate).day ?? 0
-                return Double(numberOfDaysElapsed)
-            } else {
-                return 365
-            }
-        }
-    }
-    
-    /// Grouped runs by span
-    /// - Parameters:
-    ///     - spanFilter: The span in which to calculated the elapsed days
-    ///     - focusedRuns: The runs to group
-    func groupedRunsForSpan(_ spanFilter: MetricsSpanFilterType, focusedRuns: [MylesRun]) -> [Date: [MylesRun]] {
-        var calendar = Calendar.current
-        // TODO account for user's phone calendar preference or have option in settings page (check app wide for other usage)
-        calendar.firstWeekday = 2
-        var groupedRuns: [Date : [MylesRun]] = [:]
-        switch spanFilter {
-        case .week:
-            let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
-            let startOfWeek = calendar.date(from: components) ?? Date()
-            groupedRuns[startOfWeek] = focusedRuns
-        case .month:
-            for run in focusedRuns {
-                let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: run.endTime)) ?? Date()
-                if var weekRuns = groupedRuns[startOfWeek] {
-                    weekRuns.append(run)
-                    groupedRuns[startOfWeek] = weekRuns
-                } else {
-                    groupedRuns[startOfWeek] = [run]
-                }
-            }
-        case .year:
-            for run in focusedRuns {
-                let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: run.endTime)) ?? Date()
-                if var monthRuns = groupedRuns[startOfMonth] {
-                    monthRuns.append(run)
-                    groupedRuns[startOfMonth] = monthRuns
-                } else {
-                    groupedRuns[startOfMonth] = [run]
-                }
-            }
-        }
-        return groupedRuns
     }
     
     /// Returns the user's activities based on the current week (M-S)

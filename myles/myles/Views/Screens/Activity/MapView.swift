@@ -12,7 +12,6 @@ import MapKit
 /// We disable panning until the user interacts with the map, to avoid scrolling conflicts with container
 struct MapView: View {
     
-    @EnvironmentObject var theme: ThemeManager
     @State var viewModel: MapViewModel
         
     /// The enabled interactionModes which change after user adjusts the map for first time
@@ -55,7 +54,7 @@ struct MapView: View {
                 }
             
             MapPolyline(coordinates: coordinates)
-                    .stroke(theme.accentColor, lineWidth: 2)
+                    .stroke(Color(uiColor: UIColor(named: "CosmicLatte") ?? .white), lineWidth: 2)
             }
             .onChange(of: viewModel.position) {
                 viewModel.panEnabled = viewModel.position.positionedByUser

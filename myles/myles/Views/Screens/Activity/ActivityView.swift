@@ -53,7 +53,7 @@ struct ActivityView: View {
                             .symbolEffect(.bounce, value: streakBounce)
                             .onTapGesture {
                                 streakBounce += 1
-                                // TODO display something explaining streak?
+                                // TODO display something explaining streak - has to be a run with minimum 1 mile
                             }
                     }
                 }
