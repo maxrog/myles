@@ -5,10 +5,10 @@
 //  Created by Max Rogers on 12/14/23.
 //
 
-import Foundation
 import CoreLocation
 import Observation
 import HealthKit
+import SwiftUI
 
 /*
  TODO refactor naming now that we support more than just a run - hiking, walking, crosstraining too
@@ -26,6 +26,10 @@ class MylesRun: Identifiable, Equatable {
     let endTime: Date
     /// The type of workout
     let workoutType: MylesWorkoutType
+    /// Whether the workout was considered cross training
+    var crossTraining: Bool {
+        return ![MylesWorkoutType.run, .hike, .walk].contains(self.workoutType)
+    }
     /// The environment of the run, indoor or outdoor
     let environment: MylesRunEnvironmentType
     /// The total duration of the run, in seconds
@@ -124,6 +128,32 @@ class MylesRun: Identifiable, Equatable {
 
 extension MylesRun {
     
+    /// The image representing the workout type
+    var workoutTypeSymbol: Image {
+        switch workoutType {
+        case .run:
+            Image(systemName: "figure.run")
+        case .hike:
+            Image(systemName: "figure.hiking")
+        case .walk:
+            Image(systemName: "figure.walk")
+        case .cycle:
+            Image(systemName: "figure.outdoor.cycle")
+        case .row:
+            Image(systemName: "figure.rower")
+        case .jumpRope:
+            Image(systemName: "figure.jumprope")
+        case .elliptical:
+            Image(systemName: "figure.elliptical")
+        case .swim:
+            Image(systemName: "figure.pool.swim")
+        case .strength:
+            Image(systemName: "figure.strengthtraining.traditional")
+        case .unknown:
+            Image(systemName: "figure.mixed.cardio")
+        }
+    }
+    
     /// A test run
     static let testRun = MylesRun(id: UUID(),
                                   startTime: .now.addingTimeInterval(-3700),
@@ -181,7 +211,7 @@ enum MylesRunEnvironmentType {
 
 /// The workout type
 enum MylesWorkoutType {
-    case run, hike, walk, crosstrain
+    case run, hike, walk, cycle, row, jumpRope, elliptical, swim, strength, unknown
     init(type: HKWorkoutActivityType) {
         switch type {
         case .running:
@@ -190,8 +220,20 @@ enum MylesWorkoutType {
             self = .hike
         case .walking:
             self = .walk
+        case .cycling:
+            self = .cycle
+        case .rowing:
+            self = .row
+        case .jumpRope:
+            self = .jumpRope
+        case .elliptical:
+            self = .elliptical
+        case .swimming:
+            self = .swim
+        case .functionalStrengthTraining, .traditionalStrengthTraining:
+            self = .strength
         default:
-            self = .crosstrain
+            self = .unknown
         }
     }
 }

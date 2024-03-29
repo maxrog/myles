@@ -57,7 +57,7 @@ struct MetricChartView: View {
             return Color(uiColor:UIColor(named: "mylesLight") ?? .yellow)
         case .hike, .walk:
             return Color(uiColor: UIColor(named: "mylesDark") ?? .red)
-        case .crosstrain:
+        default:
             return Color(uiColor: UIColor(named: "CosmicLatte") ?? .white)
         }
     }

@@ -71,7 +71,9 @@ class HealthManager {
                      HKWorkoutActivityType.rowing,
                      HKWorkoutActivityType.jumpRope,
                      HKWorkoutActivityType.elliptical,
-                     HKWorkoutActivityType.swimming, HKWorkoutActivityType.traditionalStrengthTraining] {
+                     HKWorkoutActivityType.swimming, 
+                     HKWorkoutActivityType.functionalStrengthTraining,
+                     HKWorkoutActivityType.traditionalStrengthTraining] {
             crossTrainWorkouts.append(contentsOf: await fetchWorkouts(type: type, startDate: startDate, limit: limit) ?? [])
         }
         

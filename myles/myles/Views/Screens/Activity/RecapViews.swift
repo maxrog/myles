@@ -48,9 +48,7 @@ struct RecapView: View {
             }
         }
         .swipeActions {
-            if viewModel.run.workoutType == .run
-                || viewModel.run.workoutType == .hike
-                || viewModel.run.workoutType == .walk {
+            if !viewModel.run.crossTraining {
                 Button {
                     viewModel.displayShoePicker = true
                 } label: {
@@ -103,15 +101,8 @@ struct RecapMileageView: View {
         HStack {
             Spacer()
                 .overlay {
-                    switch run.workoutType {
-                    case .run:
-                        Image(systemName: "figure.run")
-                            .foregroundStyle(theme.accentColor)
-                    case .hike, .walk:
-                        Image(systemName: "figure.walk")
-                            .foregroundStyle(theme.accentColor)
-                    case .crosstrain:
-                        Image(systemName: "figure.mixed.cardio")
+                    if !run.crossTraining {
+                        run.workoutTypeSymbol
                             .foregroundStyle(theme.accentColor)
                     }
                 }
@@ -123,9 +114,15 @@ struct RecapMileageView: View {
                         RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color(.systemGray4))
                     )
             } else {
-                MylesHeartView()
-                // TODO should be a ratio from width so all screens look good
-                    .frame(height: 80)
+                if run.crossTraining {
+                    run.workoutTypeSymbol
+                        .foregroundStyle(theme.accentColor)
+                        .font(.system(size: 32))
+                } else {
+                    MylesHeartView()
+                    // TODO should be a ratio from width so all screens look good
+                        .frame(height: 80)
+                }
             }
             Spacer()
         }
