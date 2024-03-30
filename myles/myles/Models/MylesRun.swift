@@ -51,11 +51,11 @@ class MylesRun: Identifiable, Equatable {
     }
     
     
-    convenience init(date: Date = Date(), distance: Double = 0.0, duration: TimeInterval = 0.0) {
-        self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration), workoutType: .running, environment: .outdoor, duration: duration, distance: distance, averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil))
+    convenience init(date: Date = Date(), distance: Double = 0.0, duration: TimeInterval = 0.0, emptyPlaceholder: Bool = false) {
+        self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration), workoutType: .running, environment: .outdoor, duration: duration, distance: distance, averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil), emptyPlaceholder: emptyPlaceholder)
     }
     
-    init(id: UUID, startTime: Date, endTime: Date, workoutType: HKWorkoutActivityType, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = []) {
+    init(id: UUID, startTime: Date, endTime: Date, workoutType: HKWorkoutActivityType, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = [], emptyPlaceholder: Bool = false) {
         self.id = id
         self.startTime = startTime
         self.endTime = endTime
@@ -84,6 +84,7 @@ class MylesRun: Identifiable, Equatable {
         self.weather = (temperature, humidity)
         self.locationPoints = locationPoints
         self.mileSplits = mileSplits
+        self.emptyPlaceholder = emptyPlaceholder
     }
     
     // MARK: Metrics
@@ -179,12 +180,13 @@ extension MylesRun {
                  startTime: date,
                  endTime: date,
                  workoutType: .running,
-                 environment: .outdoor,
+                 environment: .indoor,
                  duration: 0,
                  distance: 0,
                  averageHeartRateBPM: nil,
                  elevationChange: (nil, nil),
-                 weather: (nil, nil))
+                 weather: (nil, nil),
+                 emptyPlaceholder: true)
     }
     
     /// Snapshot for displaying widget

@@ -138,9 +138,9 @@ extension HealthManager {
                 guard let nextDay = calendar.date(byAdding: .day, value: 1, to: steppingDate) else { break }
                 steppingDate = nextDay
             }
-            return Array(weekRuns.prefix(7))
+            return Array(weekRuns)
         } else {
-            return Array(weekRuns.prefix(7))
+            return Array(weekRuns)
         }
     }
     

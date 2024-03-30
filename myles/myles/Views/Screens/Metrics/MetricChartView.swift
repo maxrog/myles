@@ -68,7 +68,7 @@ extension MetricChartView {
     static func colorForWorkout(_ run: MylesRun) -> Color {
         switch run.workoutType {
         case .run:
-            return Color(uiColor:UIColor(named: "mylesLight") ?? .yellow)
+            return run.emptyPlaceholder ? Color(.clear) : Color(uiColor:UIColor(named: "mylesLight") ?? .yellow)
         case .hike, .walk:
             return Color(uiColor: UIColor(named: "mylesDark") ?? .red)
         default:
