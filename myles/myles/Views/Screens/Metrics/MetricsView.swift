@@ -21,7 +21,12 @@ struct MetricsView: View {
     @Environment(HealthManager.self) var health
     @EnvironmentObject var goals: GoalsManager
     
-    @AppStorage("com.marfodub.myles.MetricsWeekCountFilter") var chartWeekCount: Int = 1
+    @AppStorage("com.marfodub.myles.MetricsWeekCountFilter") var steppedChartWeekCount: Int = 1
+    @State var steppedChartHeader = ""
+    private func updateSteppedHeader() {
+        steppedChartHeader = "Last \(steppedChartWeekCount > 1 ? "\(steppedChartWeekCount) Weeks" : "Week")"
+    }
+
     
     @State var primaryFilter = MetricsPrimaryFilterType.distance
     @State var spanFilter = MetricsSpanFilterType.week
@@ -74,16 +79,30 @@ struct MetricsView: View {
                         .listRowBackground(Color.clear)
                     }
                     
+                    // TODO scrollable charts
                     Section {
-                        SteppedMetricChartView(numberOfWeeks: chartWeekCount)
+                        SteppedMetricChartView(numberOfWeeks: $steppedChartWeekCount)
                     } header: {
-                        Text("Last ^[\(chartWeekCount) Week](inflect: true)")
-                            .font(.custom("norwester", size: 16))
+                        Stepper(onIncrement: {
+                            withAnimation {
+                                steppedChartWeekCount = steppedChartWeekCount + 1
+                                updateSteppedHeader()
+                            }
+                        }, onDecrement: {
+                            guard steppedChartWeekCount > 1 else { return }
+                            withAnimation {
+                                steppedChartWeekCount = steppedChartWeekCount - 1
+                                updateSteppedHeader()
+                            }
+                        }, label: {
+                            Text(steppedChartHeader)
+                                .font(.custom("norwester", size: 16))
+                        })
                     }
                     
                     Section {
                         VStack {
-                            Picker("", selection: $primaryFilter) {
+                            Picker("", selection: $primaryFilter.animation()) {
                                 Text("distance").tag(MetricsPrimaryFilterType.distance)
                                 Text("duration").tag(MetricsPrimaryFilterType.duration)
                             }
@@ -91,7 +110,7 @@ struct MetricsView: View {
                             
                             MetricChartView(focusedRuns: focusedRuns, primaryFilter: primaryFilter, spanFilter: spanFilter)
                             
-                            Picker("", selection: $spanFilter) {
+                            Picker("", selection: $spanFilter.animation()) {
                                 Text("week").tag(MetricsSpanFilterType.week)
                                 Text("month").tag(MetricsSpanFilterType.month)
                                 Text("year").tag(MetricsSpanFilterType.year)
@@ -118,6 +137,7 @@ struct MetricsView: View {
             }
             .onAppear {
                 focusedRuns = health.focusedRuns(for: spanFilter)
+                updateSteppedHeader()
             }
             .onChange(of: health.runs) {
                 focusedRuns = health.focusedRuns(for: spanFilter)
