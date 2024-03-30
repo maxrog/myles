@@ -24,7 +24,7 @@ struct mylesApp: App {
     @Environment(\.scenePhase) var scenePhase
     
     @StateObject var theme: ThemeManager = ThemeManager()
-    @StateObject var goals: GoalsManager = GoalsManager()
+    @StateObject var goals: GoalsManager = GoalsManager.shared
     @State var health: HealthManager = HealthManager()
     @State var shoes: ShoeManager = ShoeManager()
    

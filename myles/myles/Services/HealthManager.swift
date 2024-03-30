@@ -17,11 +17,12 @@ import Observation
 /// Manager for fetching and processing user's health data
 @Observable
 class HealthManager {
-    
+        
     init() { }
     
+    let goals = GoalsManager.shared
     let store = HKHealthStore()
-    
+
     /// HKWorkouts that back our data model
     private var storedWorkouts: [HKWorkout] = []
     

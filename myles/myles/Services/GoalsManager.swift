@@ -15,8 +15,14 @@ class GoalsManager: ObservableObject {
     /// Shared user defaults
     let userDefaults = UserDefaults(suiteName: "group.com.marfodub.myles")
     
-    init() {
+    static let shared = GoalsManager()
+    
+    private init() {
         self.weeklyMileageGoal = userDefaults?.integer(forKey: GoalKeys.weeklyMileage.rawValue) ?? 0
+        
+        self.trackRuns = userDefaults?.bool(forKey: GoalKeys.trackRuns.rawValue) ?? true
+        self.trackWalks = userDefaults?.bool(forKey: GoalKeys.trackWalks.rawValue) ?? true
+        self.trackCrosstraining = userDefaults?.bool(forKey: GoalKeys.trackCrosstraining.rawValue) ?? false
     }
 
     // MARK: Weekly Mileage
@@ -33,8 +39,29 @@ class GoalsManager: ObservableObject {
         userDefaults?.setValue(weeklyMileageGoal, forKey: GoalKeys.weeklyMileage.rawValue)
     }
     
+    // MARK: Tracking Scope
+    
+    // TODO Refactor to DRY
+    /*
+     Enabled Tracking Types
+     */
+    @Published var trackRuns: Bool = true {
+        didSet { updateTrackingTypes() }
+    }
+    @Published var trackWalks: Bool = true {
+        didSet { updateTrackingTypes() }
+    }
+    @Published var trackCrosstraining: Bool = false {
+        didSet { updateTrackingTypes() }
+    }
+    
+    private func updateTrackingTypes() {
+        userDefaults?.setValue(trackRuns, forKey: GoalKeys.trackRuns.rawValue)
+        userDefaults?.setValue(trackWalks, forKey: GoalKeys.trackWalks.rawValue)
+        userDefaults?.setValue(trackCrosstraining, forKey: GoalKeys.trackCrosstraining.rawValue)
+    }
 }
 
 enum GoalKeys: String {
-    case weeklyMileage
+    case weeklyMileage, trackRuns, trackHikes, trackWalks, trackCrosstraining
 }

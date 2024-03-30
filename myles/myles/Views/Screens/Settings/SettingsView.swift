@@ -42,6 +42,49 @@ struct SettingsView: View {
                         })
                     }
                     .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+                    
+                    /*
+                    TODO Refactor to DRY
+                     */
+
+                    HStack(spacing: 12) {
+                        Image(systemName: "figure.run")
+                            .frame(width: 35, height: 35)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color.blue)
+                            )
+                        Toggle(isOn: $goals.trackRuns) {
+                            Text("Track Runs")
+                        }
+                    }
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+                    
+                    HStack(spacing: 12) {
+                        Image(systemName: "figure.walk")
+                            .frame(width: 35, height: 35)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color.blue)
+                            )
+                        Toggle(isOn: $goals.trackWalks) {
+                            Text("Track Walks")
+                        }
+                    }
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+                    
+                    HStack(spacing: 12) {
+                        Image(systemName: "figure.jumprope")
+                            .frame(width: 35, height: 35)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color.blue)
+                            )
+                        Toggle(isOn: $goals.trackCrosstraining) {
+                            Text("Track Crosstraining")
+                        }
+                    }
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
                 } header: {
                     Text("Goals")
                 }

@@ -19,13 +19,39 @@ extension HealthManager {
     /// Returns the total distance for a given array of runs
     func runsTotalDistance(_ runs: [MylesRun]) -> Double {
         return runs.reduce(0) { partialResult, run in
-            return partialResult + run.distance
+            var valid = true
+            switch run.workoutType {
+            case .run:
+                valid = goals.trackRuns
+            case .hike, .walk:
+                valid = goals.trackWalks
+            default:
+                valid = goals.trackCrosstraining
+            }
+            if valid {
+                return partialResult + run.distance
+            } else {
+                return partialResult
+            }
         }
     }
     /// Returns the total duration for a given array of runs
     func runsTotalDuration(_ runs: [MylesRun]) -> Double {
         return runs.reduce(0) { partialResult, run in
-            return partialResult + run.duration
+            var valid = true
+            switch run.workoutType {
+            case .run:
+                valid = goals.trackRuns
+            case .hike, .walk:
+                valid = goals.trackWalks
+            default:
+                valid = goals.trackCrosstraining
+            }
+            if valid {
+                return partialResult + run.duration
+            } else {
+                return partialResult
+            }
         }
     }
     
@@ -82,6 +108,14 @@ extension HealthManager {
         case .year:
             return currentYearRuns()
         }
+    }
+    
+    /// Returns the user's activities based on X number of date units
+    /// Currently only supports weeks
+    /// - Parameters:
+    ///     - weekCount: The number of date units to retrieve
+    func focusedRunsFromPast(weekCount: Int) -> [MylesRun] {
+        return runsFromLast(weekCount)
     }
     
     /// Returns the user's activities based on the current week (M-S)
@@ -146,6 +180,18 @@ extension HealthManager {
         } else {
             return yearRuns
         }
+    }
+    
+    /// Returns the user's activities from the last X number of weeks
+    private func runsFromLast(_ numberOfWeeks: Int) -> [MylesRun] {
+        let calendar = Calendar.current
+          let currentDate = Date()
+          guard let startDate = calendar.date(byAdding: .weekOfYear, value: -numberOfWeeks, to: currentDate) else {
+              return []
+          }
+          
+          let filteredData = runs.filter { $0.endTime >= startDate }
+          return filteredData
     }
     
 }
