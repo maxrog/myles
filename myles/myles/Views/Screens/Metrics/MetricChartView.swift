@@ -5,11 +5,16 @@
 //  Created by Max Rogers on 1/14/24.
 //
 
+/*
+ TODO look at this if anything useful https://www.devtechie.com/community/public/posts/154033-new-in-swiftui-4-charts-bar-chart
+ */
+
 import SwiftUI
 import Charts
 
 /*
- TODO different colors for crosstraining
+ TODO - display/do something on tap
+ TODO scrollable
  */
 
 /// Simple Chart view based on given runs and filters
@@ -51,7 +56,16 @@ struct MetricChartView: View {
         }
     }
     
-    private func colorForWorkout(_ run: MylesRun) -> Color {
+    var body: some View {
+        Chart(focusedRuns) { run in
+            generateBarMark(for: run)
+                .foregroundStyle(Self.colorForWorkout(run))
+        }
+    }
+}
+
+extension MetricChartView {
+    static func colorForWorkout(_ run: MylesRun) -> Color {
         switch run.workoutType {
         case .run:
             return Color(uiColor:UIColor(named: "mylesLight") ?? .yellow)
@@ -59,13 +73,6 @@ struct MetricChartView: View {
             return Color(uiColor: UIColor(named: "mylesDark") ?? .red)
         default:
             return Color(uiColor: UIColor(named: "CosmicLatte") ?? .white)
-        }
-    }
-    
-    var body: some View {
-        Chart(focusedRuns) { run in
-            generateBarMark(for: run)
-                .foregroundStyle(colorForWorkout(run))
         }
     }
 }

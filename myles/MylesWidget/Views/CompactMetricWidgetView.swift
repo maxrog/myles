@@ -11,7 +11,7 @@ import SwiftUI
 struct CompactMetricWidgetView: View {
     
     let entry: MetricEntry
-    let goals = GoalsManager()
+    let goals = GoalsManager.shared
     let geometry: GeometryProxy
     
     var body: some View {
