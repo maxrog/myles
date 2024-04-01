@@ -13,7 +13,7 @@ import SwiftUI
 import Charts
 
 /*
- TODO - display/do something on tap
+ TODO - display exact total milage/duration on tap
  TODO scrollable
  */
 
