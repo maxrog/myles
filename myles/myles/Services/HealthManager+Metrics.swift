@@ -128,7 +128,7 @@ extension HealthManager {
         if let weekStartDate = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)),
            let weekEndDate = calendar.date(byAdding: .weekOfYear, value: 1, to: weekStartDate) {
             var steppingDate = weekStartDate
-            while steppingDate <= weekEndDate {
+            while steppingDate < weekEndDate {
                 let matchingRuns = self.runs.filter({$0.endTime.isInSameDay(as: steppingDate)})
                 if !matchingRuns.isEmpty {
                     weekRuns.append(contentsOf: matchingRuns)
