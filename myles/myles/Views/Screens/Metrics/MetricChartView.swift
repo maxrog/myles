@@ -59,20 +59,34 @@ struct MetricChartView: View {
     var body: some View {
         Chart(focusedRuns) { run in
             generateBarMark(for: run)
-                .foregroundStyle(Self.colorForWorkout(run))
+                .foregroundStyle(run.colorForWorkout)
         }
     }
 }
 
 extension MetricChartView {
-    static func colorForWorkout(_ run: MylesRun) -> Color {
-        switch run.workoutType {
-        case .run:
-            return run.emptyPlaceholder ? Color(.clear) : Color(uiColor:UIColor(named: "mylesLight") ?? .yellow)
-        case .hike, .walk:
-            return Color(uiColor: UIColor(named: "mylesDark") ?? .red)
-        default:
-            return Color(uiColor: UIColor(named: "CosmicLatte") ?? .white)
+    
+    /// Returns views to be used within a legend indicating the chart colors
+    static func legend(for runs: [MylesRun], displayingDistance: Bool) -> [some View] {
+        var uniqueRuns: [MylesRun] = []
+        for run in runs {
+            guard !run.emptyPlaceholder, run.distance > 0 || run.duration > 0 else { continue }
+            if displayingDistance && run.distance == 0 { continue }
+            if !uniqueRuns.contains(where: {
+                $0.crossTraining && run.crossTraining ||
+                $0.workoutType == run.workoutType
+            }) {
+                uniqueRuns.append(run)
+            }
+        }
+        return uniqueRuns.map { 
+            $0.workoutTypeSymbol
+                .frame(width: 20, height: 20)
+                .padding(6)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke($0.colorForWorkout, lineWidth: 4)
+                    )
         }
     }
 }

@@ -24,7 +24,7 @@ struct MetricsView: View {
     @AppStorage("com.marfodub.myles.MetricsWeekCountFilter") var steppedChartWeekCount: Int = 1
     @State var steppedChartHeader = ""
     private func updateSteppedHeader() {
-        steppedChartHeader = "Last \(steppedChartWeekCount > 1 ? "\(steppedChartWeekCount) Weeks" : "Week")"
+        steppedChartHeader = "\(Int(health.runsTotalDistance(health.focusedRunsFromPast(weekCount: steppedChartWeekCount)))) mi\nLast \(steppedChartWeekCount > 1 ? "\(steppedChartWeekCount) Weeks" : "Week")"
     }
 
     
@@ -98,6 +98,15 @@ struct MetricsView: View {
                             Text(steppedChartHeader)
                                 .font(.custom("norwester", size: 16))
                         })
+                    } footer: {
+                        let legendViews = MetricChartView.legend(for: health.focusedRunsFromPast(weekCount: steppedChartWeekCount),
+                                                                 displayingDistance: true)
+                        HStack {
+                            Spacer()
+                            ForEach(0..<legendViews.count, id: \.self) { index in
+                                legendViews[index]
+                            }
+                        }
                     }
                     
                     Section {
@@ -128,6 +137,15 @@ struct MetricsView: View {
                             if health.runsTotalDistance(focusedRuns) > 0 {
                                 Text("Total: \(health.runsTotalDuration(focusedRuns).prettyTimeString)")
                                     .font(.custom("norwester", size: 16))
+                            }
+                        }
+                    } footer: {
+                        let legendViews = MetricChartView.legend(for: focusedRuns,
+                                                                 displayingDistance: primaryFilter == .distance)
+                        HStack {
+                            Spacer()
+                            ForEach(0..<legendViews.count, id: \.self) { index in
+                                legendViews[index]
                             }
                         }
                     }

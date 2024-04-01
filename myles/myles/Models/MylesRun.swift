@@ -155,6 +155,18 @@ extension MylesRun {
         }
     }
     
+    /// Returns a color to represent the workout type
+    var colorForWorkout: Color {
+        switch self.workoutType {
+        case .run:
+            return self.emptyPlaceholder ? Color(.clear) : Color(uiColor:UIColor(named: "mylesLight") ?? .yellow)
+        case .hike, .walk:
+            return Color(uiColor: UIColor(named: "mylesDark") ?? .red)
+        default:
+            return Color(uiColor: UIColor(named: "CosmicLatte") ?? .white)
+        }
+    }
+    
     /// A test run
     static let testRun = MylesRun(id: UUID(),
                                   startTime: .now.addingTimeInterval(-3700),
