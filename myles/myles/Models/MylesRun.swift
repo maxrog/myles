@@ -16,7 +16,7 @@ import SwiftUI
 
 /// A running workout with essential information gathered from HealthStore
 @Observable
-class MylesRun: Identifiable, Equatable {
+class MylesRun: Identifiable, Equatable, Hashable {
     
     /// The unique identifier
     let id: UUID
@@ -45,11 +45,16 @@ class MylesRun: Identifiable, Equatable {
     /// The locationPoints of the run - may not have value until requested
     var locationPoints: [CLLocation]?
     var hasLocationData: Bool { !(locationPoints?.isEmpty ?? true) }
+    /// Whether the run is used to take a spot in the chart
+    var emptyPlaceholder: Bool
     
     static func == (lhs: MylesRun, rhs: MylesRun) -> Bool {
         lhs.id == rhs.id
     }
     
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
     convenience init(date: Date = Date(), distance: Double = 0.0, duration: TimeInterval = 0.0, emptyPlaceholder: Bool = false) {
         self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration), workoutType: .running, environment: .outdoor, duration: duration, distance: distance, averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil), emptyPlaceholder: emptyPlaceholder)
