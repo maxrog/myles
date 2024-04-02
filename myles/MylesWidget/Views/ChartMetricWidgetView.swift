@@ -20,7 +20,7 @@ struct ChartMetricWidgetView: View {
         let maxRun = entry.focusedRuns.max(by: { $0.distance < $1.distance })
         HStack {
             Chart(entry.focusedRuns) { run in
-                var firstRun = entry.focusedRuns.first(where: { $0.endTime.isInSameDay(as: run.endTime) })
+                let firstRun = entry.focusedRuns.first(where: { $0.endTime.isInSameDay(as: run.endTime) })
                 generateBarMark(for: run)
                     .annotation(position: .bottom, alignment: .bottom, spacing: 4) {
                         if run == firstRun {
