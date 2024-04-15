@@ -13,7 +13,7 @@ import SwiftUI
 class GoalsManager: ObservableObject {
     
     /// Shared user defaults
-    let userDefaults = UserDefaults(suiteName: "group.com.marfodub.myles")
+    let userDefaults = UserDefaults(suiteName: "group.9AS2TD23UD.com.marfodub.myles")
     
     static let shared = GoalsManager()
     
