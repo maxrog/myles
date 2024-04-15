@@ -59,7 +59,6 @@ struct SplashView: View {
             }
         }
         .task {
-            // TODO look into diff of task vs onAppear?
             guard await health.requestPermission() else { return }
             await health.processWorkouts()
             attemptedWorkoutProcess = true
