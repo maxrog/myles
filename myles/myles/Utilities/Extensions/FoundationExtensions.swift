@@ -64,7 +64,7 @@ extension Date {
     /// Common date format
     var shortCalendarDateFormat: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM.d.yy"
+        formatter.dateFormat = "M.d.yy"
         return formatter.string(from: self)
     }
     /// Common date format
