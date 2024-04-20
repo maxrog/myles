@@ -18,11 +18,18 @@ class GoalsManager: ObservableObject {
     static let shared = GoalsManager()
     
     private init() {
-        self.weeklyMileageGoal = userDefaults?.integer(forKey: GoalKeys.weeklyMileage.rawValue) ?? 0
-        
-        self.trackRuns = userDefaults?.bool(forKey: GoalKeys.trackRuns.rawValue) ?? true
-        self.trackWalks = userDefaults?.bool(forKey: GoalKeys.trackWalks.rawValue) ?? true
-        self.trackCrosstraining = userDefaults?.bool(forKey: GoalKeys.trackCrosstraining.rawValue) ?? false
+        if userDefaults?.value(forKey: GoalKeys.weeklyMileage.rawValue) != nil {
+            self.weeklyMileageGoal = userDefaults?.integer(forKey: GoalKeys.weeklyMileage.rawValue) ?? 0
+        }
+        if userDefaults?.value(forKey: GoalKeys.trackRuns.rawValue) != nil {
+            self.trackRuns = userDefaults?.bool(forKey: GoalKeys.trackRuns.rawValue) ?? true
+        }
+        if userDefaults?.value(forKey: GoalKeys.trackWalks.rawValue) != nil {
+            self.trackWalks = userDefaults?.bool(forKey: GoalKeys.trackWalks.rawValue) ?? true
+        }
+        if userDefaults?.value(forKey: GoalKeys.trackCrosstraining.rawValue) != nil {
+            self.trackCrosstraining = userDefaults?.bool(forKey: GoalKeys.trackCrosstraining.rawValue) ?? false
+        }
     }
 
     // MARK: Weekly Mileage
