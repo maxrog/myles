@@ -102,11 +102,11 @@ extension HealthManager {
     func focusedRuns(for filter: MetricsSpanFilterType) -> [MylesRun] {
         switch filter {
         case .week:
-            return currentWeekRuns()
+            return filterActivitiesForTrackingSettings(currentWeekRuns())
         case .month:
-            return currentMonthRuns()
+            return filterActivitiesForTrackingSettings(currentMonthRuns())
         case .year:
-            return currentYearRuns()
+            return filterActivitiesForTrackingSettings(currentYearRuns())
         }
     }
     
@@ -191,7 +191,22 @@ extension HealthManager {
           }
           
           let filteredData = runs.filter { $0.endTime >= startDate }
-          return filteredData
+          return filterActivitiesForTrackingSettings(filteredData)
+    }
+    
+    /// Returns a filtered list of activities based on the user's tracking preferences
+    private func filterActivitiesForTrackingSettings(_ runs: [MylesRun]) -> [MylesRun] {
+        var filteredActivities = runs
+        if !goals.trackRuns {
+            filteredActivities.removeAll(where: ({ $0.workoutType == .run }))
+        }
+        if !goals.trackWalks {
+            filteredActivities.removeAll(where: ({ $0.workoutType == .walk || $0.workoutType == .hike }))
+        }
+        if !goals.trackCrosstraining {
+            filteredActivities.removeAll(where: ({ $0.crossTraining} ))
+        }
+        return filteredActivities
     }
     
 }
