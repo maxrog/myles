@@ -53,19 +53,19 @@ class GoalsManager: ObservableObject {
      Enabled Tracking Types
      */
     @Published var trackRuns: Bool = true {
-        didSet { updateTrackingTypes() }
+        didSet { 
+            userDefaults?.setValue(trackRuns, forKey: GoalKeys.trackRuns.rawValue)
+        }
     }
     @Published var trackWalks: Bool = true {
-        didSet { updateTrackingTypes() }
+        didSet {
+            userDefaults?.setValue(trackWalks, forKey: GoalKeys.trackWalks.rawValue)
+        }
     }
     @Published var trackCrosstraining: Bool = false {
-        didSet { updateTrackingTypes() }
-    }
-    
-    private func updateTrackingTypes() {
-        userDefaults?.setValue(trackRuns, forKey: GoalKeys.trackRuns.rawValue)
-        userDefaults?.setValue(trackWalks, forKey: GoalKeys.trackWalks.rawValue)
-        userDefaults?.setValue(trackCrosstraining, forKey: GoalKeys.trackCrosstraining.rawValue)
+        didSet {
+            userDefaults?.setValue(trackCrosstraining, forKey: GoalKeys.trackCrosstraining.rawValue)
+        }
     }
 }
 
