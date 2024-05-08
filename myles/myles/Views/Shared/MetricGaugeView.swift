@@ -16,21 +16,6 @@ struct MetricGaugeView: View {
     let goal: Int?
     let metric: String
     
-    var progressColor: UIColor {
-        switch progress {
-        case 0..<0.25:
-            return UIColor(named: "CosmicLatte") ?? .white
-        case 0.25..<0.5:
-            return UIColor(named: "mylesMedium") ?? .orange
-        case 0.5..<0.75:
-            return UIColor(named: "mylesLight") ?? .orange
-        case 0.75...0.99:
-            return UIColor(named: "mylesDark") ?? .red
-        default:
-            return UIColor(named: "mylesGold") ?? .green
-        }
-    }
-    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -43,7 +28,7 @@ struct MetricGaugeView: View {
                     Circle()
                         .trim(from: 0, to: progress)
                         .stroke(
-                            Color(uiColor: progressColor),
+                            Color(uiColor: UIColor.progressColor(for: progress)),
                             style: StrokeStyle(
                                 lineWidth: 8,
                                 lineCap: .round

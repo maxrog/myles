@@ -8,6 +8,7 @@
 import SwiftUI
 
 // TODO - migrate to @Observable once this flow with user defaults works
+// TODO - push notifications for when user reaches goal
 
 /// Manager for user workout goals
 class GoalsManager: ObservableObject {
@@ -20,6 +21,9 @@ class GoalsManager: ObservableObject {
     private init() {
         if userDefaults?.value(forKey: GoalKeys.weeklyMileage.rawValue) != nil {
             self.weeklyMileageGoal = userDefaults?.integer(forKey: GoalKeys.weeklyMileage.rawValue) ?? 0
+        }
+        if userDefaults?.value(forKey: GoalKeys.dailySteps.rawValue) != nil {
+            self.dailyStepGoal = userDefaults?.integer(forKey: GoalKeys.dailySteps.rawValue) ?? 0
         }
         if userDefaults?.value(forKey: GoalKeys.trackRuns.rawValue) != nil {
             self.trackRuns = userDefaults?.bool(forKey: GoalKeys.trackRuns.rawValue) ?? true
@@ -39,11 +43,25 @@ class GoalsManager: ObservableObject {
         didSet { saveWeeklyMileageGoal() }
     }
     func updateWeeklyMileageGoal(to newGoal: Int) {
-        guard newGoal > 0 else { return }
+        guard newGoal >= 0 else { return }
         self.weeklyMileageGoal = newGoal
     }
     private func saveWeeklyMileageGoal() {
         userDefaults?.setValue(weeklyMileageGoal, forKey: GoalKeys.weeklyMileage.rawValue)
+    }
+    
+    // MARK: Daily Steps
+    
+    /// User's daily step goal
+    @Published private(set) var dailyStepGoal: Int = 0 {
+        didSet { saveDailyStepGoal() }
+    }
+    func updateDailyStepGoal(to newGoal: Int) {
+        guard newGoal >= 0 else { return }
+        self.dailyStepGoal = newGoal
+    }
+    private func saveDailyStepGoal() {
+        userDefaults?.setValue(dailyStepGoal, forKey: GoalKeys.dailySteps.rawValue)
     }
     
     // MARK: Tracking Scope
@@ -70,5 +88,5 @@ class GoalsManager: ObservableObject {
 }
 
 enum GoalKeys: String {
-    case weeklyMileage, trackRuns, trackHikes, trackWalks, trackCrosstraining
+    case weeklyMileage, dailySteps, trackRuns, trackHikes, trackWalks, trackCrosstraining
 }

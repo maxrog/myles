@@ -8,10 +8,9 @@
 import SwiftUI
 
 /// TODO: View Model
-/// TODO: setting for streak minimum mileage
 /// TODO: toggle for showing / hiding streak & minimum streak mileage per day
 /// TODO: mi/km preference + date format (24H option)
-
+/// TODO: Refactor to DRY
 
 /// A settings view for various app settings / user preferences
 struct SettingsView: View {
@@ -23,6 +22,30 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
+                    
+                    HStack(spacing: 12) {
+                        Image(systemName: "calendar.day.timeline.leading")
+                            .frame(width: 35, height: 35)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color.blue)
+                            )
+                            .opacity(goals.dailyStepGoal > 0 ? 1.0 : 0.25)
+                        Stepper(onIncrement: {
+                            goals.updateDailyStepGoal(to: goals.dailyStepGoal + 1000)
+                        }, onDecrement: {
+                            goals.updateDailyStepGoal(to: goals.dailyStepGoal - 1000)
+                        }, label: {
+                            HStack {
+                                Text("Daily Steps:")
+                                Text("\(goals.dailyStepGoal)")
+                                    .fontWeight(.bold)
+                            }
+                            .opacity(goals.dailyStepGoal > 0 ? 1.0 : 0.25)
+                        })
+                    }
+                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+                    
                     HStack(spacing: 12) {
                         Image(systemName: "calendar")
                             .frame(width: 35, height: 35)
@@ -30,6 +53,7 @@ struct SettingsView: View {
                                 RoundedRectangle(cornerRadius: 8)
                                     .foregroundStyle(Color.blue)
                             )
+                            .opacity(goals.weeklyMileageGoal > 0 ? 1.0 : 0.25)
                         Stepper(onIncrement: {
                             goals.updateWeeklyMileageGoal(to: goals.weeklyMileageGoal + 1)
                         }, onDecrement: {
@@ -40,13 +64,10 @@ struct SettingsView: View {
                                 Text("\(goals.weeklyMileageGoal)")
                                     .fontWeight(.bold)
                             }
+                            .opacity(goals.weeklyMileageGoal > 0 ? 1.0 : 0.25)
                         })
                     }
                     .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
-                    
-                    /*
-                    TODO Refactor to DRY
-                     */
 
                     HStack(spacing: 12) {
                         Image(systemName: "figure.run")
@@ -107,7 +128,7 @@ struct SettingsView: View {
                         .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
                     }
                 } header: {
-                    Text("App")
+                    Text("Gear")
                 }
                 .headerProminence(.increased)
                 Section {

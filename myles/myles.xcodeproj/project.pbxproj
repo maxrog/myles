@@ -70,6 +70,7 @@
 		AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557D2B42CAF200D98729 /* MylesShoe.swift */; };
 		AFC555802B430F9700D98729 /* ShoesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */; };
 		AFC555842B442EAB00D98729 /* ShoeSettingsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC555832B442EAB00D98729 /* ShoeSettingsEditView.swift */; };
+		AFD0692E2BE3C9BB003E7D91 /* MetricsProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0692D2BE3C9BB003E7D91 /* MetricsProgressBarView.swift */; };
 		AFE55EEB2B31B695009E4778 /* MylesButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */; };
 		AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */; };
 		AFFAD38E2B345E4E00A606B1 /* RecapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */; };
@@ -155,6 +156,7 @@
 		AFC5557D2B42CAF200D98729 /* MylesShoe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesShoe.swift; sourceTree = "<group>"; };
 		AFC5557F2B430F9700D98729 /* ShoesSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoesSettingsView.swift; sourceTree = "<group>"; };
 		AFC555832B442EAB00D98729 /* ShoeSettingsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoeSettingsEditView.swift; sourceTree = "<group>"; };
+		AFD0692D2BE3C9BB003E7D91 /* MetricsProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsProgressBarView.swift; sourceTree = "<group>"; };
 		AFE55EEA2B31B695009E4778 /* MylesButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesButtonStyle.swift; sourceTree = "<group>"; };
 		AFE55EEC2B31B6B6009E4778 /* MylesIconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesIconLabel.swift; sourceTree = "<group>"; };
 		AFFAD38D2B345E4E00A606B1 /* RecapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecapViewModel.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 				AF8AC43C2B532281005711CF /* MetricsView.swift */,
 				AF8AC43E2B540F66005711CF /* MetricChartView.swift */,
 				AF6351292BB6105C00DB1F68 /* SteppedMetricChartView.swift */,
+				AFD0692D2BE3C9BB003E7D91 /* MetricsProgressBarView.swift */,
 			);
 			path = Metrics;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				AFC5557E2B42CAF200D98729 /* MylesShoe.swift in Sources */,
 				AF63512A2BB6105C00DB1F68 /* SteppedMetricChartView.swift in Sources */,
 				AF243B562B2919AF00608E1C /* HealthManager.swift in Sources */,
+				AFD0692E2BE3C9BB003E7D91 /* MetricsProgressBarView.swift in Sources */,
 				AF1E61642B77C6FB00DBE63D /* MetricGaugeView.swift in Sources */,
 				AF243B5F2B29374100608E1C /* OnboardingView.swift in Sources */,
 				AFE55EED2B31B6B6009E4778 /* MylesIconLabel.swift in Sources */,

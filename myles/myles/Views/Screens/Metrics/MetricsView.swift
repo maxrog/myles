@@ -13,6 +13,7 @@ import Charts
  TODO - XTraining stats (toggleable in settings)
  // TODO look into custom view for refreshable -- have little beating heart
  TODO - support average somehow for month/year
+ TODO - refactor out views
  */
 
 /// View that displays filterable metrics
@@ -56,6 +57,18 @@ struct MetricsView: View {
         GeometryReader { geo in
             NavigationStack {
                 List {
+                    if goals.dailyStepGoal > 0 {
+                        let currentSteps = health.dailySteps
+                        let goal = goals.dailyStepGoal
+                        Section {
+                            MetricsProgressBarView(currentValue: Int(currentSteps),
+                                                   totalValue: goal,
+                                                   descriptionText: "Daily Goal: \(goal) steps")
+                            .padding()
+                        }
+                        .listRowBackground(Color.clear)
+                    }
+                    
                     if goals.weeklyMileageGoal > 0 {
                         let weeklyRuns = health.focusedRuns(for: .week)
                         let totalMiles = health.runsTotalDistance(weeklyRuns)
@@ -73,8 +86,12 @@ struct MetricsView: View {
                                 Spacer()
                             }
                         } header: {
-                            Text("Weekly Goal: \(goals.weeklyMileageGoal) miles")
-                                .font(.custom("norwester", size: 16))
+                            HStack {
+                                Spacer()
+                                Text("Weekly Goal: \(goals.weeklyMileageGoal) miles")
+                                    .font(.custom("norwester", size: 16))
+                                Spacer()
+                            }
                         }
                         .listRowBackground(Color.clear)
                     }
