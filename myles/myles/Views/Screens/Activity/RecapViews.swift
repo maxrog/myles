@@ -101,7 +101,7 @@ struct RecapMileageView: View {
         HStack {
             Spacer()
                 .overlay {
-                    if !run.crossTraining {
+                    if !run.crossTraining || (run.workoutType == .cycle && run.environment == .outdoor) {
                         run.workoutTypeSymbol
                             .foregroundStyle(theme.accentColor)
                     }
