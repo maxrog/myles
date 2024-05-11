@@ -83,7 +83,7 @@ struct RecapHeaderView: View {
                 .font(.custom("norwester", size: 16))
             Text("\(run.duration.prettyTimeString)")
                 .font(.custom("norwester", size: 18))
-        }
+        }.foregroundStyle(run.endTime.isInCurrentWeek ? Color.primary : Color.primary.opacity(0.65))
     }
 }
 
