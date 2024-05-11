@@ -31,24 +31,12 @@ struct SplashView: View {
                             .scaleEffect(animationAmount)
                             .animation(
                                 .spring(response: 0.2, dampingFraction: 0.3, blendDuration: 0.8)
-                                    .delay(0)
-                                    .repeatForever(autoreverses: true),
+                                .delay(0)
+                                .repeatForever(autoreverses: true),
                                 value: animationAmount)
                             .onAppear {
                                 splashComplete = false
                                 animationAmount = 0.8
-                                
-                                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-                                    if !health.runs.isEmpty {
-                                        splashComplete = true
-                                    } else if attemptedWorkoutProcess {
-                                        splashComplete = true
-                                    } else {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
-                                            splashComplete = true
-                                        }
-                                    }
-                                }
                             }
                         Spacer()
                     }
@@ -59,12 +47,17 @@ struct SplashView: View {
             }
         }
         .task {
-            guard await health.requestPermission() else { return }
-            await health.processWorkouts()
-            attemptedWorkoutProcess = true
+            await configureHealthStore()
         }
     }
     
+    @MainActor
+    private func configureHealthStore() async {
+        guard await health.requestPermission() else { return }
+        await health.processWorkouts()
+        self.attemptedWorkoutProcess = true
+        self.splashComplete = true
+    }
 }
 
 #Preview {

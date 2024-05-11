@@ -28,6 +28,7 @@ class HealthManager {
     
     var runs: [MylesRun] = []
     var dailySteps: Double = 0.0
+    private var setupBackgroundDelivery = false
     
     /// Requests health data access from the user
     func requestPermission() async -> Bool {
@@ -50,7 +51,6 @@ class HealthManager {
             MylesLogger.log(.error, "Failed to receive user's Health data permission", sender: String(describing: self))
             return false
         }
-        self.setUpBackgroundDeliveryForDataTypes()
         MylesLogger.log(.action, "User has been prompted for Health data permission", sender: String(describing: self))
         return true
     }
@@ -155,6 +155,10 @@ class HealthManager {
             runs.append(run)
         }
         MylesLogger.log(.success, "Successfully processed \(runs.count) running workouts", sender: String(describing: self))
+        if !runs.isEmpty && !setupBackgroundDelivery {
+            self.setUpBackgroundDeliveryForDataTypes()
+            setupBackgroundDelivery = true
+        }
         self.runs = runs
     }
     
