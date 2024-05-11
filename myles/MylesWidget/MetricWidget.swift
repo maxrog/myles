@@ -22,6 +22,7 @@ struct MetricWidget: Widget {
         StaticConfiguration(kind: kind, provider: MetricWidgetTimelineProvider()) { entry in
             MetricWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
+            // TODO support daily steps widget
         }
         .supportedFamilies([.systemSmall, .systemMedium])
         .configurationDisplayName("Metrics")
