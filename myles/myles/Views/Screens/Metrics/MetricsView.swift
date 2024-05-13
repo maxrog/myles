@@ -98,35 +98,6 @@ struct MetricsView: View {
                     
                     // TODO scrollable charts
                     Section {
-                        SteppedMetricChartView(numberOfWeeks: $steppedChartWeekCount)
-                    } header: {
-                        Stepper(onIncrement: {
-                            withAnimation {
-                                steppedChartWeekCount = steppedChartWeekCount + 1
-                                updateSteppedHeader()
-                            }
-                        }, onDecrement: {
-                            guard steppedChartWeekCount > 1 else { return }
-                            withAnimation {
-                                steppedChartWeekCount = steppedChartWeekCount - 1
-                                updateSteppedHeader()
-                            }
-                        }, label: {
-                            Text(steppedChartHeader)
-                                .font(.custom("norwester", size: 16))
-                        })
-                    } footer: {
-                        let legendViews = MetricChartView.legend(for: health.focusedRunsFromPast(weekCount: steppedChartWeekCount),
-                                                                 displayingDistance: true)
-                        HStack {
-                            Spacer()
-                            ForEach(0..<legendViews.count, id: \.self) { index in
-                                legendViews[index]
-                            }
-                        }
-                    }
-                    
-                    Section {
                         VStack {
                             Picker("", selection: $primaryFilter.animation()) {
                                 Text("distance").tag(MetricsPrimaryFilterType.distance)
@@ -159,6 +130,35 @@ struct MetricsView: View {
                     } footer: {
                         let legendViews = MetricChartView.legend(for: focusedRuns,
                                                                  displayingDistance: primaryFilter == .distance)
+                        HStack {
+                            Spacer()
+                            ForEach(0..<legendViews.count, id: \.self) { index in
+                                legendViews[index]
+                            }
+                        }
+                    }
+                    
+                    Section {
+                        SteppedMetricChartView(numberOfWeeks: $steppedChartWeekCount)
+                    } header: {
+                        Stepper(onIncrement: {
+                            withAnimation {
+                                steppedChartWeekCount = steppedChartWeekCount + 1
+                                updateSteppedHeader()
+                            }
+                        }, onDecrement: {
+                            guard steppedChartWeekCount > 1 else { return }
+                            withAnimation {
+                                steppedChartWeekCount = steppedChartWeekCount - 1
+                                updateSteppedHeader()
+                            }
+                        }, label: {
+                            Text(steppedChartHeader)
+                                .font(.custom("norwester", size: 16))
+                        })
+                    } footer: {
+                        let legendViews = MetricChartView.legend(for: health.focusedRunsFromPast(weekCount: steppedChartWeekCount),
+                                                                 displayingDistance: true)
                         HStack {
                             Spacer()
                             ForEach(0..<legendViews.count, id: \.self) { index in
