@@ -31,8 +31,8 @@ extension HealthManager {
             }
 
             store.execute(query)
-            store.enableBackgroundDelivery(for: type, frequency: .immediate) { success, error in
-                MylesLogger.log(.action, 
+            store.enableBackgroundDelivery(for: type, frequency: .hourly) { success, error in
+                MylesLogger.log(.action,
                            "enableBackgroundDeliveryForType handler called for type \(type) - success \(success), error: \(error?.localizedDescription ?? "nil")",
                            sender: String(describing: self))
             }

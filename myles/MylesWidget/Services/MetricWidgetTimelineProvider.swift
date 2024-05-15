@@ -14,7 +14,7 @@ import WidgetKit
 /// Provides timelines of how to bundle data to be shown and when to refresh or cycle through items
 struct MetricWidgetTimelineProvider: TimelineProvider {
     
-    /// placeholder while loading (auto redacts so data doesn't matter
+    /// placeholder while loading (auto redacts so data doesn't matter)
     func placeholder(in context: Context) -> MetricEntry {
         MetricEntry(date: .now,
                     focusedRuns: MylesRun.widgetSnapshotRuns(),
@@ -36,12 +36,12 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<MetricEntry>) -> ()) {
         Task {
             let currentDate = Date()
-            let refreshMinuteGranuity = 45
+            let refreshMinuteGranuity = 60
             let refreshDate = Calendar.current.date(
                 byAdding: .minute,
                 value: refreshMinuteGranuity,
                 to: currentDate
-            ) ?? currentDate.addingTimeInterval(2700)
+            ) ?? currentDate.addingTimeInterval(3600)
             
             let health = HealthManager()
             await health.processWorkouts(limit: 20)
