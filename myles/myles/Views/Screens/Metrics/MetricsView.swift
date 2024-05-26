@@ -9,8 +9,6 @@ import SwiftUI
 import Charts
 
 /*
- TODO - Gauge view for goals
- TODO - XTraining stats (toggleable in settings)
  // TODO look into custom view for refreshable -- have little beating heart
  TODO - support average somehow for month/year
  TODO - refactor out views
@@ -25,7 +23,7 @@ struct MetricsView: View {
     @AppStorage("com.marfodub.myles.MetricsWeekCountFilter") var steppedChartWeekCount: Int = 1
     @State var steppedChartHeader = ""
     private func updateSteppedHeader() {
-        steppedChartHeader = "\(Int(health.runsTotalDistance(health.focusedRunsFromPast(weekCount: steppedChartWeekCount)))) mi\nLast \(steppedChartWeekCount > 1 ? "\(steppedChartWeekCount) Weeks" : "Week")"
+        steppedChartHeader = "\(Int(health.runsTotalDistance(health.focusedRunsFromPast(weekCount: steppedChartWeekCount)))) mi\nLast \(steppedChartWeekCount * 7) days"
     }
 
     
