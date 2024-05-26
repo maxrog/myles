@@ -13,5 +13,6 @@ import SwiftUI
 struct MylesWidgetBundle: WidgetBundle {
     var body: some Widget {
         MetricWidget()
+        StepsWidget()
     }
 }

@@ -51,9 +51,11 @@ struct MetricsProgressBarView: View {
         let progress = Double(min(currentValue, totalValue)) / Double(totalValue)
         
         VStack {
+            Spacer()
             Text(descriptionText)
                 .font(.custom("norwester", size: 12))
                 .foregroundStyle(Color(.systemGray))
+                .padding(.bottom, 4)
             HStack {
                 Spacer()
                 ProgressView(value: Double(min(currentValue, totalValue)), total: Double(totalValue)) { }
@@ -65,6 +67,8 @@ struct MetricsProgressBarView: View {
                                                 strokeHeight: strokeHeight))
                 Spacer()
             }
+            .frame(height: strokeHeight)
+            Spacer()
         }
     }
 }

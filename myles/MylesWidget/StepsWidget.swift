@@ -1,12 +1,13 @@
 //
-//  MylesWidget.swift
-//  MylesWidget
+//  StepsWidget.swift
+//  MylesWidgetExtension
 //
-//  Created by Max Rogers on 1/24/24.
+//  Created by Max Rogers on 5/25/24.
 //
 
 import WidgetKit
 import SwiftUI
+
 
 /*
  TODO IntentConfiguration for filter types
@@ -14,17 +15,17 @@ import SwiftUI
  */
 
 /// A widget for displaying metrics
-struct MetricWidget: Widget {
+struct StepsWidget: Widget {
     
-    let kind: String = "MetricWidget"
+    let kind: String = "StepsWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: MetricWidgetTimelineProvider()) { entry in
-            MetricWidgetView(entry: entry)
+            StepsWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-        .configurationDisplayName("My Miles")
+        .supportedFamilies([.systemSmall, .systemMedium])
+        .configurationDisplayName("My Steps")
         .description("Track your goals.")
     }
 }
@@ -32,7 +33,7 @@ struct MetricWidget: Widget {
 #Preview(as: .systemSmall) {
     MetricWidget()
 } timeline: {
-    MetricEntry(date: .now, 
+    MetricEntry(date: .now,
                 focusedRuns: [MylesRun.testRun],
                 primaryFilter: .distance,
                 spanFilter: .week,

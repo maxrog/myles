@@ -18,33 +18,35 @@ struct ChartMetricWidgetView: View {
     var body: some View {
         let totalMiles = entry.focusedRuns.reduce(0) { $0 + $1.distance }
         let maxRun = entry.focusedRuns.max(by: { $0.distance < $1.distance })
-        HStack {
-            Chart(entry.focusedRuns) { run in
-                let firstRun = entry.focusedRuns.first(where: { $0.endTime.isInSameDay(as: run.endTime) })
-                generateBarMark(for: run)
-                    .annotation(position: .bottom, alignment: .bottom, spacing: 4) {
-                        if run == firstRun {
-                            Text(run.endTime.veryShortDayOfWeekDateFormat)
-                                .font(.custom("norwester", size: 10))
-                                .foregroundStyle(run.endTime <= Date() ? Color.primary : Color.primary.opacity(0.5))
+        VStack {
+            HStack {
+                Chart(entry.focusedRuns) { run in
+                    let firstRun = entry.focusedRuns.first(where: { $0.endTime.isInSameDay(as: run.endTime) })
+                    generateBarMark(for: run)
+                        .annotation(position: .bottom, alignment: .bottom, spacing: 4) {
+                            if run == firstRun {
+                                Text(run.endTime.veryShortDayOfWeekDateFormat)
+                                    .font(.custom("norwester", size: 10))
+                                    .foregroundStyle(run.endTime <= Date() ? Color.primary : Color.primary.opacity(0.5))
+                            }
                         }
-                    }
-                    .annotation(position: .top, alignment: .center, spacing: 4) {
-                        Text("\((maxRun?.distance ?? 0 > 0 && maxRun == run) ? maxRun!.distance.prettyString : "")")
-                            .font(.custom("norwester", size: 10))
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .foregroundStyle(run.colorForWorkout)
+                        .annotation(position: .top, alignment: .center, spacing: 4) {
+                            Text("\((maxRun?.distance ?? 0 > 0 && maxRun == run) ? maxRun!.distance.prettyString : "")")
+                                .font(.custom("norwester", size: 10))
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundStyle(run.colorForWorkout)
+                }
+                .chartXAxis(.hidden)
+                .chartYAxis(.hidden)
+                
+                MetricGaugeView(progress: min(1.0,
+                                              totalMiles / Double(goals.weeklyMileageGoal)),
+                                total: totalMiles.prettyString,
+                                goal: goals.weeklyMileageGoal,
+                                metric: NSLocalizedString("miles", comment: "miles"))
+                .frame(height: geometry.size.height * 0.9)
             }
-            .chartXAxis(.hidden)
-            .chartYAxis(.hidden)
-            
-            MetricGaugeView(progress: min(1.0,
-                                          totalMiles / Double(goals.weeklyMileageGoal)),
-                            total: totalMiles.prettyString,
-                            goal: goals.weeklyMileageGoal,
-                            metric: NSLocalizedString("miles", comment: "miles"))
-            .frame(height: geometry.size.height * 0.9)
         }
     }
     

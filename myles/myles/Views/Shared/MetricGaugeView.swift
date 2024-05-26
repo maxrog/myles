@@ -41,15 +41,23 @@ struct MetricGaugeView: View {
                     Text(total)
                         .font(.custom("norwester", size: 28))
                         .lineLimit(2)
+                        .minimumScaleFactor(0.75)
+                        .padding(.horizontal, 6)
                     Text(metric)
                         .font(.custom("norwester", size: 12))
+                        .minimumScaleFactor(0.75)
+                        .padding(.horizontal, 6)
                 }.frame(width: geo.size.width * 0.9)
-                
-                if let goal = goal, goal > 0 {
-                    Label("\(goal)", systemImage: "star.circle.fill")
-                        .font(.custom("norwester", size: 10))
-                        .labelStyle(MylesIconLabel())
-                        .position(CGPoint(x: geo.size.width - 20, y: 0))
+                VStack {
+                    HStack {
+                        Spacer()
+                        if let goal = goal, goal > 0 {
+                            Label("\(goal)", systemImage: "star.circle.fill")
+                                .font(.custom("norwester", size: 10))
+                                .labelStyle(MylesIconLabel())
+                        }
+                    }
+                    Spacer()
                 }
             }
         }

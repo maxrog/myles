@@ -14,12 +14,15 @@ import WidgetKit
 /// Provides timelines of how to bundle data to be shown and when to refresh or cycle through items
 struct MetricWidgetTimelineProvider: TimelineProvider {
     
+    let health = HealthManager()
+    
     /// placeholder while loading (auto redacts so data doesn't matter)
     func placeholder(in context: Context) -> MetricEntry {
         MetricEntry(date: .now,
                     focusedRuns: MylesRun.widgetSnapshotRuns(),
                     primaryFilter: .distance,
-                    spanFilter: .week)
+                    spanFilter: .week,
+                    dailySteps: 5000)
     }
     
     /// snapshot to display while user is in
@@ -28,7 +31,8 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
             completion(timeline.entries.first ?? MetricEntry(date: .now,
                                                              focusedRuns: MylesRun.widgetSnapshotRuns(),
                                                              primaryFilter: .distance,
-                                                             spanFilter: .week))
+                                                             spanFilter: .week,
+                                                             dailySteps: 5000))
         }
     }
     
@@ -43,7 +47,6 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
                 to: currentDate
             ) ?? currentDate.addingTimeInterval(3600)
             
-            let health = HealthManager()
             await health.processWorkouts(limit: 20)
             let primaryFilter = MetricsPrimaryFilterType.distance
             let spanFilter = MetricsSpanFilterType.week
@@ -51,7 +54,8 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
             let timeline = Timeline(entries: [MetricEntry(date: .now,
                                                           focusedRuns: runs,
                                                           primaryFilter: primaryFilter,
-                                                          spanFilter: spanFilter)],
+                                                          spanFilter: spanFilter,
+                                                          dailySteps: health.dailySteps)],
                                     policy: .after(refreshDate))
             completion(timeline)
         }

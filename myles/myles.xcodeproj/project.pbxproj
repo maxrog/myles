@@ -37,6 +37,11 @@
 		AF2FD9192B71C5E7003FBE2A /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466F2B23AAD9002915DC /* UIKitExtensions.swift */; };
 		AF2FD91A2B71C5EE003FBE2A /* MylesLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E466B2B23A9FE002915DC /* MylesLogger.swift */; };
 		AF3677382B35E20800AA4169 /* MylesMarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3677372B35E20800AA4169 /* MylesMarqueeText.swift */; };
+		AF42AB592C022E820021BBA5 /* StepsGoalWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42AB582C022E820021BBA5 /* StepsGoalWidgetView.swift */; };
+		AF42AB5A2C022F5D0021BBA5 /* MetricsProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD0692D2BE3C9BB003E7D91 /* MetricsProgressBarView.swift */; };
+		AF42AB5C2C022FCA0021BBA5 /* StepsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42AB5B2C022FCA0021BBA5 /* StepsWidgetView.swift */; };
+		AF42AB602C0230530021BBA5 /* CombinedMetricsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42AB5F2C0230530021BBA5 /* CombinedMetricsWidgetView.swift */; };
+		AF42AB622C0232360021BBA5 /* StepsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF42AB612C0232350021BBA5 /* StepsWidget.swift */; };
 		AF63512A2BB6105C00DB1F68 /* SteppedMetricChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6351292BB6105C00DB1F68 /* SteppedMetricChartView.swift */; };
 		AF6E464C2B23A6F4002915DC /* mylesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E464B2B23A6F4002915DC /* mylesApp.swift */; };
 		AF6E46502B23A6F5002915DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF6E464F2B23A6F5002915DC /* Assets.xcassets */; };
@@ -121,6 +126,10 @@
 		AF2FD9082B701BD8003FBE2A /* MetricEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricEntry.swift; sourceTree = "<group>"; };
 		AF2FD90B2B70672B003FBE2A /* MetricWidgetTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricWidgetTimelineProvider.swift; sourceTree = "<group>"; };
 		AF3677372B35E20800AA4169 /* MylesMarqueeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MylesMarqueeText.swift; sourceTree = "<group>"; };
+		AF42AB582C022E820021BBA5 /* StepsGoalWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsGoalWidgetView.swift; sourceTree = "<group>"; };
+		AF42AB5B2C022FCA0021BBA5 /* StepsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsWidgetView.swift; sourceTree = "<group>"; };
+		AF42AB5F2C0230530021BBA5 /* CombinedMetricsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinedMetricsWidgetView.swift; sourceTree = "<group>"; };
+		AF42AB612C0232350021BBA5 /* StepsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsWidget.swift; sourceTree = "<group>"; };
 		AF6351292BB6105C00DB1F68 /* SteppedMetricChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteppedMetricChartView.swift; sourceTree = "<group>"; };
 		AF6E46482B23A6F4002915DC /* myles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6E464B2B23A6F4002915DC /* mylesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mylesApp.swift; sourceTree = "<group>"; };
@@ -390,6 +399,7 @@
 				AF8B5C852B613B6B00AC5ED4 /* Services */,
 				AF8B5C6D2B6127B800AC5ED4 /* MylesWidgetBundle.swift */,
 				AF8B5C6F2B6127B800AC5ED4 /* MetricWidget.swift */,
+				AF42AB612C0232350021BBA5 /* StepsWidget.swift */,
 			);
 			path = MylesWidget;
 			sourceTree = "<group>";
@@ -400,6 +410,9 @@
 				AF8B5C802B61335900AC5ED4 /* MetricWidgetView.swift */,
 				AF0097F62B9B3A9F0065D7A6 /* CompactMetricWidgetView.swift */,
 				AF0097F82B9B3AC50065D7A6 /* ChartMetricWidgetView.swift */,
+				AF42AB582C022E820021BBA5 /* StepsGoalWidgetView.swift */,
+				AF42AB5B2C022FCA0021BBA5 /* StepsWidgetView.swift */,
+				AF42AB5F2C0230530021BBA5 /* CombinedMetricsWidgetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -584,20 +597,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF42AB622C0232360021BBA5 /* StepsWidget.swift in Sources */,
 				AF8B5C822B61335B00AC5ED4 /* MetricWidgetView.swift in Sources */,
 				AF2FD90A2B70665A003FBE2A /* MetricEntry.swift in Sources */,
 				AF0097F72B9B3A9F0065D7A6 /* CompactMetricWidgetView.swift in Sources */,
 				AF8B5C7C2B612C9300AC5ED4 /* MylesRun.swift in Sources */,
+				AF42AB602C0230530021BBA5 /* CombinedMetricsWidgetView.swift in Sources */,
 				AF8B5C702B6127B800AC5ED4 /* MetricWidget.swift in Sources */,
 				AF8B5C6E2B6127B800AC5ED4 /* MylesWidgetBundle.swift in Sources */,
 				AF2FD9182B71C5DD003FBE2A /* SwiftUIExtensions.swift in Sources */,
 				AF1E61652B77FA7600DBE63D /* MetricGaugeView.swift in Sources */,
 				AF2FD90D2B706764003FBE2A /* MetricWidgetTimelineProvider.swift in Sources */,
+				AF42AB592C022E820021BBA5 /* StepsGoalWidgetView.swift in Sources */,
 				AF0097F92B9B3AC60065D7A6 /* ChartMetricWidgetView.swift in Sources */,
 				AF2FD91A2B71C5EE003FBE2A /* MylesLogger.swift in Sources */,
+				AF42AB5C2C022FCA0021BBA5 /* StepsWidgetView.swift in Sources */,
 				AF2FD9122B71C211003FBE2A /* HealthManager.swift in Sources */,
 				AF0097FB2B9DC23A0065D7A6 /* MylesIconLabel.swift in Sources */,
 				AF0097EE2B990E700065D7A6 /* GoalsManager.swift in Sources */,
+				AF42AB5A2C022F5D0021BBA5 /* MetricsProgressBarView.swift in Sources */,
 				AF2FD9162B71C328003FBE2A /* HealthManager+Metrics.swift in Sources */,
 				AF12868C2B7708F700A890FA /* HealthManager+Background.swift in Sources */,
 				AF2FD9192B71C5E7003FBE2A /* UIKitExtensions.swift in Sources */,

@@ -1,17 +1,14 @@
 //
-//  MetricWidgetView.swift
-//  myles
+//  StepsWidgetView.swift
+//  MylesWidgetExtension
 //
-//  Created by Max Rogers on 1/24/24.
+//  Created by Max Rogers on 5/25/24.
 //
 
 import SwiftUI
-import WidgetKit
-
-// TODO custom font
 
 /// A widget view for displaying metrics
-struct MetricWidgetView: View {
+struct StepsWidgetView: View {
     
     @Environment(\.widgetFamily) var family
     let entry: MetricEntry
@@ -20,18 +17,16 @@ struct MetricWidgetView: View {
         GeometryReader { geo in
             switch family {
             case .systemSmall:
-                CompactMetricWidgetView(entry: entry, geometry: geo)
-            case .systemLarge:
-                CombinedMetricsWidgetView(entry: entry, geometry: geo)
+                CompactStepsGoalWidgetView(entry: entry, geometry: geo)
             default:
-                ChartMetricWidgetView(entry: entry, geometry: geo)
+                StepsGoalWidgetView(entry: entry, geometry: geo)
             }
         }
     }
 }
 
 #Preview {
-    MetricWidgetView(entry: MetricEntry(date: .now,
+    StepsWidgetView(entry: MetricEntry(date: .now,
                                         focusedRuns: [MylesRun.testRun],
                                         primaryFilter: .distance,
                                         spanFilter: .week,

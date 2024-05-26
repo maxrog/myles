@@ -17,4 +17,6 @@ struct MetricEntry: TimelineEntry {
     let primaryFilter: MetricsPrimaryFilterType
     /// Span Filter
     let spanFilter: MetricsSpanFilterType
+    /// Daily Steps
+    let dailySteps: Double
 }
