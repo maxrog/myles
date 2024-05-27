@@ -28,7 +28,7 @@ struct BarProgressStyle: ProgressViewStyle {
                             .overlay {
                                 if let currentValueLabel = configuration.currentValueLabel {
                                     currentValueLabel
-                                        .foregroundStyle(.primary)
+                                        .foregroundStyle(progress < 1.0 ? Color(UIColor.lightText) : Color(UIColor.darkText))
                                 }
                             }
                     }
