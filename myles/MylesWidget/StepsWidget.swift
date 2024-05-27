@@ -8,9 +8,7 @@
 import WidgetKit
 import SwiftUI
 
-
 /*
- TODO IntentConfiguration for filter types
  TODO lock screen widget
  */
 
@@ -25,7 +23,7 @@ struct StepsWidget: Widget {
                 .containerBackground(.fill.tertiary, for: .widget)
         }
         .supportedFamilies([.systemSmall, .systemMedium])
-        .configurationDisplayName("My Steps")
+        .configurationDisplayName("My Miles")
         .description("Track your goals.")
     }
 }

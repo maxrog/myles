@@ -15,6 +15,15 @@ struct MetricGaugeView: View {
     let total: String
     let goal: Int?
     let metric: String
+    let strokeWidth: CGFloat
+    
+    init(progress: Double, total: String, goal: Int?, metric: String, strokeWidth: CGFloat = 8.0) {
+        self.progress = progress
+        self.total = total
+        self.goal = goal
+        self.metric = metric
+        self.strokeWidth = strokeWidth
+    }
     
     var body: some View {
         GeometryReader { geo in
@@ -23,14 +32,14 @@ struct MetricGaugeView: View {
                     Circle()
                         .stroke(
                             Color(.systemGray2),
-                            lineWidth: 8
+                            lineWidth: strokeWidth
                         )
                     Circle()
                         .trim(from: 0, to: progress)
                         .stroke(
                             Color(uiColor: UIColor.progressColor(for: progress)),
                             style: StrokeStyle(
-                                lineWidth: 8,
+                                lineWidth: strokeWidth,
                                 lineCap: .round
                             )
                         )
@@ -45,7 +54,7 @@ struct MetricGaugeView: View {
                         .padding(.horizontal, 6)
                     Text(metric)
                         .font(.custom("norwester", size: 12))
-                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.25)
                         .padding(.horizontal, 6)
                 }.frame(width: geo.size.width * 0.9)
                 VStack {

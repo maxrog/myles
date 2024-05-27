@@ -13,17 +13,21 @@ struct StepsGoalWidgetView: View {
     let entry: MetricEntry
     let goals = GoalsManager.shared
     let geometry: GeometryProxy
+    let strokeHeight: CGFloat
+    
+    init(entry: MetricEntry, geometry: GeometryProxy, strokeHeight: CGFloat = 24.0) {
+        self.entry = entry
+        self.geometry = geometry
+        self.strokeHeight = strokeHeight
+    }
     
     var body: some View {
         let currentSteps = entry.dailySteps
         let goal = goals.dailyStepGoal
-        VStack {
-            Spacer()
-            MetricsProgressBarView(currentValue: Int(currentSteps),
-                                   totalValue: goal,
-                                   descriptionText: "Daily Goal: \(goal) steps")
-            Spacer()
-        }
+        MetricsProgressBarView(currentValue: Int(currentSteps),
+                               totalValue: goal,
+                               descriptionText: "Daily Goal: \(goal) steps",
+                               strokeHeight: strokeHeight)
     }
 }
 

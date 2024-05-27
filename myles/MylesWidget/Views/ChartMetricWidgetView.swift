@@ -14,6 +14,15 @@ struct ChartMetricWidgetView: View {
     let entry: MetricEntry
     let goals = GoalsManager.shared
     let geometry: GeometryProxy
+    let gaugeSizeRatio: CGFloat
+    let gaugeStrokeWidth: CGFloat
+    
+    init(entry: MetricEntry, geometry: GeometryProxy, gaugeSizeRatio: CGFloat = 0.9, gaugeStrokeWidth: CGFloat = 8.0) {
+        self.entry = entry
+        self.geometry = geometry
+        self.gaugeSizeRatio = gaugeSizeRatio
+        self.gaugeStrokeWidth = gaugeStrokeWidth
+    }
     
     var body: some View {
         let totalMiles = entry.focusedRuns.reduce(0) { $0 + $1.distance }
@@ -44,8 +53,9 @@ struct ChartMetricWidgetView: View {
                                               totalMiles / Double(goals.weeklyMileageGoal)),
                                 total: totalMiles.prettyString,
                                 goal: goals.weeklyMileageGoal,
-                                metric: NSLocalizedString("miles", comment: "miles"))
-                .frame(height: geometry.size.height * 0.9)
+                                metric: NSLocalizedString("miles", comment: "miles"),
+                                strokeWidth: gaugeStrokeWidth)
+                .frame(height: geometry.size.height * gaugeSizeRatio)
             }
         }
     }

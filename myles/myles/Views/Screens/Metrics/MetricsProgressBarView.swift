@@ -50,7 +50,7 @@ struct MetricsProgressBarView: View {
         
         let progress = Double(min(currentValue, totalValue)) / Double(totalValue)
         
-        VStack {
+        VStack(spacing: 2) {
             Spacer()
             Text(descriptionText)
                 .font(.custom("norwester", size: 12))

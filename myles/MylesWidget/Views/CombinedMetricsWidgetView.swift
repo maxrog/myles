@@ -14,12 +14,10 @@ struct CombinedMetricsWidgetView: View {
     let geometry: GeometryProxy
     
     var body: some View {
-        VStack {
-            Spacer()
-            StepsGoalWidgetView(entry: entry, geometry: geometry)
-                .padding(.bottom, 16)
-            ChartMetricWidgetView(entry: entry, geometry: geometry)
-            Spacer()
+        VStack() {
+            StepsGoalWidgetView(entry: entry, geometry: geometry, strokeHeight: 18)
+            ChartMetricWidgetView(entry: entry, geometry: geometry, gaugeSizeRatio: 0.5, gaugeStrokeWidth: 0)
         }
     }
 }
+

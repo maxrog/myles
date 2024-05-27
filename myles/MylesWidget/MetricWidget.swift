@@ -13,7 +13,7 @@ import SwiftUI
  TODO lock screen widget
  */
 
-/// A widget for displaying metrics
+/// A widget for displaying workout metrics
 struct MetricWidget: Widget {
     
     let kind: String = "MetricWidget"
@@ -23,7 +23,7 @@ struct MetricWidget: Widget {
             MetricWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemSmall, .systemMedium])
         .configurationDisplayName("My Miles")
         .description("Track your goals.")
     }
