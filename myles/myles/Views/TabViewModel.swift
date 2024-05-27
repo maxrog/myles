@@ -12,6 +12,7 @@ import SwiftUI
 
 enum Tabs: Int {
     case activity = 0
+    case today
     case metrics
     case settings
 }

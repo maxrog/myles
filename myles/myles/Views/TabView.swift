@@ -27,9 +27,11 @@ struct TabNavigationView: View {
                             Image(systemName: "figure.run.square.stack.fill")
                         }
                         .tag(Tabs.activity.rawValue)
-                    /*
-                     TODO have a "Today" View that can show step/run goal + last nights sleep/weather for today/tomorrow + any activities from today + gpt api suggested next workout? (look into privacy implications)
-                     */
+                    TodayView()
+                        .tabItem {
+                            Image(systemName: "paperclip")
+                        }
+                    
                     MetricsView()
                         .tabItem {
                             Image(systemName: "chart.bar.fill")
