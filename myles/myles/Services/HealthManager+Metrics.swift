@@ -194,6 +194,12 @@ extension HealthManager {
           return filterActivitiesForTrackingSettings(filteredData)
     }
     
+    /// Returns the user's longest activity from given number of weeks
+    func longestRecentLongRun(_ numberOfWeeks: Int) -> MylesRun? {
+        let allRuns = runsFromLast(numberOfWeeks).filter({ !$0.crossTraining })
+        return allRuns.max() // max works based on distance (comparable conformance implementation)
+    }
+    
     /// Returns a filtered list of activities based on the user's tracking preferences
     private func filterActivitiesForTrackingSettings(_ runs: [MylesRun]) -> [MylesRun] {
         var filteredActivities = runs

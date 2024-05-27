@@ -220,6 +220,12 @@ extension MylesRun {
     
 }
 
+extension MylesRun: Comparable {
+    static func < (lhs: MylesRun, rhs: MylesRun) -> Bool {
+        return lhs.distance < rhs.distance
+    }
+}
+
 /// The environment type of the run, indoor or outdoor
 enum MylesRunEnvironmentType {
     case indoor, outdoor
