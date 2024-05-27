@@ -6,9 +6,7 @@
 //
 
 import SwiftUI
-/*
- TODO page for lifting with timer / current 1RM? idk maybe & has to be toggle-able in settings
- */
+
 struct TabNavigationView: View {
     
     @EnvironmentObject var theme: ThemeManager
@@ -29,6 +27,9 @@ struct TabNavigationView: View {
                             Image(systemName: "figure.run.square.stack.fill")
                         }
                         .tag(Tabs.activity.rawValue)
+                    /*
+                     TODO have a "Today" View that can show step/run goal + last nights sleep/weather for today/tomorrow + any activities from today + gpt api suggested next workout? (look into privacy implications)
+                     */
                     MetricsView()
                         .tabItem {
                             Image(systemName: "chart.bar.fill")

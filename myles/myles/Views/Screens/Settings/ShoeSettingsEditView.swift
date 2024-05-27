@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// TODO add TipKit for swipe action
+
 /// View to edit a shoe's name
 struct ShoeSettingsEditView: View {
     

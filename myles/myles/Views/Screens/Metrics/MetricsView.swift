@@ -12,6 +12,7 @@ import Charts
  // TODO look into custom view for refreshable -- have little beating heart
  TODO - support average somehow for month/year
  TODO - refactor out views
+ TODO - view visibility / re ordering manager to customize stats shown etc
  */
 
 /// View that displays filterable metrics

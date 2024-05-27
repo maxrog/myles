@@ -8,6 +8,7 @@
 import SwiftUI
 
 // TODO expand tap sometimes choppy 
+// TODO add TipKit for swipe action
 
 /// An accessory view for showing group of run recap metrics
 struct RecapView: View {
