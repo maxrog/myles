@@ -28,7 +28,7 @@ struct TodayView: View {
                             MetricsProgressBarView(currentValue: Int(currentSteps),
                                                    totalValue: goal,
                                                    descriptionText: "Daily Goal: \(goal) steps")
-                            .listRowInsets(.init(top: 16, leading: 0, bottom: 0, trailing: 0))
+                            .listRowInsets(EdgeInsets())
                         }
                         .listRowBackground(Color.clear)
                     }
@@ -49,7 +49,7 @@ struct TodayView: View {
                                 .padding(12)
                                 Spacer()
                             }
-                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            .listRowInsets(EdgeInsets())
                         } header: {
                             HStack {
                                 Spacer()
