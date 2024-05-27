@@ -130,5 +130,5 @@ struct MetricsChartGroupView: View {
 }
 
 #Preview {
-    MetricsChartSectionView()
+    MetricsChartGroupView()
 }
