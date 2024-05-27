@@ -47,6 +47,16 @@ extension Date {
         return Calendar.current.isDate(otherDate, inSameDayAs: self)
     }
     
+    /// Determines whether date is in same week
+    func isInSameWeek(as otherDate: Date) -> Bool {
+        return Calendar.current.isDate(otherDate, equalTo: self, toGranularity: .weekOfYear)
+    }
+    
+    /// Determines whether date is in same month
+    func isInSameMonth(as otherDate: Date) -> Bool {
+        return Calendar.current.isDate(otherDate, equalTo: self, toGranularity: .month)
+    }
+    
     /// Determines whether date is in current week
     var isInCurrentWeek: Bool {
         var calendar = Calendar.current
