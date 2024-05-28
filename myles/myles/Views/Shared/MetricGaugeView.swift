@@ -37,7 +37,7 @@ struct MetricGaugeView: View {
                     Circle()
                         .trim(from: 0, to: progress)
                         .stroke(
-                            Color(uiColor: UIColor.progressColor(for: progress)),
+                            Color.progressColor(for: progress),
                             style: StrokeStyle(
                                 lineWidth: strokeWidth,
                                 lineCap: .round

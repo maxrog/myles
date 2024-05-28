@@ -12,6 +12,22 @@ import SwiftUI
 extension Color {
     /// Conversion with persistance in mind
     var cgColor_: CGColor { UIColor(self).cgColor }
+    
+    /// A scaled progress color
+    static func progressColor(for progress: CGFloat) -> Color {
+        switch progress {
+        case 0..<0.25:
+            return .cosmicLatte
+        case 0.25..<0.5:
+            return .mylesMedium
+        case 0.5..<0.75:
+            return .mylesLight
+        case 0.75...0.99:
+            return .mylesDark
+        default:
+            return .mylesGold
+        }
+    }
 }
 
 /*

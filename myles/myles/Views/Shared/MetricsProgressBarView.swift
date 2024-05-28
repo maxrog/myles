@@ -63,7 +63,7 @@ struct MetricsProgressBarView: View {
                 Text("\(currentValue)")
                     .font(.custom("norwester", size: 12))
             }
-            .progressViewStyle(BarProgressStyle(strokeColor: strokeColor ?? Color(uiColor: UIColor.progressColor(for: progress)),
+            .progressViewStyle(BarProgressStyle(strokeColor: strokeColor ?? Color.progressColor(for: progress),
                                                 strokeHeight: strokeHeight))
                 Spacer()
             }

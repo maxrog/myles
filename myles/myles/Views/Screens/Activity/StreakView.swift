@@ -16,7 +16,7 @@ struct StreakView: View {
         Label("\(streakCount)", systemImage: "repeat.circle.fill")
             .labelStyle(MylesIconLabel())
             .font(.custom("norwester", size: 20))
-            .foregroundStyle(Color(uiColor: UIColor(named: "mylesGold") ?? .green))
+            .foregroundStyle(.mylesGold)
     }
 }
 

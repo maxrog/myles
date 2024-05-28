@@ -164,11 +164,11 @@ extension MylesRun {
     var colorForWorkout: Color {
         switch self.workoutType {
         case .run:
-            return self.emptyPlaceholder ? Color(.clear) : Color(uiColor:UIColor(named: "mylesLight") ?? .yellow)
+            return self.emptyPlaceholder ? Color(.clear) : .mylesLight
         case .hike, .walk:
-            return Color(uiColor: UIColor(named: "mylesDark") ?? .red)
+            return .mylesDark
         default:
-            return Color(uiColor: UIColor(named: "CosmicLatte") ?? .white)
+            return .cosmicLatte
         }
     }
     

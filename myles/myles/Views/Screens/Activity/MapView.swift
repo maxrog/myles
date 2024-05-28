@@ -54,7 +54,7 @@ struct MapView: View {
                 }
             
             MapPolyline(coordinates: coordinates)
-                    .stroke(Color(uiColor: UIColor(named: "CosmicLatte") ?? .white), lineWidth: 2)
+                    .stroke(.cosmicLatte, lineWidth: 2)
             }
             .onChange(of: viewModel.position) {
                 viewModel.panEnabled = viewModel.position.positionedByUser
