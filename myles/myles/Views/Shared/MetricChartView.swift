@@ -13,7 +13,7 @@ import SwiftUI
 import Charts
 
 /*
- TODO - display exact total milage/duration on tap
+ TODO - clean up key value / matching runs on tap, doesn't seem efficient
  TODO scrollable
  */
 
@@ -25,6 +25,7 @@ struct MetricChartView: View {
     
     @State private var annotationString: String?
     @State private var tappedPlot: CGPoint?
+    @State private var selectedRuns: [MylesRun] = []
     
     let focusedRuns: [MylesRun]
     let primaryFilter: MetricsPrimaryFilterType
@@ -64,7 +65,7 @@ struct MetricChartView: View {
         ZStack {
             Chart(focusedRuns) { run in
                 generateBarMark(for: run)
-                    .foregroundStyle(run.colorForWorkout)
+                    .foregroundStyle(selectedRuns.contains(run) ? Color.primary : run.colorForWorkout)
             }
             .chartOverlay { proxy in
                 GeometryReader { geometry in
@@ -79,7 +80,7 @@ struct MetricChartView: View {
             if let annotationString = annotationString, let tappedPlot = tappedPlot {
                 Text(annotationString)
                     .fixedSize()
-                    .padding(6)
+                    .padding(8)
                     .transition(.opacity)
                     .background(in: RoundedRectangle(cornerRadius: 5, style: .continuous))
                     .foregroundStyle(Color.primary)
@@ -93,37 +94,40 @@ struct MetricChartView: View {
         guard let plotFrame = proxy.plotFrame else { return }
         let xPosition = location.x - geometry[plotFrame].origin.x
         let yPosition = location.y - geometry[plotFrame].origin.y
+        var matchingRuns: [MylesRun] = []
         switch spanFilter {
         case .week:
             guard let state: String = proxy.value(atX: xPosition) else { return }
             formatter.dateFormat = "E"
             if let date = formatter.date(from: state) {
-                let matchingRuns = focusedRuns.filter({
+                matchingRuns = focusedRuns.filter({
                     date.shortDayOfWeekDateFormat == $0.endTime.shortDayOfWeekDateFormat
                 })
-                let totalMiles = matchingRuns.compactMap({ $0.distance }).reduce(0, +)
-                if totalMiles > 0 {
-                    self.annotationString = "\(totalMiles.prettyString) mi"
-                }
             }
         case .month:
             guard let state: Date = proxy.value(atX: xPosition) else { return }
-            let matchingRuns = focusedRuns.filter( { $0.endTime.isInSameWeek(as: state) })
-            let totalMiles = matchingRuns.compactMap({ $0.distance }).reduce(0, +)
-            if totalMiles > 0 {
-                self.annotationString = "\(totalMiles.prettyString) mi"
-            }
+            matchingRuns = focusedRuns.filter( { $0.endTime.isInSameWeek(as: state) })
         case .year:
             guard let state: String = proxy.value(atX: xPosition) else { return }
             formatter.dateFormat = "MMM"
             if let date = formatter.date(from: state) {
-                let matchingRuns = focusedRuns.filter({
+                matchingRuns = focusedRuns.filter({
                     date.shortMonthOfYearDateFormat == $0.endTime.shortMonthOfYearDateFormat
                 })
-                let totalMiles = matchingRuns.compactMap({ $0.distance }).reduce(0, +)
-                if totalMiles > 0 {
-                    self.annotationString = "\(totalMiles.prettyString) mi"
-                }
+            }
+        }
+        self.selectedRuns = matchingRuns
+
+        switch primaryFilter {
+        case .distance:
+            let totalMiles = matchingRuns.compactMap({ $0.distance }).reduce(0, +)
+            if totalMiles > 0 {
+                self.annotationString = "\(totalMiles.prettyString) mi"
+            }
+        case .duration:
+            let totalDuration = matchingRuns.compactMap({ $0.duration }).reduce(0, +)
+            if totalDuration > 0 {
+                self.annotationString = totalDuration.prettyTimeString
             }
         }
         withAnimation(.easeIn(duration: 0.5)) {
@@ -133,6 +137,7 @@ struct MetricChartView: View {
             withAnimation(.easeOut(duration: 1.0)) {
                 self.annotationString = nil
                 self.tappedPlot = nil
+                self.selectedRuns = []
             }
         }
     }
