@@ -65,7 +65,7 @@ struct MetricChartView: View {
         ZStack {
             Chart(focusedRuns) { run in
                 generateBarMark(for: run)
-                    .foregroundStyle(selectedRuns.contains(run) ? Color.primary : run.colorForWorkout)
+                    .foregroundStyle(run.colorForWorkout.opacity(selectedRuns.contains(run) ? 0.75 : 1))
             }
             .chartOverlay { proxy in
                 GeometryReader { geometry in
@@ -79,6 +79,7 @@ struct MetricChartView: View {
             }
             if let annotationString = annotationString, let tappedPlot = tappedPlot {
                 Text(annotationString)
+                    .font(.system(size: 12))
                     .fixedSize()
                     .padding(8)
                     .transition(.opacity)
