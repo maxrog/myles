@@ -28,7 +28,7 @@ struct LastLongRunView: View {
                         .frame(width: 35, height: 35)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(Color(uiColor: UIColor(named: "mylesDark") ?? .red))
+                                .foregroundStyle(.mylesDark)
                         )
                     Stepper(onIncrement: {
                         longRunRangeWeekCount += 1
@@ -48,7 +48,7 @@ struct LastLongRunView: View {
                     RecapHeaderView(run: longRun)
                     RecapView(viewModel: RecapViewModel(health: health,
                                                         run: longRun,
-                                                        expanded: longRun.hasLocationData,
+                                                        expanded: false,
                                                         showMap: longRun.hasLocationData))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .listRowInsets(EdgeInsets())

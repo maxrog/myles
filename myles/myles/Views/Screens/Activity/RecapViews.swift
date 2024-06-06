@@ -14,7 +14,7 @@ import SwiftUI
 struct RecapView: View {
     
     @Environment(ShoeManager.self) var shoes
-    @State var viewModel: RecapViewModel
+    @Bindable var viewModel: RecapViewModel
     
     var body: some View {
         VStack() {
@@ -74,7 +74,7 @@ struct RecapView: View {
 /// Recap header view containing run date and duration information
 struct RecapHeaderView: View {
     
-    @State var run: MylesRun
+    @Bindable var run: MylesRun
     
     var body: some View {
         HStack {
@@ -96,7 +96,7 @@ struct RecapHeaderView: View {
 struct RecapMileageView: View {
     
     @EnvironmentObject var theme: ThemeManager
-    @State var run: MylesRun
+    @Bindable var run: MylesRun
     
     var body: some View {
         HStack {
@@ -133,7 +133,7 @@ struct RecapMileageView: View {
 /// Recap view containing run accessory data including pace, heart rate, elevation, and temp
 struct RecapBarView : View {
     
-    @State var viewModel: RecapViewModel
+    @Bindable var viewModel: RecapViewModel
     
     var body: some View {
         HStack {
