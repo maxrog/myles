@@ -12,12 +12,18 @@ import SwiftUI
 /// View to edit a shoe's name
 struct ShoeSettingsEditView: View {
     
+    enum FocusedField {
+        case name, miles
+    }
+    
     @EnvironmentObject var theme: ThemeManager
     @Environment(ShoeManager.self) var shoes
-
-    @State var editedName = ""
+    
+    @FocusState private var focusedField: FocusedField?
     @State var editing = false
-    @FocusState var textFieldFocused: Bool
+    
+    @State var editedName = ""
+    @State var editedMiles = ""
     
     var index: Int
     var shoe: MylesShoe
@@ -27,27 +33,55 @@ struct ShoeSettingsEditView: View {
             TextField(shoe.name, text: $editedName)
                 .lineLimit(1)
                 .font(.custom("norwester", size: 22))
-                .submitLabel(.done)
+                .submitLabel(.next)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
                 .disabled(!editing)
-                .focused($textFieldFocused)
                 .onTapGesture {
-                    toggleTextField(enabled: true)
+                    focusedField = .name
                 }
-            Text("\(shoe.miles.prettyString) miles")
+                .onSubmit {
+                    if !editedName.isEmpty {
+                        shoe.name = editedName
+                    }
+                    focusedField = .miles
+                }
+                .focused($focusedField, equals: .name)
+            
+            TextField(shoe.miles.prettyString, text: $editedMiles)
+                .lineLimit(1)
                 .font(.custom("norwester", size: 14))
-                .foregroundColor(Color(.systemGray2))
+                .keyboardType(.decimalPad)
+                .submitLabel(.done)
+                .disabled(!editing)
+                .onTapGesture {
+                    focusedField = .miles
+                }
+                .focused($focusedField, equals: .miles)
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Save") {
+                    if !editedName.isEmpty {
+                        shoe.name = editedName
+                    }
+                    if !editedMiles.isEmpty, let newMiles = Double(editedMiles) {
+                        shoe.miles = newMiles
+                    }
+                    modifyShoe()
+                }
+            }
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .listRowInsets(EdgeInsets())
-        .onSubmit {
-            modifyShoeName(shoe, at: index)
-        }
         .swipeActions {
             Button() {
-                toggleTextField(enabled: true)
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+                    editing = true
+                    focusedField = .name
+                }
             } label: {
                 Image(systemName: "pencil")
             }
@@ -68,24 +102,12 @@ struct ShoeSettingsEditView: View {
     }
     
     @MainActor
-    func modifyShoeName(_ shoe: MylesShoe, at index: Int) {
-        guard !editedName.isEmpty else {
-            toggleTextField(enabled: false)
-            return
-        }
-        let updatedShoe = shoe
-        updatedShoe.name = editedName
-        shoes.modifyShoe(updatedShoe, at: index)
+    func modifyShoe() {
+        shoes.modifyShoe(shoe, at: index)
         editedName = ""
-        toggleTextField(enabled: false)
-    }
-    
-    @MainActor
-    func toggleTextField(enabled: Bool) {
-        editing = enabled
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
-            self.textFieldFocused = enabled
-        }
+        editedMiles = ""
+        editing = false
+        focusedField = nil
     }
 }
 
