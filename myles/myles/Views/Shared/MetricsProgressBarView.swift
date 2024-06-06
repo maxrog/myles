@@ -9,18 +9,18 @@ import SwiftUI
 
 /// A custom progress bar style
 struct BarProgressStyle: ProgressViewStyle {
-    
+
     var strokeColor = Color.blue
     var strokeHeight = 24.0
-    
+
     func makeBody(configuration: Configuration) -> some View {
         let progress = configuration.fractionCompleted ?? 0
-        
+
         GeometryReader { geo in
             VStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 10.0)
                     .fill(Color(uiColor: .systemGray5))
-                    .frame(width:geo.size.width, height: strokeHeight)
+                    .frame(width: geo.size.width, height: strokeHeight)
                     .overlay(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 10.0)
                             .fill(strokeColor)
@@ -39,17 +39,17 @@ struct BarProgressStyle: ProgressViewStyle {
 
 /// A progress bar view to display current/total values and description text
 struct MetricsProgressBarView: View {
-    
+
     var currentValue: Int
     var totalValue: Int
     var descriptionText: String
     var strokeColor: Color?
     var strokeHeight = 24.0
-    
+
     var body: some View {
-        
+
         let progress = Double(min(currentValue, totalValue)) / Double(totalValue)
-        
+
         VStack(spacing: 2) {
             Spacer()
             Text(descriptionText)

@@ -13,10 +13,10 @@ import SwiftUI
 
 /// A today view that displays views for goals etc
 struct TodayView: View {
-    
+
     @Environment(HealthManager.self) var health
     @EnvironmentObject var goals: GoalsManager
-    
+
     var body: some View {
         GeometryReader { geo in
             NavigationStack {
@@ -32,7 +32,7 @@ struct TodayView: View {
                         }
                         .listRowBackground(Color.clear)
                     }
-                    
+
                     if goals.weeklyMileageGoal > 0 {
                         let weeklyRuns = health.focusedRuns(for: .week)
                         let totalMiles = health.runsTotalDistance(weeklyRuns)

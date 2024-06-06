@@ -13,7 +13,7 @@ import SwiftUI
 
 /// Wrapper view for displaying heart
 struct MylesHeartView: View {
-    
+
     var body: some View {
         Image(uiImage: UIImage(named: "mylesHeart") ?? UIImage())
             .resizable()
@@ -22,7 +22,7 @@ struct MylesHeartView: View {
             .background(Color(.systemGray4))
             .cornerRadius(8)
     }
-    
+
 }
 
 #Preview {

@@ -7,16 +7,15 @@
 
 import SwiftUI
 
-
 /// A custom metric gauge view for showing progress
 struct MetricGaugeView: View {
-    
+
     let progress: Double
     let total: String
     let goal: Int?
     let metric: String
     let strokeWidth: CGFloat
-    
+
     init(progress: Double, total: String, goal: Int?, metric: String, strokeWidth: CGFloat = 8.0) {
         self.progress = progress
         self.total = total
@@ -24,7 +23,7 @@ struct MetricGaugeView: View {
         self.metric = metric
         self.strokeWidth = strokeWidth
     }
-    
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -71,5 +70,5 @@ struct MetricGaugeView: View {
             }
         }
     }
-    
+
 }

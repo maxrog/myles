@@ -11,15 +11,15 @@ import HealthKit
 // TODO look into custom view for refreshable -- have little beating heart
 
 struct ActivityView: View {
-    
+
     @Environment(HealthManager.self) var health
 
     @State var streakBounce = 0
-    
+
     var body: some View {
-        
+
         let runs = health.runs
-        
+
         NavigationStack {
             Group {
                 if !runs.isEmpty {

@@ -14,12 +14,12 @@ import SwiftUI
 
 /// Settings view for modifying user's tracked shoes
 struct ShoesSettingsView: View {
-    
+
     @EnvironmentObject var theme: ThemeManager
     @Environment(ShoeManager.self) var shoes
 
     @State var newShoeName: String = ""
-        
+
     var body: some View {
         NavigationStack {
             List {
@@ -41,7 +41,7 @@ struct ShoesSettingsView: View {
             .navigationTitle("Shoes")
         }
     }
-    
+
     private func addNewShoe() {
         guard !newShoeName.isEmpty else { return }
         withAnimation {

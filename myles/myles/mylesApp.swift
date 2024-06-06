@@ -9,6 +9,7 @@ import SwiftUI
 
 /*
  TODO
+ • Work through warnings
  • Manual provisioning
  • Xcode Cloud
  • Refactor references to Asset images to something more reliable
@@ -21,14 +22,14 @@ import SwiftUI
 
 @main
 struct mylesApp: App {
-    
+
     @Environment(\.scenePhase) var scenePhase
-    
+
     @StateObject var theme: ThemeManager = ThemeManager()
     @StateObject var goals: GoalsManager = GoalsManager.shared
     @State var health: HealthManager = HealthManager()
     @State var shoes: ShoeManager = ShoeManager()
-   
+
     var body: some Scene {
         WindowGroup {
             switch theme.preferredStyle {

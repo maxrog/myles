@@ -9,20 +9,20 @@ import SwiftUI
 
 /// Shoe picker that manages shoe selection for a specific run
 struct ShoePickerView: View {
-    
+
     @EnvironmentObject var theme: ThemeManager
     @Environment(ShoeManager.self) var shoes
-    
+
     @State var viewModel: RecapViewModel
-    
+
     @State var selectedShoe: MylesShoe?
     @State var newShoeName: String = ""
-    
+
     var body: some View {
         NavigationStack {
             List(selection: $selectedShoe) {
                 Section {
-                    ForEach(Array(shoes.shoes.enumerated()), id: \.element) { index, shoe in
+                    ForEach(Array(shoes.shoes.enumerated()), id: \.element) { _, shoe in
                         HStack(alignment: .center) {
                             VStack(alignment: .leading) {
                                 Text(shoe.name)
@@ -69,7 +69,7 @@ struct ShoePickerView: View {
         .onSubmit(addNewShoe)
         .presentationDetents([.medium])
     }
-    
+
     private func addNewShoe() {
         guard !newShoeName.isEmpty else { return }
         withAnimation {
@@ -77,7 +77,7 @@ struct ShoePickerView: View {
             newShoeName = ""
         }
     }
-    
+
     private func deleteShoe(at index: Int) {
         withAnimation {
             shoes.deleteShoe(at: index)

@@ -11,23 +11,23 @@ import SwiftUI
 
 /// View to edit a shoe's name
 struct ShoeSettingsEditView: View {
-    
+
     enum FocusedField {
         case name, miles
     }
-    
+
     @EnvironmentObject var theme: ThemeManager
     @Environment(ShoeManager.self) var shoes
-    
+
     @FocusState private var focusedField: FocusedField?
     @State var editing = false
-    
+
     @State var editedName = ""
     @State var editedMiles = ""
-    
+
     var index: Int
     var shoe: MylesShoe
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             TextField(shoe.name, text: $editedName)
@@ -47,7 +47,7 @@ struct ShoeSettingsEditView: View {
                     focusedField = .miles
                 }
                 .focused($focusedField, equals: .name)
-            
+
             TextField(shoe.miles.prettyString, text: $editedMiles)
                 .lineLimit(1)
                 .font(.custom("norwester", size: 14))
@@ -77,7 +77,7 @@ struct ShoeSettingsEditView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .listRowInsets(EdgeInsets())
         .swipeActions {
-            Button() {
+            Button {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
                     editing = true
                     focusedField = .name
@@ -93,14 +93,14 @@ struct ShoeSettingsEditView: View {
             }
         }
     }
-    
+
     @MainActor
     func deleteShoe(at index: Int) {
         withAnimation {
             shoes.deleteShoe(at: index)
         }
     }
-    
+
     @MainActor
     func modifyShoe() {
         shoes.modifyShoe(shoe, at: index)

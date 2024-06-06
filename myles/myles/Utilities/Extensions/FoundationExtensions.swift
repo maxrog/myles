@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: UserDefaults
 
 extension UserDefaults {
-    
+
     /// Store SwiftUI Color
     func setColor(_ color: Color, forKey key: String) {
         let cgColor = color.cgColor_
@@ -24,7 +24,7 @@ extension UserDefaults {
         guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB), let cgColor = CGColor(colorSpace: colorSpace, components: array) else { return nil }
         return Color(cgColor)
     }
-    
+
 }
 
 // MARK: Date
@@ -34,29 +34,29 @@ extension Date {
     static func - (lhs: Date, rhs: Date) -> TimeInterval {
         return lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
     }
-    
+
     /// Calculate the number of days between two dates
     func daysBetween(_ otherDate: Date) -> Int {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.day], from: self, to: otherDate)
         return components.day ?? 0
     }
-    
+
     /// Determines whether date is in same day
     func isInSameDay(as otherDate: Date) -> Bool {
         return Calendar.current.isDate(otherDate, inSameDayAs: self)
     }
-    
+
     /// Determines whether date is in same week
     func isInSameWeek(as otherDate: Date) -> Bool {
         return Calendar.current.isDate(otherDate, equalTo: self, toGranularity: .weekOfYear)
     }
-    
+
     /// Determines whether date is in same month
     func isInSameMonth(as otherDate: Date) -> Bool {
         return Calendar.current.isDate(otherDate, equalTo: self, toGranularity: .month)
     }
-    
+
     /// Determines whether date is in current week
     var isInCurrentWeek: Bool {
         var calendar = Calendar.current
@@ -70,7 +70,7 @@ extension Date {
         }
         return (self >= startOfWeek && self <= endOfWeek)
     }
-    
+
     /// Common date format
     var shortCalendarDateFormat: String {
         let formatter = DateFormatter()
@@ -95,14 +95,14 @@ extension Date {
         formatter.dateFormat = "h:mm a"
         return formatter.string(from: self)
     }
-    
+
     /// Common date format
     var weekOfMonthDateFormat: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "W"
         return dateFormatter.string(from: self)
     }
-    
+
     /// Common date format
     var shortMonthOfYearDateFormat: String {
         let dateFormatter = DateFormatter()
@@ -114,19 +114,19 @@ extension Date {
 // MARK: Calendar
 
 extension Calendar {
-    
+
     /// calculates dates for last week Monday-Sunday
     static func datesForLastWeek() -> [Date]? {
         let today = Date()
-        
+
         // Find the date components for today
         let todayComponents = Calendar.current.dateComponents([.year, .month, .day, .weekday], from: today)
-        
+
         // Calculate the number of days to subtract to find the dates for Monday to Sunday of last week
         let daysToSubtract = (todayComponents.weekday! + 7 - 2) % 7 // 2 corresponds to Monday
-        
+
         var datesForLastWeek = [Date]()
-        
+
         // Calculate the dates for Monday to Sunday of last week
         for i in 0..<7 {
             guard let date = Calendar.current.date(byAdding: .day, value: -daysToSubtract + i, to: today) else {
@@ -134,16 +134,15 @@ extension Calendar {
             }
             datesForLastWeek.append(date)
         }
-        
+
         return datesForLastWeek
     }
 }
 
-
 // MARK: Double 
 
 extension Double {
-    
+
     /// A formatted string version with one decimal place
     var prettyString: String {
         String(format: "%.1f", self)
@@ -161,22 +160,21 @@ extension TimeInterval {
         formatter.unitsStyle = .abbreviated
         formatter.allowedUnits = self >= 3600 ? [.hour, .minute] : [.minute]
         formatter.zeroFormattingBehavior = .pad
-        
+
         guard let formattedString = formatter.string(from: self) else {
             return "00:00"
         }
-        
+
         if self >= 3600 {
             return formattedString.replacingOccurrences(of: ":", with: "h")
         } else {
             return formattedString.replacingOccurrences(of: ":", with: "m")
         }
     }
-    
-}
-  
-// MARK: String
 
+}
+
+// MARK: String
 
 extension String {
     /// The width of a string for a given font
@@ -185,5 +183,5 @@ extension String {
         let boundingRect = attributedText.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 0), options: .usesLineFragmentOrigin, context: nil)
         return ceil(boundingRect.width)
     }
-    
+
 }

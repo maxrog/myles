@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LastLongRunView: View {
-    
+
     @Environment(HealthManager.self) var health
-    
+
     @State private var longRun: MylesRun?
     @AppStorage("com.marfodub.myles.LongRunRange") var longRunRangeWeekCount: Int = 8
     @State private var lastLongRunHeader = ""
@@ -19,7 +19,7 @@ struct LastLongRunView: View {
         lastLongRunHeader = "Last \(longRunRangeWeekCount) \(longRunRangeWeekCount > 1 ? "Weeks" : "Week")"
     }
     @State private var lastLongRun: MylesRun?
-    
+
     var body: some View {
         Section {
             VStack {
@@ -43,7 +43,7 @@ struct LastLongRunView: View {
                     })
                 }
                 .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
-                
+
                 if let longRun = lastLongRun {
                     RecapHeaderView(run: longRun)
                     RecapView(viewModel: RecapViewModel(health: health,

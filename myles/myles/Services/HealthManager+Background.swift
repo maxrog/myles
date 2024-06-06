@@ -13,7 +13,7 @@ import WidgetKit
  */
 
 extension HealthManager {
-    
+
     /// Sets up the observer queries for background health data delivery.
     func setUpBackgroundDeliveryForDataTypes() {
         for type in dataTypesToRead() {
@@ -21,8 +21,8 @@ extension HealthManager {
                 MylesLogger.log(.error, "Failed to cast sample type", sender: String(describing: self))
                 continue
             }
-            
-            let query = HKObserverQuery(sampleType: sampleType, predicate: nil) { query, completionHandler, error in
+
+            let query = HKObserverQuery(sampleType: sampleType, predicate: nil) { _, completionHandler, error in
                 MylesLogger.log(.action, "Observer query update handler called for type \(type), with error \(error?.localizedDescription ?? "nil")", sender: String(describing: self))
                 if error == nil {
                     WidgetCenter.shared.reloadAllTimelines()

@@ -17,7 +17,7 @@ import SwiftUI
 /// A running workout with essential information gathered from HealthStore
 @Observable
 class MylesRun: Identifiable, Equatable, Hashable {
-    
+
     /// The unique identifier
     let id: UUID
     /// The start time of the run
@@ -47,20 +47,31 @@ class MylesRun: Identifiable, Equatable, Hashable {
     var hasLocationData: Bool { !(locationPoints?.isEmpty ?? true) }
     /// Whether the run is used to take a spot in the chart
     var emptyPlaceholder: Bool
-    
+
     static func == (lhs: MylesRun, rhs: MylesRun) -> Bool {
         lhs.id == rhs.id
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
-    convenience init(date: Date = Date(), distance: Double = 0.0, duration: TimeInterval = 0.0, emptyPlaceholder: Bool = false) {
-        self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration), workoutType: .running, environment: .outdoor, duration: duration, distance: distance, averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil), emptyPlaceholder: emptyPlaceholder)
+
+    convenience init(date: Date = Date(), distance: Double = 0.0,
+                     duration: TimeInterval = 0.0, emptyPlaceholder: Bool = false) {
+        self.init(id: UUID(), startTime: date, endTime: date.addingTimeInterval(duration),
+                  workoutType: .running, environment: .outdoor,
+                  duration: duration, distance: distance,
+                  averageHeartRateBPM: nil, elevationChange: (nil, nil), weather: (nil, nil),
+                  emptyPlaceholder: emptyPlaceholder)
     }
-    
-    init(id: UUID, startTime: Date, endTime: Date, workoutType: HKWorkoutActivityType, environment: MylesRunEnvironmentType, duration: TimeInterval, distance: Double, averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?), weather: (temperature: Double?, humidity: Double?), locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = [], emptyPlaceholder: Bool = false) {
+
+    init(id: UUID, startTime: Date, endTime: Date,
+         workoutType: HKWorkoutActivityType, environment: MylesRunEnvironmentType,
+         duration: TimeInterval, distance: Double,
+         averageHeartRateBPM: Double?, elevationChange: (gain: Double?, loss: Double?),
+         weather: (temperature: Double?, humidity: Double?),
+         locationPoints: [CLLocation]? = nil, mileSplits: [TimeInterval] = [],
+         emptyPlaceholder: Bool = false) {
         self.id = id
         self.startTime = startTime
         self.endTime = endTime
@@ -91,14 +102,14 @@ class MylesRun: Identifiable, Equatable, Hashable {
         self.mileSplits = mileSplits
         self.emptyPlaceholder = emptyPlaceholder
     }
-    
+
     // MARK: Metrics
-    
+
     /// The duration of the run, in minutes
     var durationMinutes: TimeInterval {
         duration / 60
     }
-    
+
     /// The average mile pace
     var averageMilePace: TimeInterval {
         duration / distance
@@ -108,14 +119,14 @@ class MylesRun: Identifiable, Equatable, Hashable {
         guard distance > 0 else {
             return ""
         }
-        
+
         let paceInSecondsPerMile = duration / distance
         let minutesPerMile = Int(paceInSecondsPerMile / 60)
         let secondsPerMile = Int(paceInSecondsPerMile.truncatingRemainder(dividingBy: 60))
-        
+
         return String(format: "%2d:%02d", minutesPerMile, secondsPerMile)
     }
-    
+
     /// The splits for pace per mile
     var mileSplits: [TimeInterval] = []
     /// The splits for pace per mile in the common mm:ss format
@@ -126,14 +137,14 @@ class MylesRun: Identifiable, Equatable, Hashable {
             let seconds = Int((split - Double(minutes)) * 60)
             let formattedSplit = String(format: "%d.%2d:%02d", index + 1, minutes, seconds)
             formattedSplits.append(formattedSplit)
-            
+
         }
         return formattedSplits
     }
 }
 
 extension MylesRun {
-    
+
     /// The image representing the workout type
     var workoutTypeSymbol: Image {
         switch workoutType {
@@ -159,7 +170,7 @@ extension MylesRun {
             Image(systemName: "figure.mixed.cardio")
         }
     }
-    
+
     /// Returns a color to represent the workout type
     var colorForWorkout: Color {
         switch self.workoutType {
@@ -171,7 +182,7 @@ extension MylesRun {
             return .cosmicLatte
         }
     }
-    
+
     /// A test run
     static let testRun = MylesRun(id: UUID(),
                                   startTime: .now.addingTimeInterval(-3700),
@@ -187,10 +198,10 @@ extension MylesRun {
                                         CLLocation(latitude: 35.02440386, longitude: -80.94729845),
                                         CLLocation(latitude: 35.03643622, longitude: -80.93023495),
                                         CLLocation(latitude: 35.03982536, longitude: -80.94195882),
-                                        CLLocation(latitude: 35.03972075, longitude: -80.94186949),
+                                        CLLocation(latitude: 35.03972075, longitude: -80.94186949)
                                     ],
                                   mileSplits: [9.2, 8.4, 7.8, 6.2, 4.9, 4.9, 9.0])
-    
+
     /// An empty run
     static func emptyRun(date: Date = Date()) -> MylesRun {
         MylesRun(id: UUID(),
@@ -205,19 +216,19 @@ extension MylesRun {
                  weather: (nil, nil),
                  emptyPlaceholder: true)
     }
-    
+
     /// Snapshot for displaying widget
     static func widgetSnapshotRuns() -> [MylesRun] {
         guard let dates = Calendar.datesForLastWeek() else { return [] }
         var runs: [MylesRun] = []
         for date in dates {
-            runs.append(MylesRun(date: date, 
+            runs.append(MylesRun(date: date,
                                  distance: Double.random(in: 3.0...8.0),
                                  duration: TimeInterval.random(in: 3000...5000)))
         }
         return runs
     }
-    
+
 }
 
 extension MylesRun: Comparable {

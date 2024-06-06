@@ -8,11 +8,10 @@
 import Foundation
 import Observation
 
-
 /// A shoe with information on name and mileage
 @Observable
 class MylesShoe: Identifiable, Codable, Equatable {
-    
+
     /// A UUID for the shoe
     let id: UUID
     /// The shoe name input by the user
@@ -21,13 +20,13 @@ class MylesShoe: Identifiable, Codable, Equatable {
     var miles: Double
     /// An array of run ids connected to the shoe
     var runIds: [UUID] = []
-    
+
     init(id: UUID = UUID(), name: String, miles: Double = 0.0) {
         self.id = id
         self.name = name
         self.miles = miles
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, miles, runIds
     }
@@ -47,11 +46,11 @@ class MylesShoe: Identifiable, Codable, Equatable {
         try container.encode(miles, forKey: .miles)
         try container.encode(runIds, forKey: .runIds)
     }
-    
+
     static func == (lhs: MylesShoe, rhs: MylesShoe) -> Bool {
         lhs.id == rhs.id
     }
-    
+
 }
 
 extension MylesShoe: Hashable {

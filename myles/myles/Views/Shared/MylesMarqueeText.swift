@@ -11,16 +11,16 @@ import SwiftUI
 
 /// A marquee text view that animates horizontally and loops indefinitely
 struct MylesMarqueeText: View {
-    
+
     @State var text: String
     let font: UIFont
-    
+
     @State private var totalWidth: CGFloat = .zero
     @State private var offset: CGFloat = .zero
-    
+
     var animationSpeed: Double = 0.3
     var delayTime: Double = 2.0
-    
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             Text(text)
@@ -47,7 +47,7 @@ struct MylesMarqueeText: View {
         }
         .onAppear {
             let baseText = text
-            
+
             // Spacing for behind base text
             (1...20).forEach { _ in
                 text.append(" ")
@@ -56,7 +56,7 @@ struct MylesMarqueeText: View {
             totalWidth = text.width(for: font)
             // Duplicate text behind spacing
             text.append(baseText)
-            
+
             animateText()
         }
         .onReceive(Timer.publish(every: animationSpeed * totalWidth, on: .main, in: .default).autoconnect()) { _ in
@@ -64,7 +64,7 @@ struct MylesMarqueeText: View {
             animateText()
         }
     }
-    
+
     private func animateText() {
         let duration: Double = (animationSpeed * totalWidth)
         DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) {
@@ -79,4 +79,3 @@ struct MylesMarqueeText: View {
 #Preview {
     MylesMarqueeText(text: "Mi 1 • 9:30 Mi 2 • 9:30 Mi 3 • 9:30 Mi 4 • 9:30 Mi 5 • 9:30 Mi 6 • 9:30 Mi 7 • 9:30", font: UIFont(name: "norwester", size: 13) ?? UIFont.systemFont(ofSize: 13))
 }
-

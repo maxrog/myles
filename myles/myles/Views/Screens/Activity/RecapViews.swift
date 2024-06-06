@@ -12,12 +12,12 @@ import SwiftUI
 
 /// An accessory view for showing group of run recap metrics
 struct RecapView: View {
-    
+
     @Environment(ShoeManager.self) var shoes
     @Bindable var viewModel: RecapViewModel
-    
+
     var body: some View {
-        VStack() {
+        VStack {
             RecapMileageView(run: viewModel.run)
             if viewModel.expanded {
                 if viewModel.showMap {
@@ -73,9 +73,9 @@ struct RecapView: View {
 
 /// Recap header view containing run date and duration information
 struct RecapHeaderView: View {
-    
+
     @Bindable var run: MylesRun
-    
+
     var body: some View {
         HStack {
             Text(run.startTime.shortDayOfWeekDateFormat + " " + run.startTime.shortCalendarDateFormat)
@@ -94,10 +94,10 @@ struct RecapHeaderView: View {
 
 /// Recap view containing run mileage
 struct RecapMileageView: View {
-    
+
     @EnvironmentObject var theme: ThemeManager
     @Bindable var run: MylesRun
-    
+
     var body: some View {
         HStack {
             Spacer()
@@ -131,10 +131,10 @@ struct RecapMileageView: View {
 }
 
 /// Recap view containing run accessory data including pace, heart rate, elevation, and temp
-struct RecapBarView : View {
-    
+struct RecapBarView: View {
+
     @Bindable var viewModel: RecapViewModel
-    
+
     var body: some View {
         HStack {
             if viewModel.run.distance > 0.0 {
@@ -146,12 +146,12 @@ struct RecapBarView : View {
                             .labelStyle(MylesIconLabel())
                     }
                 }.frame(maxWidth: .infinity)
-                
+
                 Label("\(viewModel.run.averageMilePaceString)/mi", systemImage: "stopwatch")
                     .font(.custom("norwester", size: 15))
                     .labelStyle(MylesIconLabel())
                     .fixedSize()
-                
+
                 VStack {
                     if let elevation = viewModel.run.elevationChange.gain, elevation > 0 {
                         Label("\(elevation) ft", systemImage: "arrow.up.forward")

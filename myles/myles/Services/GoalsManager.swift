@@ -12,12 +12,12 @@ import SwiftUI
 
 /// Manager for user workout goals
 class GoalsManager: ObservableObject {
-    
+
     /// Shared user defaults
     let userDefaults = UserDefaults(suiteName: "group.9AS2TD23UD.com.marfodub.myles")
-    
+
     static let shared = GoalsManager()
-    
+
     private init() {
         if userDefaults?.value(forKey: GoalKeys.weeklyMileage.rawValue) != nil {
             self.weeklyMileageGoal = userDefaults?.integer(forKey: GoalKeys.weeklyMileage.rawValue) ?? 0
@@ -37,7 +37,7 @@ class GoalsManager: ObservableObject {
     }
 
     // MARK: Weekly Mileage
-    
+
     /// User's weekly mileage goal
     @Published private(set) var weeklyMileageGoal: Int = 0 {
         didSet { saveWeeklyMileageGoal() }
@@ -49,9 +49,9 @@ class GoalsManager: ObservableObject {
     private func saveWeeklyMileageGoal() {
         userDefaults?.setValue(weeklyMileageGoal, forKey: GoalKeys.weeklyMileage.rawValue)
     }
-    
+
     // MARK: Daily Steps
-    
+
     /// User's daily step goal
     @Published private(set) var dailyStepGoal: Int = 0 {
         didSet { saveDailyStepGoal() }
@@ -63,15 +63,15 @@ class GoalsManager: ObservableObject {
     private func saveDailyStepGoal() {
         userDefaults?.setValue(dailyStepGoal, forKey: GoalKeys.dailySteps.rawValue)
     }
-    
+
     // MARK: Tracking Scope
-    
+
     // TODO Refactor to DRY
     /*
      Enabled Tracking Types
      */
     @Published var trackRuns: Bool = true {
-        didSet { 
+        didSet {
             userDefaults?.setValue(trackRuns, forKey: GoalKeys.trackRuns.rawValue)
         }
     }

@@ -19,19 +19,19 @@ import Charts
 
 /// Simple Chart view based on given runs and filters
 struct MetricChartView: View {
-    
+
     @EnvironmentObject var theme: ThemeManager
     @Environment(HealthManager.self) var health
-    
+
     @State private var annotationString: String?
     @State private var tappedPlot: CGPoint?
     @State private var selectedRuns: [MylesRun] = []
-    
+
     let focusedRuns: [MylesRun]
     let primaryFilter: MetricsPrimaryFilterType
     let spanFilter: MetricsSpanFilterType
     let formatter = DateFormatter()
-    
+
     private func generateBarMark(for run: MylesRun) -> BarMark {
         switch primaryFilter {
         case .distance:
@@ -60,7 +60,7 @@ struct MetricChartView: View {
             }
         }
     }
-    
+
     var body: some View {
         ZStack {
             Chart(focusedRuns) { run in
@@ -90,7 +90,7 @@ struct MetricChartView: View {
             }
         }
     }
-    
+
     private func updateSelectedState(at location: CGPoint, proxy: ChartProxy, geometry: GeometryProxy) {
         guard let plotFrame = proxy.plotFrame else { return }
         let xPosition = location.x - geometry[plotFrame].origin.x
@@ -145,7 +145,7 @@ struct MetricChartView: View {
 }
 
 extension MetricChartView {
-    
+
     /// Returns views to be used within a legend indicating the chart colors
     static func legend(for runs: [MylesRun], displayingDistance: Bool) -> [some View] {
         var uniqueRuns: [MylesRun] = []

@@ -15,7 +15,7 @@ import Observation
 /// Manager for the user's shoe tracking
 @Observable
 class ShoeManager {
-    
+
     /// Standard user defaults
     let userDefaults = UserDefaults.standard
 
@@ -31,7 +31,7 @@ class ShoeManager {
             shoes = []
         }
     }
-    
+
     /// The user's tracked shoes
     private(set) var shoes: [MylesShoe] {
         didSet {
@@ -41,7 +41,7 @@ class ShoeManager {
             }
         }
     }
-    
+
     /// Adds a shoe to the user's tracked shoe list
     func addShoe(_ shoe: MylesShoe) {
         var allShoes = shoes
@@ -49,7 +49,7 @@ class ShoeManager {
         shoes = allShoes
         MylesLogger.log(.action, "Adding shoe \(shoe.name) to store", sender: String(describing: self))
     }
-    
+
     /// Removes a shoe from the user's tracked shoe list
     func deleteShoe(_ shoe: MylesShoe) {
         var allShoes = shoes
@@ -58,7 +58,7 @@ class ShoeManager {
         shoes = allShoes
         MylesLogger.log(.action, "Deleting shoe \(shoe.name) from store", sender: String(describing: self))
     }
-    
+
     /// Modifies a shoe at a certain index
     /// - Parameters:
     /// - updatedShoe: The updated shoe value to replace the old one
@@ -73,7 +73,7 @@ class ShoeManager {
         shoes = allShoes
         MylesLogger.log(.action, "Modifying index \(index) with new shoe \(updatedShoe.name)", sender: String(describing: self))
     }
-    
+
     /// Removes a shoe from the user's tracked shoe list using provided index
     func deleteShoe(at index: Int) {
         var shoeName: String?
@@ -82,13 +82,13 @@ class ShoeManager {
         } else {
             MylesLogger.log(.action, "Could not find shoe to delete at index \(index)", sender: String(describing: self))
         }
-        
+
         var allShoes = shoes
         allShoes.remove(at: index)
         shoes = allShoes
         MylesLogger.log(.action, "Deleting shoe \(shoeName ?? "") from store", sender: String(describing: self))
     }
-    
+
     /// Adds a shoe to a specific run
     func addShoeToRun(_ shoe: MylesShoe, run: MylesRun) {
         var allShoes = shoes
@@ -100,8 +100,7 @@ class ShoeManager {
         shoes = allShoes
         MylesLogger.log(.action, "Adding shoe \(shoe.name) for run with id \(run.id.uuidString)", sender: String(describing: self))
     }
-    
-    
+
     /// Removes a shoe from a specific run
     func removeShoe(_ shoe: MylesShoe, from run: MylesRun) {
         var allShoes = shoes
@@ -115,7 +114,7 @@ class ShoeManager {
         MylesLogger.log(.action, "Removing shoe \(shoe.name) for run with id \(run.id.uuidString)", sender: String(describing: self))
         shoes = allShoes
     }
-    
+
     /// Returns an optional shoe connected to a specific run
     func selectedShoe(for run: MylesRun) -> MylesShoe? {
         let matchingShoe = shoes.first(where: { $0.runIds.contains(run.id) })
@@ -126,7 +125,7 @@ class ShoeManager {
         }
         return matchingShoe
     }
-    
+
 }
 
 /// User Default Keys

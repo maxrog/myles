@@ -461,6 +461,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AF6E46572B23A6F5002915DC /* Build configuration list for PBXNativeTarget "myles" */;
 			buildPhases = (
+				AF1336862C11D4420038FE9B /* SwiftLint */,
 				AF6E46442B23A6F4002915DC /* Sources */,
 				AF6E46452B23A6F4002915DC /* Frameworks */,
 				AF6E46462B23A6F4002915DC /* Resources */,
@@ -556,6 +557,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AF1336862C11D4420038FE9B /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint --fix && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AF6E46442B23A6F4002915DC /* Sources */ = {
@@ -778,6 +801,7 @@
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9AS2TD23UD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myles/Resources/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "I need access to the listed metrics to display useful workout data.";
@@ -829,6 +853,7 @@
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = 9AS2TD23UD;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myles/Resources/Info.plist;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "I need access to the listed metrics to display useful workout data.";

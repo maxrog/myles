@@ -8,14 +8,13 @@
 import Foundation
 
 /*
- TODO Add Logging
  Health manager metrics related processing that doesn't require store queries
  */
 
 extension HealthManager {
-    
+
     // MARK: General
-    
+
     /// Returns the total distance for a given array of runs
     func runsTotalDistance(_ runs: [MylesRun]) -> Double {
         return runs.reduce(0) { partialResult, run in
@@ -54,25 +53,25 @@ extension HealthManager {
             }
         }
     }
-    
+
     // MARK: Streak
-    
+
     /// Calculates the user's run streak (days in a row) starting from today
     func streakCount() -> Int {
         MylesLogger.log(.action, "Calculating run streak", sender: String(describing: self))
-        
+
         var streak = 0
         var currentDate = Date()
         var usedDates: [Date] = []
-        
+
         for run in runs {
             let runDate = run.endTime
             let calendar = Calendar.current
-            
+
             guard run.workoutType == .run, run.distance >= 1.0 else { continue }
-            
+
             guard !usedDates.contains(where: ({ calendar.isDate($0, inSameDayAs: runDate) })) else { continue }
-            
+
             if calendar.isDate(runDate, inSameDayAs: currentDate) {
                 streak += 1
                 MylesLogger.log(.action, "+1 to run streak for \(runDate.shortCalendarDateFormat)", sender: String(describing: self))
@@ -89,13 +88,13 @@ extension HealthManager {
             usedDates.append(runDate)
             currentDate = runDate
         }
-        
+
         MylesLogger.log(.action, "Calculated \(streak) days run streak", sender: String(describing: self))
         return streak
     }
-    
+
     // MARK: Spans
-    
+
     /// Returns the user's activities based on filter type
     /// - Parameters:
     ///     - filter: A filter type to determine range of runs to process
@@ -109,7 +108,7 @@ extension HealthManager {
             return filterActivitiesForTrackingSettings(currentYearRuns())
         }
     }
-    
+
     /// Returns the user's activities based on X number of date units
     /// Currently only supports weeks
     /// - Parameters:
@@ -117,7 +116,7 @@ extension HealthManager {
     func focusedRunsFromPast(weekCount: Int) -> [MylesRun] {
         return runsFromLast(weekCount)
     }
-    
+
     /// Returns the user's activities based on the current week (M-S)
     private func currentWeekRuns() -> [MylesRun] {
         let currentDate = Date()
@@ -143,7 +142,7 @@ extension HealthManager {
             return Array(weekRuns)
         }
     }
-    
+
     /// Returns the user's activities based on the current month
     private func currentMonthRuns() -> [MylesRun] {
         let currentDate = Date()
@@ -162,7 +161,7 @@ extension HealthManager {
             return monthRuns
         }
     }
-    
+
     /// Returns the user's activities based on the current year
     private func currentYearRuns() -> [MylesRun] {
         let currentDate = Date()
@@ -181,7 +180,7 @@ extension HealthManager {
             return yearRuns
         }
     }
-    
+
     /// Returns the user's activities from the last X number of weeks
     private func runsFromLast(_ numberOfWeeks: Int) -> [MylesRun] {
         let calendar = Calendar.current
@@ -189,17 +188,17 @@ extension HealthManager {
           guard let startDate = calendar.date(byAdding: .weekOfYear, value: -numberOfWeeks, to: currentDate) else {
               return []
           }
-          
+
           let filteredData = runs.filter { $0.endTime >= startDate }
           return filterActivitiesForTrackingSettings(filteredData)
     }
-    
+
     /// Returns the user's longest activity from given number of weeks
     func longestRecentLongRun(_ numberOfWeeks: Int) -> MylesRun? {
         let allRuns = runsFromLast(numberOfWeeks).filter({ !$0.crossTraining })
         return allRuns.max() // max works based on distance (comparable conformance implementation)
     }
-    
+
     /// Returns a filtered list of activities based on the user's tracking preferences
     private func filterActivitiesForTrackingSettings(_ runs: [MylesRun]) -> [MylesRun] {
         var filteredActivities = runs
@@ -210,11 +209,11 @@ extension HealthManager {
             filteredActivities.removeAll(where: ({ $0.workoutType == .walk || $0.workoutType == .hike }))
         }
         if !goals.trackCrosstraining {
-            filteredActivities.removeAll(where: ({ $0.crossTraining} ))
+            filteredActivities.removeAll(where: ({ $0.crossTraining}))
         }
         return filteredActivities
     }
-    
+
 }
 
 /// A main filter, either distance or duration

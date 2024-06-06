@@ -8,13 +8,12 @@
 import Foundation
 import OSLog
 
-
 struct MylesLogger {
-    
-    static private var loggers: [String : Logger] = [:]
-    
+
+    static private var loggers: [String: Logger] = [:]
+
     static var logLevel: LogLevel = .verbose
-    
+
     /// Logs an app event
     /// - Parameters:
     ///   - logType: error, fatal (kills app), warning, success, action, cancelled
@@ -42,7 +41,7 @@ struct MylesLogger {
             logger.warning("\(message)")
         }
     }
-    
+
 }
 
 enum LogType: String {

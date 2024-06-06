@@ -22,10 +22,10 @@ class TabViewModel: ObservableObject {
 
     /// User's selected tab in main tab view
     @AppStorage(StorageKeys.selectedTabIndex.rawValue) var selectedTabIndex: Int = 0
-    
+
 }
 
-fileprivate
+private
 enum StorageKeys: String {
     case selectedTabIndex
 }

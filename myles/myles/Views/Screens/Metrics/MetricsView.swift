@@ -16,11 +16,11 @@ import Charts
 
 /// View that displays filterable metrics
 struct MetricsView: View {
-    
+
     @Environment(HealthManager.self) var health
-    
+
     var body: some View {
-        GeometryReader { geo in
+        GeometryReader { _ in
             NavigationStack {
                 List {
                     MetricsChartGroupView()

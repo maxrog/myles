@@ -10,20 +10,20 @@ import Charts
 
 /// Simple Chart view that displays x amount of past weeks
 struct SteppedMetricChartView: View {
-    
+
     @Environment(HealthManager.self) var health
     @Binding var numberOfWeeks: Int
-    
+
     @State private var annotationString: String?
     @State private var tappedPlot: CGPoint?
     @State private var selectedRuns: [MylesRun] = []
-    
+
     // TODO i think this is considering Sun-Sat as a week or something? Try getting it to be Monday
     private func generateBarMark(for run: MylesRun) -> BarMark {
         BarMark(x: .value("Label", run.endTime, unit: .weekOfMonth),
                 y: .value("Value", run.distance))
     }
-    
+
     var body: some View {
         let focusedRuns = health.focusedRunsFromPast(weekCount: numberOfWeeks)
         ZStack {
@@ -57,7 +57,7 @@ struct SteppedMetricChartView: View {
             }
         }
     }
-    
+
     private func updateSelectedState(at location: CGPoint, proxy: ChartProxy, geometry: GeometryProxy, focusedRuns: [MylesRun]) {
         guard let plotFrame = proxy.plotFrame else { return }
         let xPosition = location.x - geometry[plotFrame].origin.x

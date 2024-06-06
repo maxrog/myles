@@ -9,12 +9,12 @@ import SwiftUI
 
 /// Customizable button style
 struct MylesButtonStyle: ButtonStyle {
-    
+
     var background: Color = .clear
     var foreground: Color = .primary
-    var border: Color? = nil
+    var border: Color?
     var cornerRadius: CGFloat = 8.0
-    
+
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 2) {
             if let border = border {

@@ -7,16 +7,15 @@
 
 import SwiftUI
 
-
 /// Splash view that is displayed while data is loading
 struct SplashView: View {
-    
+
     @Environment(HealthManager.self) var health
-    
+
     @State private var animationAmount: CGFloat = 1
     @Binding var splashComplete: Bool
     @State private var attemptedWorkoutProcess = false
-    
+
     var body: some View {
         GeometryReader { geo in
             if let image = UIImage(named: "mylesHeart") {
@@ -50,7 +49,7 @@ struct SplashView: View {
             await configureHealthStore()
         }
     }
-    
+
     @MainActor
     private func configureHealthStore() async {
         guard await health.requestPermission() else { return }

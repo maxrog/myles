@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct TabNavigationView: View {
-    
+
     @EnvironmentObject var theme: ThemeManager
     @Environment(HealthManager.self) var health
-    
+
     @State private var viewModel = TabViewModel()
-    
+
     @State private var splashComplete = false
-    
+
     var body: some View {
         Group {
             if !splashComplete {
@@ -31,7 +31,7 @@ struct TabNavigationView: View {
                         .tabItem {
                             Image(systemName: "paperclip")
                         }
-                    
+
                     MetricsView()
                         .tabItem {
                             Image(systemName: "chart.bar.fill")

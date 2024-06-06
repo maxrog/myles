@@ -16,7 +16,7 @@ import SwiftUI
  */
 
 struct EmptyActivityView: View {
-    
+
     @State private var animationAmount: CGFloat = 1
 
     var body: some View {

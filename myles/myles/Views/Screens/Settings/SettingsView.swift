@@ -14,7 +14,7 @@ import SwiftUI
 
 /// A settings view for various app settings / user preferences
 struct SettingsView: View {
-    
+
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var goals: GoalsManager
 
@@ -22,7 +22,7 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section {
-                    
+
                     HStack(spacing: 12) {
                         Image(systemName: "calendar.day.timeline.leading")
                             .frame(width: 35, height: 35)
@@ -45,7 +45,7 @@ struct SettingsView: View {
                         })
                     }
                     .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
-                    
+
                     HStack(spacing: 12) {
                         Image(systemName: "calendar")
                             .frame(width: 35, height: 35)
@@ -81,7 +81,7 @@ struct SettingsView: View {
                         }
                     }
                     .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
-                    
+
                     HStack(spacing: 12) {
                         Image(systemName: "figure.walk")
                             .frame(width: 35, height: 35)
@@ -94,7 +94,7 @@ struct SettingsView: View {
                         }
                     }
                     .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
-                    
+
                     HStack(spacing: 12) {
                         Image(systemName: "figure.jumprope")
                             .frame(width: 35, height: 35)

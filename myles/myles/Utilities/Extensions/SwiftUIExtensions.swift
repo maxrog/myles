@@ -12,7 +12,7 @@ import SwiftUI
 extension Color {
     /// Conversion with persistance in mind
     var cgColor_: CGColor { UIColor(self).cgColor }
-    
+
     /// A scaled progress color
     static func progressColor(for progress: CGFloat) -> Color {
         switch progress {
@@ -34,10 +34,10 @@ extension Color {
  See https://medium.com/geekculture/using-appstorage-with-swiftui-colors-and-some-nskeyedarchiver-magic-a38038383c5e
  */
 extension Color: RawRepresentable {
-        
+
     /// Conversion for persistence in AppStorage/UserDefaults
     public init?(rawValue: String) {
-        guard let data = Data(base64Encoded: rawValue) else{
+        guard let data = Data(base64Encoded: rawValue) else {
             self = .black
             return
         }

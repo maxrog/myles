@@ -9,9 +9,9 @@ import SwiftUI
 
 /// A view that displays a user's run streak count
 struct StreakView: View {
-    
+
     var streakCount: Int
-    
+
     var body: some View {
         Label("\(streakCount)", systemImage: "repeat.circle.fill")
             .labelStyle(MylesIconLabel())

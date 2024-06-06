@@ -17,17 +17,17 @@ import SwiftUI
 
 /// Manager for the user's app/color theme preference
 class ThemeManager: ObservableObject {
-    
+
     /// Standard user defaults
     let userDefaults = UserDefaults.standard
-    
+
     /// Default
     static let defaultAccentColor: Color = (UIScreen.main.traitCollection.userInterfaceStyle == .dark) ? .cosmicLatte : .mylesMedium
-    
+
     init() {
         setupTheme()
     }
-    
+
     /// Configuration for launch
     private func setupTheme() {
         // First launch with no value
@@ -38,12 +38,12 @@ class ThemeManager: ObservableObject {
         }
         self.accentColor = userDefaults.color(forKey: ThemeUserDefaults.accentColorKey) ?? Self.defaultAccentColor
     }
-    
+
     // MARK: Preferences
-    
+
     /// The user's preferred theming style
     @Published private(set) var preferredStyle: PreferredUserInterfaceStyle = .system
-    
+
     /// Whether user has opted to use something other than system settings
     var useSystemSetting: Bool {
         get { userDefaults.bool(forKey: ThemeUserDefaults.applySystemKey) }
@@ -52,7 +52,7 @@ class ThemeManager: ObservableObject {
             updateThemeSubject()
         }
     }
-    
+
     /// Whether user has opted for a light or a dark mode
     var applyDarkMode: Bool {
         get { userDefaults.bool(forKey: ThemeUserDefaults.applyDarkModeKey) }
@@ -61,7 +61,7 @@ class ThemeManager: ObservableObject {
             updateThemeSubject()
         }
     }
-    
+
     /// Update the current value subject when settings change
     private func updateThemeSubject() {
         if useSystemSetting {
@@ -71,16 +71,18 @@ class ThemeManager: ObservableObject {
             userDefaults.set(false, forKey: ThemeUserDefaults.applySystemKey)
             preferredStyle = applyDarkMode ? .dark : .light
         }
-        MylesLogger.log(.action, "Theme configured with values: Preferred Style = \(preferredStyle.rawValue), System Setting = \(useSystemSetting), Dark Mode = \(applyDarkMode)", sender: String(describing: self))
+        MylesLogger.log(.action, """
+            Theme configured with values: Preferred Style = \(preferredStyle.rawValue), System Setting = \(useSystemSetting), Dark Mode = \(applyDarkMode)
+            """, sender: String(describing: self))
     }
-    
+
     // MARK: Colors
-    
+
     /// Determines whether system is in dark mode
     private lazy var systemInDarkMode: Bool = {
         UIScreen.main.traitCollection.userInterfaceStyle == .dark
     }()
-    
+
     /// Theme text color (if overriding system settings)
     var textColor: Color {
         switch preferredStyle {
@@ -92,7 +94,7 @@ class ThemeManager: ObservableObject {
             return Color(.label)
         }
     }
-    
+
     /// Theme background color (if overriding system settings)
     var backgroundColor: Color {
         switch preferredStyle {
@@ -104,14 +106,14 @@ class ThemeManager: ObservableObject {
             return Color(.systemBackground)
         }
     }
-    
+
     /// Theme accent color
     @Published var accentColor: Color = defaultAccentColor {
         didSet {
             userDefaults.setColor(accentColor, forKey: ThemeUserDefaults.accentColorKey)
         }
     }
-    
+
 }
 
 /// User's preferred user interface style
@@ -123,7 +125,6 @@ enum PreferredUserInterfaceStyle: String {
 private struct ThemeUserDefaults {
     static let applySystemKey = "rogers.max.myles.applysystemsettingkey"
     static let applyDarkModeKey = "rogers.max.myles.applydarkmodekey"
-    
+
     static let accentColorKey = "rogers.max.themeaccentcolor"
 }
-
