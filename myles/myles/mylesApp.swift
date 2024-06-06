@@ -16,6 +16,7 @@ import SwiftUI
  • Refactor .font(.custom("norwester", size: 28)) to something more reliable (Fonts Struct or something in theming) Allow user to change font?
  • make properties private that can be project wide
  • Observation Swift 5.9 Refactor
+ • Dynamic Font Sizing, don't hardcode size, use system font (title, callout etc)
  */
 
 @main
