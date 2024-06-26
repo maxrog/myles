@@ -24,8 +24,10 @@ extension Color {
             return .mylesLight
         case 0.75...0.99:
             return .mylesDark
-        default:
+        case 1.0...100.0:
             return .mylesGold
+        default:
+            return .mylesDark
         }
     }
 }
