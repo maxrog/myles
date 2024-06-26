@@ -26,7 +26,8 @@ class HealthManager {
     private var storedWorkouts: [HKWorkout] = []
 
     var runs: [MylesRun] = []
-    var dailySteps: Double = 0.0
+    var steps: [MylesSteps] = []
+
     private var setupBackgroundDelivery = false
 
     /// Requests health data access from the user
@@ -65,7 +66,7 @@ class HealthManager {
     @MainActor
     func processWorkouts(startDate: Date? = nil, limit: Int = HKObjectQueryNoLimit) async {
         MylesLogger.log(.action, "Processing workout data", sender: String(describing: self))
-        self.dailySteps = await fetchDailySteps()
+        self.steps = await fetchDailySteps()
         let runningWorkouts = await fetchWorkouts(type: .running, startDate: startDate, limit: limit) ?? []
         let hikingWorkouts = await fetchWorkouts(type: .hiking, startDate: startDate, limit: limit) ?? []
         let walkingWorkouts = await fetchWorkouts(type: .walking, startDate: startDate, limit: limit) ?? []
@@ -262,7 +263,7 @@ extension HealthManager {
         return workoutRoutes
     }
 
-    /// Fetches associated location data from a workout rout
+    /// Fetches associated location data from a workout route
     /// - Parameters:
     ///   - route: The route for desired location data
     /// - Returns: The location data, if available
@@ -402,38 +403,54 @@ extension HealthManager {
         return mileSplits
     }
 
-    /// Returns the number of steps for today
-    func fetchDailySteps() async -> Double {
-        guard let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount) else { return 0.0 }
+    /// Fetches steps data
+    /// - Parameters:
+    ///   - days: The amount of days to query for - defaults to one year
+    /// - Returns: The steps data, if available
+    func fetchDailySteps(for days: Int = 365) async -> [MylesSteps] {
+        guard let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount) else { return [] }
+        // TODO need efficient way to get over 365 days
+        var results: [MylesSteps] = []
+        let calendar = Calendar.current
         let now = Date()
-        let startOfDay = Calendar.current.startOfDay(for: now)
-        let predicate = HKQuery.predicateForSamples(
-            withStart: startOfDay,
-            end: now,
-            options: .strictStartDate
-        )
+
         do {
-            return try await withCheckedThrowingContinuation { continuation in
-                let query = HKStatisticsQuery(
-                    quantityType: stepsQuantityType,
-                    quantitySamplePredicate: predicate,
-                    options: .cumulativeSum
-                ) { _, result, error in
-                    guard let result = result, let sum = result.sumQuantity() else {
-                        MylesLogger.log(.error, "Error fetching daily steps - \(error?.localizedDescription ?? "")", sender: String(describing: self))
-                        continuation.resume(returning: 0.0)
-                        return
+            for i in 0..<days {
+                guard let today = calendar.date(byAdding: .day, value: -i, to: now),
+                      let nextDay = calendar.date(byAdding: .day, value: -i + 1, to: now) else { continue }
+                let dayStart = calendar.startOfDay(for: today)
+                let nextDayStart = calendar.startOfDay(for: nextDay)
+
+                let predicate = HKQuery.predicateForSamples(
+                    withStart: dayStart,
+                    end: nextDayStart,
+                    options: .strictStartDate
+                )
+
+                let steps = try await withCheckedThrowingContinuation { continuation in
+                    let query = HKStatisticsQuery(
+                        quantityType: stepsQuantityType,
+                        quantitySamplePredicate: predicate,
+                        options: .cumulativeSum
+                    ) { _, result, error in
+                        guard let result = result, let sum = result.sumQuantity() else {
+                            MylesLogger.log(.error, "Error fetching daily steps - \(error?.localizedDescription ?? "")", sender: String(describing: self))
+                            continuation.resume(returning: 0.0)
+                            return
+                        }
+                        let stepCount = sum.doubleValue(for: HKUnit.count())
+                        MylesLogger.log(.success, "Successfully fetched \(stepCount) daily steps for \(dayStart)", sender: String(describing: self))
+                        continuation.resume(returning: stepCount)
                     }
-                    let stepCount = sum.doubleValue(for: HKUnit.count())
-                    MylesLogger.log(.success, "Successfully fetched \(stepCount) daily steps", sender: String(describing: self))
-                    continuation.resume(returning: sum.doubleValue(for: HKUnit.count()))
+                    store.execute(query)
                 }
-                store.execute(query)
+                results.append(MylesSteps(stepCount: steps, date: dayStart))
             }
         } catch let error {
             MylesLogger.log(.error, "Error fetching daily steps - \(error.localizedDescription)", sender: String(describing: self))
-            return 0.0
         }
+
+        return results
     }
 
 }

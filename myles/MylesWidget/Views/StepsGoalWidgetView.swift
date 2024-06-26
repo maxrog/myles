@@ -22,7 +22,7 @@ struct StepsGoalWidgetView: View {
     }
     
     var body: some View {
-        let currentSteps = entry.dailySteps
+        let currentSteps = entry.todaySteps
         let goal = goals.dailyStepGoal
         MetricsProgressBarView(currentValue: Int(currentSteps),
                                totalValue: goal,
@@ -39,7 +39,7 @@ struct CompactStepsGoalWidgetView: View {
     let geometry: GeometryProxy
     
     var body: some View {
-        let currentSteps = entry.dailySteps
+        let currentSteps = entry.todaySteps
         let goal = goals.dailyStepGoal
         HStack(spacing: 0) {
             Spacer()

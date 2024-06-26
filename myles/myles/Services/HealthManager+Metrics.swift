@@ -8,6 +8,10 @@
 import Foundation
 
 /*
+ TODO - refactor to background tasks for performance
+ */
+
+/*
  Health manager metrics related processing that doesn't require store queries
  */
 
@@ -57,7 +61,7 @@ extension HealthManager {
     // MARK: Streak
 
     /// Calculates the user's run streak (days in a row) starting from today
-    func streakCount() -> Int {
+    func runStreakCount() -> Int {
         MylesLogger.log(.action, "Calculating run streak", sender: String(describing: self))
 
         var streak = 0
@@ -90,6 +94,53 @@ extension HealthManager {
         }
 
         MylesLogger.log(.action, "Calculated \(streak) days run streak", sender: String(describing: self))
+        return streak
+    }
+
+    /// Calculates the user's step goal streak (days in a row) starting from today
+    func stepStreakCount() -> Int {
+        guard goals.dailyStepGoal > 0 else { return 0 }
+
+        MylesLogger.log(.action, "Calculating step streak", sender: String(describing: self))
+
+        var streak = 0
+        var currentDate = Date()
+        var usedDates: [Date] = []
+        let goal = goals.dailyStepGoal
+        let calendar = Calendar.current
+
+        for step in steps {
+            let stepDate = step.date
+            let stepCount = Int(step.stepCount)
+
+            guard stepCount > 0 else { continue }
+
+            guard !usedDates.contains(where: { calendar.isDate($0, inSameDayAs: stepDate) }) else { continue }
+
+            if calendar.isDate(stepDate, inSameDayAs: currentDate) {
+                // If today, only increment streak if step count meets goal
+                if stepCount >= goal {
+                    streak += 1
+                    MylesLogger.log(.action, "+1 to step streak for \(stepDate.shortCalendarDateFormat)", sender: String(describing: self))
+                } else {
+                    // Do not break the streak if today's steps do not meet the goal
+                    MylesLogger.log(.action, "Today's steps (\(stepCount)) have not reached the goal (\(goal)), but day is not over", sender: String(describing: self))
+                }
+            } else {
+                if let nextDate = calendar.date(byAdding: .day, value: -1, to: currentDate) {
+                    if calendar.isDate(stepDate, inSameDayAs: nextDate) && stepCount >= goal {
+                        streak += 1
+                        MylesLogger.log(.action, "+1 to step streak for \(stepDate.shortCalendarDateFormat)", sender: String(describing: self))
+                    } else {
+                        break
+                    }
+                }
+            }
+            usedDates.append(stepDate)
+            currentDate = stepDate
+        }
+
+        MylesLogger.log(.action, "Calculated \(streak) days step streak", sender: String(describing: self))
         return streak
     }
 

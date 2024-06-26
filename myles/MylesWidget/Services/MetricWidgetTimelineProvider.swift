@@ -16,13 +16,17 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
     
     let health = HealthManager()
     
+    private var todaySteps: CGFloat {
+        health.steps.first(where: { $0.date.isInSameDay(as: Date())})?.stepCount ?? 0
+    }
+    
     /// placeholder while loading (auto redacts so data doesn't matter)
     func placeholder(in context: Context) -> MetricEntry {
         MetricEntry(date: .now,
                     focusedRuns: MylesRun.widgetSnapshotRuns(),
                     primaryFilter: .distance,
                     spanFilter: .week,
-                    dailySteps: 5000)
+                    todaySteps: 5000)
     }
     
     /// snapshot to display while user is in
@@ -32,7 +36,7 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
                                                              focusedRuns: MylesRun.widgetSnapshotRuns(),
                                                              primaryFilter: .distance,
                                                              spanFilter: .week,
-                                                             dailySteps: 5000))
+                                                             todaySteps: 5000))
         }
     }
     
@@ -55,7 +59,7 @@ struct MetricWidgetTimelineProvider: TimelineProvider {
                                                           focusedRuns: runs,
                                                           primaryFilter: primaryFilter,
                                                           spanFilter: spanFilter,
-                                                          dailySteps: health.dailySteps)],
+                                                          todaySteps: todaySteps)],
                                     policy: .after(refreshDate))
             completion(timeline)
         }

@@ -42,11 +42,11 @@ struct ActivityView: View {
                     EmptyActivityView()
                 }
             }
-            .toolbar(health.streakCount() == 0 ? .hidden : .visible)
+            .toolbar(health.runStreakCount() == 0 ? .hidden : .visible)
             .toolbarBackground(.hidden, for: .navigationBar)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                let streak = health.streakCount()
+                let streak = health.runStreakCount()
                 if streak > 0 {
                     ToolbarItem(placement: .topBarTrailing) {
                         StreakView(streakCount: streak)

@@ -9,6 +9,7 @@ import SwiftUI
 
 /*
  TODO last nights sleep/weather for today/tomorrow + any activities from today + gpt api suggested next workout? (look into privacy implications)
+ TODO refactor views out
  */
 
 /// A today view that displays views for goals etc
@@ -16,21 +17,37 @@ struct TodayView: View {
 
     @Environment(HealthManager.self) var health
     @EnvironmentObject var goals: GoalsManager
+    @State var streakBounce = 0
+    private var todaySteps: CGFloat {
+        health.steps.first(where: { $0.date.isInSameDay(as: Date())})?.stepCount ?? 0
+    }
 
     var body: some View {
         GeometryReader { geo in
             NavigationStack {
                 List {
                     if goals.dailyStepGoal > 0 {
-                        let currentSteps = health.dailySteps
-                        let goal = goals.dailyStepGoal
+                        let streak = health.stepStreakCount()
                         Section {
-                            MetricsProgressBarView(currentValue: Int(currentSteps),
-                                                   totalValue: goal,
-                                                   descriptionText: "Daily Goal: \(goal) steps")
+                            VStack {
+                                let goal = goals.dailyStepGoal
+                                MetricsProgressBarView(currentValue: Int(todaySteps),
+                                                       totalValue: goal,
+                                                       descriptionText: "Daily Goal: \(goal) steps")
+                                .listRowInsets(EdgeInsets())
+                                if streak > 0 {
+                                    StreakView(streakCount: streak)
+                                        .symbolEffect(.bounce, value: streakBounce)
+                                        .onTapGesture {
+                                            streakBounce += 1
+                                            // TODO display something explaining streak
+                                        }
+                                        .padding(.bottom, 8)
+                                }
+                            }
                             .listRowInsets(EdgeInsets())
                         }
-                        .listRowBackground(Color.clear)
+                        .listRowBackground(streak == 0 ? Color.clear : nil)
                     }
 
                     if goals.weeklyMileageGoal > 0 {

@@ -35,5 +35,5 @@ struct MetricWidgetView: View {
                                         focusedRuns: [MylesRun.testRun],
                                         primaryFilter: .distance,
                                         spanFilter: .week,
-                                        dailySteps: 5000))
+                                        todaySteps: 5000))
 }

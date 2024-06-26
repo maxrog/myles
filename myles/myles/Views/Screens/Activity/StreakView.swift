@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A view that displays a user's run streak count
+/// A view that displays a user's streak count
 struct StreakView: View {
 
     var streakCount: Int
