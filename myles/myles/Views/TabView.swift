@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TabNavigationView: View {
 
+    @Environment(\.scenePhase) var scenePhase
+
     @EnvironmentObject var theme: ThemeManager
     @Environment(HealthManager.self) var health
 
@@ -31,7 +33,7 @@ struct TabNavigationView: View {
                         .tabItem {
                             Image(systemName: "paperclip")
                         }
-
+                        .tag(Tabs.today.rawValue)
                     MetricsView()
                         .tabItem {
                             Image(systemName: "chart.bar.fill")
