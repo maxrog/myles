@@ -27,6 +27,9 @@ class HealthManager {
 
     var runs: [MylesRun] = []
     var steps: [MylesSteps] = []
+    
+    /// Tracks the last date when steps were refreshed to detect day boundaries
+    private var lastStepRefreshDate: Date?
 
     private var setupBackgroundDelivery = false
 
@@ -54,6 +57,37 @@ class HealthManager {
         MylesLogger.log(.action, "User has been prompted for Health data permission", sender: String(describing: self))
         return true
     }
+    
+    /// Refreshes steps data only if the day has changed since last refresh
+    /// This prevents unnecessary API calls while ensuring accurate daily step counts
+    @MainActor
+    func refreshStepsIfNeeded() async {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        
+        // Check if we need to refresh based on day boundary
+        let shouldRefresh: Bool
+        if let lastRefresh = lastStepRefreshDate {
+            let lastRefreshDay = calendar.startOfDay(for: lastRefresh)
+            shouldRefresh = lastRefreshDay != today
+            
+            if shouldRefresh {
+                MylesLogger.log(.action, "Day boundary detected - refreshing step data. Last refresh: \(lastRefreshDay.shortCalendarDateFormat), Today: \(today.shortCalendarDateFormat)", sender: String(describing: self))
+            } else {
+                MylesLogger.log(.action, "Still same day - skipping step refresh", sender: String(describing: self))
+            }
+        } else {
+            // First time refresh
+            shouldRefresh = true
+            MylesLogger.log(.action, "First step refresh - loading data", sender: String(describing: self))
+        }
+        
+        if shouldRefresh {
+            self.steps = await fetchDailySteps()
+            lastStepRefreshDate = Date()
+            MylesLogger.log(.success, "Step data refreshed successfully for \(today.shortCalendarDateFormat)", sender: String(describing: self))
+        }
+    }
 
     // TODO Make sure this doesn't get spam triggered
     /// Process HealthKit workouts
@@ -67,6 +101,7 @@ class HealthManager {
     func processWorkouts(startDate: Date? = nil, limit: Int = HKObjectQueryNoLimit) async {
         MylesLogger.log(.action, "Processing workout data", sender: String(describing: self))
         self.steps = await fetchDailySteps()
+        lastStepRefreshDate = Date()
         let runningWorkouts = await fetchWorkouts(type: .running, startDate: startDate, limit: limit) ?? []
         let hikingWorkouts = await fetchWorkouts(type: .hiking, startDate: startDate, limit: limit) ?? []
         let walkingWorkouts = await fetchWorkouts(type: .walking, startDate: startDate, limit: limit) ?? []
