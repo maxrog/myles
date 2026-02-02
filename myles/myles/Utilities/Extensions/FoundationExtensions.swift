@@ -78,6 +78,12 @@ extension Date {
         return formatter.string(from: self)
     }
     /// Common date format
+    var longCalendarDateFormat: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM d, yyyy"
+        return formatter.string(from: self)
+    }
+    /// Common date format
     var shortDayOfWeekDateFormat: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "E"

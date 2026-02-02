@@ -11,11 +11,11 @@ import SwiftUI
  TODO
  • Work through warnings
  • Manual provisioning
- • Xcode Cloud
- • Refactor references to Asset images to something more reliable
+ • Xcode Cloud
+ • Refactor references to Asset images to something more reliable
  • SF Symbol Animation
  • Refactor .font(.custom("norwester", size: 28)) to something more reliable (Fonts Struct or something in theming) Allow user to change font?
- • make properties private that can be project wide
+ • make properties private that can be project wide
  • Observation Swift 5.9 Refactor
  • Dynamic Font Sizing, don't hardcode size, use system font (title, callout etc)
  */
@@ -29,6 +29,7 @@ struct mylesApp: App {
     @StateObject var goals: GoalsManager = GoalsManager.shared
     @State var health: HealthManager = HealthManager()
     @State var shoes: ShoeManager = ShoeManager()
+    @State var share: ShareManager = ShareManager()
 
     var body: some Scene {
         WindowGroup {
@@ -39,6 +40,7 @@ struct mylesApp: App {
                     .environmentObject(goals)
                     .environment(health)
                     .environment(shoes)
+                    .environment(share)
                     .preferredColorScheme(.dark)
             case .light:
                 TabNavigationView()
@@ -46,6 +48,7 @@ struct mylesApp: App {
                     .environmentObject(goals)
                     .environment(health)
                     .environment(shoes)
+                    .environment(share)
                     .preferredColorScheme(.light)
             case .system:
                 TabNavigationView()
@@ -53,6 +56,7 @@ struct mylesApp: App {
                     .environmentObject(goals)
                     .environment(health)
                     .environment(shoes)
+                    .environment(share)
                     .preferredColorScheme(.none)
             }
         }.onChange(of: scenePhase, { oldValue, newValue in
